@@ -8,16 +8,16 @@ class MovieProvider {
   String _url = 'api.themoviedb.org';
   String _language = 'es-ES';
 
-  Future<dynamic> getHttpData(
+  Future<dynamic> _getHttpData(
       String apiUrl, Map<String, String> queryParameters) async {
-    queryParameters['apikey'] = _apikey;
+    queryParameters['api_key'] = _apikey;
     queryParameters['language'] = _language;
     final url = Uri.https(_url, apiUrl, queryParameters);
     final resp = await http.get(url);
     return json.decode(resp.body);
   }
 
-  Future<List<Movie>> getMoviesData(String apiUrl, String callFrom,
+  Future<List<Movie>> _getMoviesData(String apiUrl, String callFrom,
       [int page, String query]) async {
     Map<String, String> queryParameters = {};
     if (page != null) {
@@ -26,15 +26,15 @@ class MovieProvider {
     if (query != null) {
       queryParameters['query'] = query;
     }
-    final resJsonData = await getHttpData(apiUrl, queryParameters);
+    final resJsonData = await _getHttpData(apiUrl, queryParameters);
     return Movies.fromJsonMap(resJsonData['results'], callFrom).items;
   }
 
   Future<List<Movie>> getMoviesNowPlaying() async {
-    return getMoviesData('3/movie/now_playing', 'now_playing', 1);
+    return _getMoviesData('3/movie/now_playing', 'now_playing', 1);
   }
 
   Future<List<Movie>> getMoviesByName(String query) async {
-    return getMoviesData('3/search/movie', 'search', null, query);
+    return _getMoviesData('3/search/movie', 'search', null, query);
   }
 }

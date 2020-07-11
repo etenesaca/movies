@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:movies/src/models/movie_model.dart';
+import 'package:movies/src/providers/movie_provider.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -35,8 +37,20 @@ class HomePage extends StatelessWidget {
     );
   }
 
+  final moviesProvides = MovieProvider();
   Widget _buildNowPlayingSection(BuildContext context) {
-    return Container();
+    return FutureBuilder(
+        future: moviesProvides.getMoviesNowPlaying(),
+        builder: (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
+          if (snapshot.hasData) {
+            snapshot.data.forEach((x) {
+              print(x.title);
+            });
+            return Container();
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
+        });
   }
 
   Widget _buildPopularSection(BuildContext context) {

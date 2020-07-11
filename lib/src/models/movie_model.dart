@@ -50,7 +50,7 @@ class Movie {
 
   Movie.fromJsonMap(Map<String, dynamic> json, String callFrom) {
     voteCount = json['vote_count'];
-    popularity = json['popularity'];
+    popularity = json['popularity'] / 1;
     video = json['video'];
     posterPath = json['poster_path'];
     id = json['id'];
@@ -59,9 +59,9 @@ class Movie {
     backdropPath = json['backdrop_path'];
     originalLanguage = json['original_language'];
     originalTitle = json['original_title'];
-    genreIds = json['genre_ids'];
+    genreIds = json['genre_ids'].cast<int>();
     title = json['title'];
-    voteAverage = json['vote_average'];
+    voteAverage = json['vote_average'] / 1;
     overview = json['overview'];
     releaseDate = json['release_date'];
   }
