@@ -5,7 +5,11 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('En Cines', style: TextStyle(fontFamily: ),),
+        title: Text(
+          'En Cines',
+          style:
+              TextStyle(fontFamily: 'RussoOne', fontWeight: FontWeight.normal),
+        ),
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.pinkAccent,
