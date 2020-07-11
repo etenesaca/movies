@@ -60,6 +60,23 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
+  fonts:
+    - family: Staatliches
+      fonts:
+        - asset: fonts/Staatliches-Regular.ttf
+          style: normal
+    - family: Cinzel
+      fonts:
+        - asset: fonts/Cinzel-Black.ttf
+        - asset: fonts/Cinzel-Bold.ttf
+        - asset: fonts/Cinzel-Regular.ttf
+          style: italic
+          weight: 700
+    - family: RussoOne
+      fonts:
+        - asset: fonts/RussoOne-Regular.ttf
+          style: normal
+          weight: 700
   # fonts:
   #   - family: Schyler
   #     fonts:
