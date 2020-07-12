@@ -17,41 +17,76 @@ class CardSwiper extends StatelessWidget {
         itemHeight: _screenSize.height * 0.45,
         itemCount: movies.length,
         itemBuilder: (BuildContext context, int index) {
-          return ClipRRect(
-              borderRadius: BorderRadius.circular(15.0),
-              child: FadeInImage(
-                placeholder: AssetImage('assets/img/no-image.jpg'),
-                image: movies[index].getPosterImg(),
-                fit: BoxFit.cover,
-              ));
+          Movie movie = movies[index];
+          return Stack(
+            children: <Widget>[_buildPoster(movie), _buildDetails(movie)],
+          );
         },
       ),
     );
   }
-}
 
-class WWCardSwiper extends StatelessWidget {
-  final List<Movie> movies;
+  Widget _buildPoster(Movie movie) {
+    return ClipRRect(
+        borderRadius: BorderRadius.circular(15.0),
+        child: FadeInImage(
+          placeholder: AssetImage('assets/img/no-image.jpg'),
+          image: movie.getPosterImg(),
+          fit: BoxFit.cover,
+        ));
+  }
 
-  WWCardSwiper({@required this.movies});
-
-  @override
-  Widget build(BuildContext context) {
-    final _screenSize = MediaQuery.of(context).size;
+  Widget _buildDetails(Movie movie) {
     return Container(
-      padding: EdgeInsets.only(top: 10.0),
-      child: Swiper(
-        layout: SwiperLayout.STACK,
-        itemWidth: _screenSize.width * 0.65,
-        itemHeight: _screenSize.height * 0.45,
-        itemCount: movies.length,
-        itemBuilder: (ctx, i) {
-          return ClipRRect(
-            borderRadius: BorderRadius.circular(20.0),
-            child: Image.network('http://via.placeholder.com/350x150',
-                fit: BoxFit.fill),
-          );
-        },
+      padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 4.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          Expanded(child: Container()),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Expanded(
+                  child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    movie.title,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    'Votos ${movie.voteCount}',
+                    style: TextStyle(color: Colors.white, fontSize: 9.0),
+                  ),
+                ],
+              )),
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 1, horizontal: 5),
+                decoration: BoxDecoration(
+                    color: Colors.black54,
+                    border: Border.all(color: Colors.black, width: 1),
+                    borderRadius: BorderRadius.circular(25)),
+                child: Row(
+                  children: <Widget>[
+                    Text(
+                      '${movie.voteAverage}',
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(width: 2.0),
+                    Icon(
+                      Icons.star,
+                      color: Colors.yellow,
+                      size: 14.0,
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
+        ],
       ),
     );
   }
