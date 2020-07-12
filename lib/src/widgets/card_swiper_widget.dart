@@ -28,7 +28,7 @@ class CardSwiper extends StatelessWidget {
 
   Widget _buildPoster(Movie movie) {
     return ClipRRect(
-        borderRadius: BorderRadius.circular(15.0),
+        borderRadius: BorderRadius.circular(10.0),
         child: FadeInImage(
           placeholder: AssetImage('assets/img/no-image.jpg'),
           image: movie.getPosterImg(),
@@ -36,55 +36,67 @@ class CardSwiper extends StatelessWidget {
         ));
   }
 
+  Widget _buildDescTitle(movie) {
+    return Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            movie.title,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 12.0,
+                fontFamily: 'Quicksand'),
+          ),
+          Text(
+            'Votos ${movie.voteCount}',
+            style: TextStyle(
+                color: Colors.white, fontSize: 9.0, fontFamily: 'Quicksand'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildVotesStart(movie) {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 1, horizontal: 5),
+      decoration: BoxDecoration(
+          color: Colors.black54,
+          border: Border.all(color: Colors.black, width: 1),
+          borderRadius: BorderRadius.circular(25)),
+      child: Row(
+        children: <Widget>[
+          Text(
+            '${movie.voteAverage}',
+            style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Quicksand'),
+          ),
+          SizedBox(width: 2.0),
+          Icon(
+            Icons.star,
+            color: Colors.yellow,
+            size: 14.0,
+          )
+        ],
+      ),
+    );
+  }
+
   Widget _buildDetails(Movie movie) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 4.0),
+      padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
-          Expanded(child: Container()),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Expanded(
-                  child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    movie.title,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    'Votos ${movie.voteCount}',
-                    style: TextStyle(color: Colors.white, fontSize: 9.0),
-                  ),
-                ],
-              )),
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 1, horizontal: 5),
-                decoration: BoxDecoration(
-                    color: Colors.black54,
-                    border: Border.all(color: Colors.black, width: 1),
-                    borderRadius: BorderRadius.circular(25)),
-                child: Row(
-                  children: <Widget>[
-                    Text(
-                      '${movie.voteAverage}',
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(width: 2.0),
-                    Icon(
-                      Icons.star,
-                      color: Colors.yellow,
-                      size: 14.0,
-                    )
-                  ],
-                ),
-              )
-            ],
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[_buildDescTitle(movie), _buildVotesStart(movie)],
           ),
         ],
       ),
