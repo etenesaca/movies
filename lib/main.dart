@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
         '/': (BuildContext context) => HomePage(),
         'detail': (BuildContext context) => MovieDetailPage()
       },
+      theme: ThemeData(fontFamily: 'Quicksand'),
       initialRoute: '/',
     );
   }

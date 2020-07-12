@@ -45,15 +45,17 @@ class CardSwiper extends StatelessWidget {
             movie.title,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 12.0,
-                fontFamily: 'Quicksand'),
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 12.0,
+            ),
           ),
           Text(
             'Votos ${movie.voteCount}',
             style: TextStyle(
-                color: Colors.white, fontSize: 9.0, fontFamily: 'Quicksand'),
+              color: Colors.white,
+              fontSize: 9.0,
+            ),
           ),
         ],
       ),
@@ -72,9 +74,9 @@ class CardSwiper extends StatelessWidget {
           Text(
             '${movie.voteAverage}',
             style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Quicksand'),
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           SizedBox(width: 2.0),
           Icon(
