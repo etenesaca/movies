@@ -67,7 +67,7 @@ class Movie {
   }
 
   String getPosterImgUrl() {
-    final res = (posterPath != null)
+    final res = (posterPath == null)
         ? 'https://www.digopaul.com/wp-content/uploads/related_images/2015/09/08/placeholder_2.jpg'
         : 'https://image.tmdb.org/t/p/w500/$posterPath';
     return res;
@@ -76,7 +76,7 @@ class Movie {
   NetworkImage getPosterImg() => NetworkImage(getPosterImgUrl());
 
   String getBackgroundImgUrl() {
-    final res = (backdropPath != null)
+    final res = (backdropPath == null)
         ? 'https://www.digopaul.com/wp-content/uploads/related_images/2015/09/08/placeholder_2.jpg'
         : 'https://image.tmdb.org/t/p/w500/$backdropPath';
     return res;

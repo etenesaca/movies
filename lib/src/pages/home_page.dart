@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies/src/models/movie_model.dart';
 import 'package:movies/src/providers/movie_provider.dart';
+import 'package:movies/src/widgets/card_swiper_widget.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -37,16 +38,13 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  final moviesProvides = MovieProvider();
   Widget _buildNowPlayingSection(BuildContext context) {
+    final moviesProvides = MovieProvider();
     return FutureBuilder(
         future: moviesProvides.getMoviesNowPlaying(),
         builder: (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
           if (snapshot.hasData) {
-            snapshot.data.forEach((x) {
-              print(x.title);
-            });
-            return Container();
+            return CardSwiper(movies: snapshot.data);
           } else {
             return Center(child: CircularProgressIndicator());
           }
