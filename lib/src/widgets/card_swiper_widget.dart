@@ -5,16 +5,23 @@ import 'package:movies/src/models/movie_model.dart';
 class CardSwiper extends StatelessWidget {
   final List<Movie> movies;
 
+  Size _screenSize;
+  double _cardCorners = 10.0;
+  double _cardWidth;
+  double _cardHeight;
+
   CardSwiper({@required this.movies});
 
   @override
   Widget build(BuildContext context) {
-    final _screenSize = MediaQuery.of(context).size;
+    _screenSize = MediaQuery.of(context).size;
+    _cardWidth = _screenSize.width * 0.65;
+    _cardHeight = _screenSize.height * 0.45;
     return Container(
       child: Swiper(
         layout: SwiperLayout.STACK,
-        itemWidth: _screenSize.width * 0.65,
-        itemHeight: _screenSize.height * 0.45,
+        itemWidth: _cardWidth,
+        itemHeight: _cardHeight,
         itemCount: movies.length,
         itemBuilder: (BuildContext context, int index) {
           Movie movie = movies[index];
@@ -27,13 +34,15 @@ class CardSwiper extends StatelessWidget {
   }
 
   Widget _buildPoster(Movie movie) {
+    final img = FadeInImage(
+      placeholder: AssetImage('assets/img/no-image.jpg'),
+      image: movie.getPosterImg(),
+      fit: BoxFit.cover,
+      height: double.infinity,
+      width: double.infinity,
+    );
     return ClipRRect(
-        borderRadius: BorderRadius.circular(10.0),
-        child: FadeInImage(
-          placeholder: AssetImage('assets/img/no-image.jpg'),
-          image: movie.getPosterImg(),
-          fit: BoxFit.cover,
-        ));
+        borderRadius: BorderRadius.circular(_cardCorners), child: img);
   }
 
   Widget _buildDescTitle(movie) {
@@ -90,15 +99,34 @@ class CardSwiper extends StatelessWidget {
   }
 
   Widget _buildDetails(Movie movie) {
+    final background = BoxDecoration(
+        borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(_cardCorners),
+            bottomRight: Radius.circular(_cardCorners)),
+        gradient: LinearGradient(
+            begin: FractionalOffset(0.0, 0.1),
+            end: FractionalOffset(0.0, 0.6),
+            colors: [
+              Colors.transparent,
+              Colors.black54,
+              Colors.black87,
+            ]));
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: <Widget>[_buildDescTitle(movie), _buildVotesStart(movie)],
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
+            decoration: background,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                SizedBox(height: 45.0),
+                _buildDescTitle(movie),
+                _buildVotesStart(movie)
+              ],
+            ),
           ),
         ],
       ),
