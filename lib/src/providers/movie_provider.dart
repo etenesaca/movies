@@ -7,7 +7,6 @@ class MovieProvider {
   String _apikey = '0c87c373e9ddc6969a2751ea710b2b0c';
   String _url = 'api.themoviedb.org';
   String _language = 'es-ES';
-  int _popularesPage = 0;
 
   Future<dynamic> _getHttpData(
       String apiUrl, Map<String, String> queryParameters) async {
@@ -31,12 +30,36 @@ class MovieProvider {
     return _getMoviesData('3/movie/now_playing', callFrom: 'now_playing');
   }
 
-  Future<List<Movie>> getMoviesPopular() async {
-    return _getMoviesData('3/movie/popular',
-        callFrom: 'popular', page: _popularesPage);
-  }
-
   Future<List<Movie>> getMoviesByName(String query) async {
     return _getMoviesData('3/search/movie', query: query);
+  }
+
+  Future<List<Movie>> getMoviesPopulars(int page) async {
+    return _getMoviesData('3/movie/popular', callFrom: 'popular', page: page);
+  }
+
+  // Stream de Datos Para paginación de populares.
+  int _popularesPage = 0;
+  bool _loadingPopularsData = false;
+  List<Movie> _populars = [];
+  final _popularsStremController = StreamController<List<Movie>>.broadcast();
+  // Sink
+  Function(List<Movie>) get popularesSink => _popularsStremController.sink.add;
+  Stream<List<Movie>> get popularesStream => _popularsStremController.stream;
+
+  void DisposeStream() {
+    _popularsStremController?.close();
+  }
+
+  Future<List<Movie>> getMoviesPopularsStream() async {
+    if (_loadingPopularsData) return [];
+    _loadingPopularsData = true;
+    _popularesPage++;
+    print('Loading Popular Data: Page $_popularesPage');
+    final res = await getMoviesPopulars(_popularesPage);
+    _populars.addAll(res);
+    popularesSink(_populars);
+    _loadingPopularsData = false;
+    return res;
   }
 }

@@ -2,10 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:movies/src/models/movie_model.dart';
 import 'package:movies/src/providers/movie_provider.dart';
 import 'package:movies/src/widgets/card_swiper_widget.dart';
+import 'package:movies/src/widgets/page_view_populars.dart';
 
 class HomePage extends StatelessWidget {
+  final moviesProvider = MovieProvider();
+
   @override
   Widget build(BuildContext context) {
+    // Llamar a la primera página del las peliculas populares
+    moviesProvider.getMoviesPopularsStream();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -40,9 +46,8 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _buildNowPlayingSection(BuildContext context) {
-    final moviesProvides = MovieProvider();
     return FutureBuilder(
-        future: moviesProvides.getMoviesNowPlaying(),
+        future: moviesProvider.getMoviesNowPlaying(),
         builder: (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
           if (snapshot.hasData) {
             return Padding(
@@ -55,11 +60,21 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _buildPopularCards(BuildContext context) {
-    return Container();
+    return StreamBuilder(
+        stream: moviesProvider.popularesStream,
+        builder: (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
+          if (snapshot.hasData) {
+            return PageViewPopulars(
+                movies: snapshot.data,
+                nextPageCallBack: moviesProvider.getMoviesPopularsStream);
+          } else {
+            return CircularProgressIndicator();
+          }
+        });
   }
 
   Widget _buildPopularSection(BuildContext context) {
-    final radiusCorners = Radius.circular(30.0);
+    final radiusCorners = Radius.circular(25.0);
     final boxStyle = BoxDecoration(
         color: Colors.white70,
         borderRadius:
