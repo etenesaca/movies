@@ -17,17 +17,14 @@ class HomePage extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.pinkAccent,
         actions: <Widget>[
-          IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () {
-                print('Buscando');
-              }),
+          IconButton(icon: Icon(Icons.search), onPressed: _btnSearch),
         ],
       ),
       body: Stack(
         children: <Widget>[
           _buildBackground(context),
           Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               _buildNowPlayingSection(context),
               _buildPopularSection(context),
@@ -38,21 +35,55 @@ class HomePage extends StatelessWidget {
     );
   }
 
+  void _btnSearch() {
+    print('Buscando');
+  }
+
   Widget _buildNowPlayingSection(BuildContext context) {
     final moviesProvides = MovieProvider();
     return FutureBuilder(
         future: moviesProvides.getMoviesNowPlaying(),
         builder: (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
           if (snapshot.hasData) {
-            return CardSwiper(movies: snapshot.data);
+            return Padding(
+                padding: EdgeInsets.only(top: 40.0),
+                child: CardSwiper(movies: snapshot.data));
           } else {
             return Center(child: CircularProgressIndicator());
           }
         });
   }
 
-  Widget _buildPopularSection(BuildContext context) {
+  Widget _buildPopularCards(BuildContext context) {
     return Container();
+  }
+
+  Widget _buildPopularSection(BuildContext context) {
+    final radiusCorners = Radius.circular(30.0);
+    final boxStyle = BoxDecoration(
+        color: Colors.white70,
+        borderRadius:
+            BorderRadius.only(topRight: radiusCorners, topLeft: radiusCorners));
+    return Padding(
+      padding: EdgeInsets.only(bottom: 10.0),
+      child: Container(
+        height: 260.0,
+        width: double.infinity,
+        decoration: boxStyle,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(left: 20.0, top: 5.0),
+              child: Text('Más populares',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, color: Colors.purple[900])),
+            ),
+            _buildPopularCards(context),
+          ],
+        ),
+      ),
+    );
   }
 
   _buildBackground(BuildContext context) {
