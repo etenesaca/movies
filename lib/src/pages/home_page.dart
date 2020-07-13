@@ -67,14 +67,13 @@ class HomePage extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(bottom: 10.0),
       child: Container(
-        height: 260.0,
         width: double.infinity,
         decoration: boxStyle,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.only(left: 20.0, top: 5.0),
+              padding: EdgeInsets.only(left: 20.0, top: 8.0, bottom: 10.0),
               child: Text('Más populares',
                   style: TextStyle(
                       fontWeight: FontWeight.bold, color: Colors.purple[900])),

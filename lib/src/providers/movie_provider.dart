@@ -7,6 +7,7 @@ class MovieProvider {
   String _apikey = '0c87c373e9ddc6969a2751ea710b2b0c';
   String _url = 'api.themoviedb.org';
   String _language = 'es-ES';
+  int _popularesPage = 0;
 
   Future<dynamic> _getHttpData(
       String apiUrl, Map<String, String> queryParameters) async {
@@ -17,24 +18,25 @@ class MovieProvider {
     return json.decode(resp.body);
   }
 
-  Future<List<Movie>> _getMoviesData(String apiUrl, String callFrom,
-      [int page, String query]) async {
+  Future<List<Movie>> _getMoviesData(String apiUrl,
+      {String callFrom = 'x', int page, String query}) async {
     Map<String, String> queryParameters = {};
-    if (page != null) {
-      queryParameters['page'] = '$page';
-    }
-    if (query != null) {
-      queryParameters['query'] = query;
-    }
+    if (page != null) queryParameters['page'] = '$page';
+    if (query != null) queryParameters['query'] = query;
     final resJsonData = await _getHttpData(apiUrl, queryParameters);
     return Movies.fromJsonMap(resJsonData['results'], callFrom).items;
   }
 
   Future<List<Movie>> getMoviesNowPlaying() async {
-    return _getMoviesData('3/movie/now_playing', 'now_playing', 1);
+    return _getMoviesData('3/movie/now_playing', callFrom: 'now_playing');
+  }
+
+  Future<List<Movie>> getMoviesPopular() async {
+    return _getMoviesData('3/movie/popular',
+        callFrom: 'popular', page: _popularesPage);
   }
 
   Future<List<Movie>> getMoviesByName(String query) async {
-    return _getMoviesData('3/search/movie', 'search', null, query);
+    return _getMoviesData('3/search/movie', query: query);
   }
 }
