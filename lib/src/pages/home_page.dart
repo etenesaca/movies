@@ -76,7 +76,7 @@ class HomePage extends StatelessWidget {
   Widget _buildPopularSection(BuildContext context) {
     final radiusCorners = Radius.circular(25.0);
     final boxStyle = BoxDecoration(
-        color: Colors.white70,
+        color: Colors.white,
         borderRadius:
             BorderRadius.only(topRight: radiusCorners, topLeft: radiusCorners));
     return Padding(
@@ -93,7 +93,10 @@ class HomePage extends StatelessWidget {
                   style: TextStyle(
                       fontWeight: FontWeight.bold, color: Colors.purple[900])),
             ),
-            _buildPopularCards(context),
+            Padding(
+              padding: EdgeInsets.only(left: 3, right: 3),
+              child: _buildPopularCards(context),
+            ),
           ],
         ),
       ),

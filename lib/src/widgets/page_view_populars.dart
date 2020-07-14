@@ -11,7 +11,7 @@ class PageViewPopulars extends StatelessWidget {
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
     final _pageController =
-        PageController(initialPage: 1, viewportFraction: 0.31);
+        PageController(initialPage: 1, viewportFraction: 0.34);
 
     _pageController.addListener(() {
       if (_pageController.position.pixels >=
@@ -38,31 +38,42 @@ class PageViewPopulars extends StatelessWidget {
       child: FadeInImage(
         placeholder: AssetImage('assets/img/no-image.jpg'),
         image: movie.getPosterImg(),
-        height: 180.0,
+        height: 185.0,
         fit: BoxFit.cover,
       ),
     );
 
     // Starts
     Widget _buildStarIcon(IconData icon) =>
-        Icon(icon, color: Colors.yellow[900], size: 13);
-    final double avg = movie.voteAverage / 2;
+        Icon(icon, color: Colors.yellow[900], size: 12);
     List<Widget> starts = [];
-    for (var i = 0; i < avg.toInt(); i++) {
+    int avg = movie.voteAverage.toInt();
+    bool halfStart = ((movie.voteAverage - avg) * 100) > 10;
+    for (var i = 0; i < avg; i++) {
       starts.add(_buildStarIcon(Icons.star));
     }
-    if (avg - avg.toInt() > 0) starts.add(_buildStarIcon(Icons.star_half));
+    if (halfStart) {
+      avg++;
+      starts.add(_buildStarIcon(Icons.star_half));
+    }
+    ;
+    for (var i = 0; i < (10 - avg); i++) {
+      starts.add(_buildStarIcon(Icons.star_border));
+    }
 
+    String movie_title = movie.title.length > 28
+        ? '${movie.title.substring(0, 28)}...'
+        : movie.title;
     final details = Container(
-      padding: EdgeInsets.only(left: 5, right: 5, top: 8),
+      padding: EdgeInsets.only(left: 11, right: 10, top: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(movie.title,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-              SizedBox(height: 3.0),
           Row(children: starts),
+          SizedBox(height: 3.0),
+          Text(movie_title,
+              overflow: TextOverflow.fade,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
         ],
       ),
     );
