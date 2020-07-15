@@ -78,7 +78,7 @@ class SliverMoviePoster extends SliverPersistentHeaderDelegate {
   double get maxExtent => expandedHeight;
 
   @override
-  double get minExtent => kToolbarHeight + 15;
+  double get minExtent => kToolbarHeight + 25;
 
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
