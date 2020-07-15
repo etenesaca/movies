@@ -51,7 +51,7 @@ class HomePage extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
           if (snapshot.hasData) {
             return Padding(
-                padding: EdgeInsets.only(top: 40.0),
+                padding: EdgeInsets.only(top: 25.0),
                 child: CardSwiper(movies: snapshot.data));
           } else {
             return Center(child: CircularProgressIndicator());

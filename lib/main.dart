@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
       title: 'Peliculas',
       routes: {
         '/': (BuildContext context) => HomePage(),
-        'detail': (BuildContext context) => MovieDetailPage()
+        'movie_detail': (BuildContext context) => MovieDetailPage()
       },
       theme: ThemeData(fontFamily: 'Quicksand'),
       initialRoute: '/',
