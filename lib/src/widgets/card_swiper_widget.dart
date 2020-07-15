@@ -37,23 +37,21 @@ class CardSwiper extends StatelessWidget {
   }
 
   Widget _buildPoster(BuildContext context, Movie movie) {
-    final img = FadeInImage(
-      placeholder: AssetImage('assets/img/no-image.jpg'),
-      image: movie.getPosterImg(),
-      fit: BoxFit.cover,
-      height: double.infinity,
-      width: double.infinity,
-    );
-    final imgCropped = Hero(
-      tag: movie.idHero,
-      child: ClipRRect(
-          borderRadius: BorderRadius.circular(_cardCorners), child: img),
-    );
+    final posterCropped = ClipRRect(
+        borderRadius: BorderRadius.circular(_cardCorners),
+        child: FadeInImage(
+          placeholder: AssetImage('assets/img/no-image.jpg'),
+          image: movie.getPosterImg(),
+          fit: BoxFit.cover,
+          height: double.infinity,
+          width: double.infinity,
+        ));
+
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(context, 'movie_detail', arguments: movie);
       },
-      child: imgCropped,
+      child: Hero(tag: movie.idHero, child: posterCropped),
     );
   }
 

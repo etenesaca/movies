@@ -21,10 +21,7 @@ class SliverMoviePoster extends SliverPersistentHeaderDelegate {
           left: MediaQuery.of(context).size.width / 1.5,
           child: Opacity(
             opacity: (1 - shrinkOffset / expandedHeight),
-            child: Card(
-              elevation: 15,
-              child: _buildPoster(movie),
-            ),
+            child: _buildPoster(movie),
           ),
         ),
       ],
@@ -32,7 +29,7 @@ class SliverMoviePoster extends SliverPersistentHeaderDelegate {
   }
 
   _buildPoster(Movie movie) {
-    final poster = ClipRRect(
+    final posterCropped = ClipRRect(
       borderRadius: BorderRadius.circular(7),
       child: FadeInImage(
         placeholder: AssetImage('assets/img/no-image.jpg'),
@@ -42,9 +39,18 @@ class SliverMoviePoster extends SliverPersistentHeaderDelegate {
         fit: BoxFit.cover,
       ),
     );
-    return Hero(
-      tag: movie.idHero,
-      child: poster,
+    return Container(
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.4),
+            spreadRadius: 5,
+            blurRadius: 7,
+            offset: Offset(1, 7), // changes position of shadow
+          ),
+        ],
+      ),
+      child: Hero(tag: movie.idHero, child: posterCropped),
     );
   }
 
@@ -57,13 +63,19 @@ class SliverMoviePoster extends SliverPersistentHeaderDelegate {
   }
 
   _buildAppBar(BuildContext context, Movie movie) {
+    final textShadow = BoxShadow(
+      color: Colors.black.withOpacity(0.9),
+      spreadRadius: 5,
+      blurRadius: 15,
+      offset: Offset(3, 3), // changes position of shadow
+    );
     final text = Text(
       movie.title,
       style: TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.w700,
-        fontSize: 18,
-      ),
+          color: Colors.white,
+          fontWeight: FontWeight.w700,
+          fontSize: 18,
+          shadows: [textShadow, textShadow, textShadow]),
     );
 
     return AppBar(
