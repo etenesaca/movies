@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/src/block/movie_popular_bloc.dart';
 import 'package:movies/src/models/movie_model.dart';
@@ -35,7 +36,10 @@ class HomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               _buildNowPlayingSection(context),
-              _buildPopularSection(context),
+              FadeInUp(
+                duration: Duration(milliseconds: 600),
+                child: _buildPopularSection(context),
+              ),
             ],
           )
         ],
@@ -70,7 +74,10 @@ class HomePage extends StatelessWidget {
                 movies: snapshot.data,
                 nextPageCallBack: pupularBloc.getNextPage);
           } else {
-            return CircularProgressIndicator();
+            return Padding(
+              padding: EdgeInsets.only(top: 25, bottom: 25),
+              child: Center(child: CircularProgressIndicator()),
+            );
           }
         });
   }
@@ -119,9 +126,5 @@ class HomePage extends StatelessWidget {
             Color.fromRGBO(112, 0, 223, 1.0),
           ])),
     );
-  }
-
-  void dispose() {
-    pupularBloc.disposeStream();
   }
 }
