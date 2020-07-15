@@ -26,14 +26,17 @@ class CardSwiper extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           Movie movie = movies[index];
           return Stack(
-            children: <Widget>[_buildPoster(movie), _buildDetails(movie)],
+            children: <Widget>[
+              _buildPoster(context, movie),
+              _buildDetails(movie)
+            ],
           );
         },
       ),
     );
   }
 
-  Widget _buildPoster(Movie movie) {
+  Widget _buildPoster(BuildContext context, Movie movie) {
     final img = FadeInImage(
       placeholder: AssetImage('assets/img/no-image.jpg'),
       image: movie.getPosterImg(),
@@ -41,8 +44,17 @@ class CardSwiper extends StatelessWidget {
       height: double.infinity,
       width: double.infinity,
     );
-    return ClipRRect(
-        borderRadius: BorderRadius.circular(_cardCorners), child: img);
+    final imgCropped = Hero(
+      tag: movie.idHero,
+      child: ClipRRect(
+          borderRadius: BorderRadius.circular(_cardCorners), child: img),
+    );
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, 'movie_detail', arguments: movie);
+      },
+      child: imgCropped,
+    );
   }
 
   Widget _buildDescTitle(movie) {

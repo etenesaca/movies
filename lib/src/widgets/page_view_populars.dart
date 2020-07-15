@@ -34,8 +34,8 @@ class PageViewPopulars extends StatelessWidget {
   }
 
   Widget _buildCard(BuildContext context, Movie movie) {
-    final poster = ClipRRect(
-      borderRadius: BorderRadius.circular(7),
+    final posterCropped = ClipRRect(
+      borderRadius: BorderRadius.circular(5),
       child: FadeInImage(
         placeholder: AssetImage('assets/img/no-image.jpg'),
         image: movie.getPosterImg(),
@@ -81,7 +81,10 @@ class PageViewPopulars extends StatelessWidget {
     );
     final res = Container(
       child: Column(
-        children: <Widget>[poster, details],
+        children: <Widget>[
+          Hero(tag: movie.idHero, child: posterCropped),
+          details
+        ],
       ),
     );
     return GestureDetector(

@@ -17,25 +17,34 @@ class SliverMoviePoster extends SliverPersistentHeaderDelegate {
         _buildBackGround(context, movie),
         _buildAppBar(context, movie),
         Positioned(
-          top: expandedHeight / 2.2 - shrinkOffset,
-          left: MediaQuery.of(context).size.width / 1.6,
+          top: expandedHeight / 2 - shrinkOffset,
+          left: MediaQuery.of(context).size.width / 1.5,
           child: Opacity(
             opacity: (1 - shrinkOffset / expandedHeight),
             child: Card(
               elevation: 15,
-              child: SizedBox(
-                height: 185.0,
-                width: 120.0,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(5),
-                  child:
-                      Image.network(movie.getPosterImgUrl(), fit: BoxFit.cover),
-                ),
-              ),
+              child: _buildPoster(movie),
             ),
           ),
         ),
       ],
+    );
+  }
+
+  _buildPoster(Movie movie) {
+    final poster = ClipRRect(
+      borderRadius: BorderRadius.circular(7),
+      child: FadeInImage(
+        placeholder: AssetImage('assets/img/no-image.jpg'),
+        image: movie.getPosterImg(),
+        height: 185.0 - (185.0 * 0.10),
+        width: 120.0 - (120.0 * 0.10),
+        fit: BoxFit.cover,
+      ),
+    );
+    return Hero(
+      tag: movie.idHero,
+      child: poster,
     );
   }
 
