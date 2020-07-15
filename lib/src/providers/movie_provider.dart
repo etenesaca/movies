@@ -37,29 +37,4 @@ class MovieProvider {
   Future<List<Movie>> getMoviesPopulars(int page) async {
     return _getMoviesData('3/movie/popular', callFrom: 'popular', page: page);
   }
-
-  // Stream de Datos Para paginación de populares.
-  int _popularesPage = 0;
-  bool _loadingPopularsData = false;
-  List<Movie> _populars = [];
-  final _popularsStremController = StreamController<List<Movie>>.broadcast();
-  // Sink
-  Function(List<Movie>) get popularesSink => _popularsStremController.sink.add;
-  Stream<List<Movie>> get popularesStream => _popularsStremController.stream;
-
-  void DisposeStream() {
-    _popularsStremController?.close();
-  }
-
-  Future<List<Movie>> getMoviesPopularsStream() async {
-    if (_loadingPopularsData) return [];
-    _loadingPopularsData = true;
-    _popularesPage++;
-    print('Loading Popular Data: Page $_popularesPage');
-    final res = await getMoviesPopulars(_popularesPage);
-    _populars.addAll(res);
-    popularesSink(_populars);
-    _loadingPopularsData = false;
-    return res;
-  }
 }

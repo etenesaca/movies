@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies/src/block/movie_popular_bloc.dart';
 import 'package:movies/src/models/movie_model.dart';
 import 'package:movies/src/providers/movie_provider.dart';
 import 'package:movies/src/widgets/card_swiper_widget.dart';
@@ -6,11 +7,12 @@ import 'package:movies/src/widgets/page_view_populars.dart';
 
 class HomePage extends StatelessWidget {
   final moviesProvider = MovieProvider();
+  final pupularBloc = MoviePopularBloc();
 
   @override
   Widget build(BuildContext context) {
     // Llamar a la primera página del las peliculas populares
-    moviesProvider.getMoviesPopularsStream();
+    pupularBloc.getNextPage();
 
     return Scaffold(
       appBar: AppBar(
@@ -61,12 +63,12 @@ class HomePage extends StatelessWidget {
 
   Widget _buildPopularCards(BuildContext context) {
     return StreamBuilder(
-        stream: moviesProvider.popularesStream,
+        stream: pupularBloc.popularesStream,
         builder: (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
           if (snapshot.hasData) {
             return PageViewPopulars(
                 movies: snapshot.data,
-                nextPageCallBack: moviesProvider.getMoviesPopularsStream);
+                nextPageCallBack: pupularBloc.getNextPage);
           } else {
             return CircularProgressIndicator();
           }
@@ -117,5 +119,9 @@ class HomePage extends StatelessWidget {
             Color.fromRGBO(112, 0, 223, 1.0),
           ])),
     );
+  }
+
+  void dispose() {
+    pupularBloc.disposeStream();
   }
 }
