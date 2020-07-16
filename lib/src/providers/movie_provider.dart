@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:movies/src/models/gender_model.dart';
+import 'package:movies/src/models/image_model.dart';
 import 'package:movies/src/models/movie_model.dart';
 
 class MovieProvider {
@@ -12,7 +13,9 @@ class MovieProvider {
   Future<dynamic> _getHttpData(
       String apiUrl, Map<String, String> queryParameters) async {
     queryParameters['api_key'] = _apikey;
-    queryParameters['language'] = _language;
+    if (!queryParameters.keys.contains('language')) {
+      queryParameters['language'] = _language;
+    }
     final url = Uri.https(_url, apiUrl, queryParameters);
     final resp = await http.get(url);
     return json.decode(resp.body);
@@ -41,7 +44,15 @@ class MovieProvider {
 
   Future<List<MovieGenre>> getGenreList() async {
     Map<String, String> queryParameters = {};
-    final resJsonData = await _getHttpData('3/genre/movie/list', queryParameters);
+    final resJsonData =
+        await _getHttpData('3/genre/movie/list', queryParameters);
     return MovieGenres.fromJsonMap(resJsonData['genres']).items;
+  }
+
+  Future<List<Backdrop>> getImagesList(int movieId) async {
+    Map<String, String> queryParameters = {'language': '$_language,null'};
+    final resJsonData =
+        await _getHttpData('3/movie/${movieId}/images', queryParameters);
+    return Backdrops.fromJsonMap(resJsonData['backdrops']).items;
   }
 }
