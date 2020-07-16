@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:movies/extras.dart';
 import 'package:movies/src/models/movie_model.dart';
 import 'package:movies/src/widgets/sliver_movie_poster_widget.dart';
 
 class MovieDetailPage extends StatelessWidget {
+  final titleSection = TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0);
+
   @override
   Widget build(BuildContext context) {
     final Movie movie = ModalRoute.of(context).settings.arguments;
@@ -18,18 +21,23 @@ class MovieDetailPage extends StatelessWidget {
             SizedBox(
               height: 10.0,
             ),
-            //_buildPosterMovie(context, movie),
-            _buildDescription(context, movie),
-            _buildDescription(context, movie),
-            _buildDescription(context, movie),
-            _buildDescription(context, movie),
-            _buildDescription(context, movie),
-            _buildDescription(context, movie),
-            _buildDescription(context, movie),
-            _buildDescription(context, movie),
-            _buildDescription(context, movie),
-            _buildDescription(context, movie),
-            //_buildCast(context, pelicula),
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  _buildSectionRating(context, movie),
+                  _buildDescription(context, movie),
+                  _buildDescription(context, movie),
+                  _buildDescription(context, movie),
+                  _buildDescription(context, movie),
+                  _buildDescription(context, movie),
+                  _buildDescription(context, movie),
+                  _buildDescription(context, movie),
+                  _buildDescription(context, movie),
+                ],
+              ),
+            )
           ]))
         ],
       ),
@@ -43,9 +51,25 @@ class MovieDetailPage extends StatelessWidget {
     );
   }
 
+  _buildSectionRating(BuildContext context, Movie movie) {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 5),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text('Valoración ${movie.voteAverage}', style: titleSection),
+          SizedBox(height: 3),
+          Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: Extras().buildstarts(movie.voteAverage, 10)),
+        ],
+      ),
+    );
+  }
+
   _buildDescription(BuildContext context, Movie movie) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20.0),
+      padding: EdgeInsets.symmetric(horizontal: 0.0),
       child: Column(
         children: <Widget>[
           Text(

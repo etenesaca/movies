@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:movies/extras.dart';
 import 'package:movies/src/models/movie_model.dart';
 
 class PageViewPopulars extends StatelessWidget {
@@ -33,6 +34,8 @@ class PageViewPopulars extends StatelessWidget {
     );
   }
 
+  Widget buildStart() {}
+
   Widget _buildCard(BuildContext context, Movie movie) {
     final posterCropped = ClipRRect(
       borderRadius: BorderRadius.circular(5),
@@ -45,24 +48,6 @@ class PageViewPopulars extends StatelessWidget {
       ),
     );
 
-    // Starts
-    Widget _buildStarIcon(IconData icon) =>
-        Icon(icon, color: Colors.yellow[900], size: 12);
-    List<Widget> starts = [];
-    int avg = (movie.voteAverage / 2).toInt();
-    bool halfStart = ((movie.voteAverage - avg) * 100) > 5;
-    for (var i = 0; i < avg; i++) {
-      starts.add(_buildStarIcon(Icons.star));
-    }
-    if (halfStart) {
-      avg++;
-      starts.add(_buildStarIcon(Icons.star_half));
-    }
-    ;
-    for (var i = 0; i < (5 - avg); i++) {
-      starts.add(_buildStarIcon(Icons.star_border));
-    }
-
     String movie_title = movie.title.length > 28
         ? '${movie.title.substring(0, 28)}...'
         : movie.title;
@@ -71,7 +56,9 @@ class PageViewPopulars extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: starts),
+          Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: Extras().buildstarts(movie.voteAverage / 2, 5)),
           SizedBox(height: 2.0),
           Text(movie_title,
               overflow: TextOverflow.fade,
