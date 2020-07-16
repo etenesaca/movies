@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:movies/src/models/gender_model.dart';
 import 'package:movies/src/models/movie_model.dart';
 
 class MovieProvider {
@@ -36,5 +37,12 @@ class MovieProvider {
 
   Future<List<Movie>> getMoviesByName(String query) async {
     return _getMoviesData('3/search/movie', query: query);
+  }
+
+  Future<List<MovieGenre>> getGenreList() async {
+    Map<String, String> queryParameters = {};
+    final resJsonData =
+        await _getHttpData('/genre/movie/list', queryParameters);
+    return MovieGenres.fromJsonMap(resJsonData['results']).items;
   }
 }

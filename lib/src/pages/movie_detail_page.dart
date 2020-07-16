@@ -27,7 +27,7 @@ class MovieDetailPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   _buildSectionRating(context, movie),
-                  _buildDescription(context, movie),
+                  _buildSectionGenres(context, movie),
                   _buildDescription(context, movie),
                   _buildDescription(context, movie),
                   _buildDescription(context, movie),
@@ -58,6 +58,22 @@ class MovieDetailPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text('Valoración ${movie.voteAverage}', style: titleSection),
+          SizedBox(height: 3),
+          Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: Extras().buildstarts(movie.voteAverage, 10)),
+        ],
+      ),
+    );
+  }
+
+  _buildSectionGenres(BuildContext context, Movie movie) {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 5),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text('Géneros', style: titleSection),
           SizedBox(height: 3),
           Row(
               mainAxisAlignment: MainAxisAlignment.start,
