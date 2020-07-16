@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:movies/src/models/image_model.dart';
@@ -27,7 +28,7 @@ class SwiperBackdrops extends StatelessWidget {
     }
     return Swiper(
       itemBuilder: (BuildContext context, int index) {
-        return _buildCard(context, images[index]);
+        return ZoomIn(duration: Duration(milliseconds: 500), child: _buildCard(context, images[index]),);
       },
       itemCount: images.length,
       itemWidth: itemWidth,
