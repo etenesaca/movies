@@ -45,12 +45,59 @@ class SwiperBackdrops extends StatelessWidget {
         builder: SwiperPagination.fraction, alignment: Alignment.bottomCenter);
   }
 
+  Widget _buildImageVotes(Backdrop image) {
+    final color = Colors.white;
+    final shadows = BoxShadow(
+      color: Colors.black.withOpacity(0.9),
+      spreadRadius: 5,
+      blurRadius: 15,
+      offset: Offset(1, 6), // changes position of shadow
+    );
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 1, horizontal: 4),
+      decoration: BoxDecoration(
+        boxShadow: [shadows],
+          color: Colors.black87,
+          border: Border.all(color: Colors.black54, width: 1),
+          borderRadius: BorderRadius.circular(25)),
+      child: Row(
+        children: <Widget>[
+          Text(
+            '${image.voteAverage}',
+            style: TextStyle(
+                color: color, fontWeight: FontWeight.bold, fontSize: 10),
+          ),
+          SizedBox(width: 2.0),
+          Icon(
+            Icons.thumb_up,
+            color: color,
+            size: 10.0,
+          )
+        ],
+      ),
+    );
+  }
+
   Widget _buildCard(BuildContext context, Backdrop image) {
+    
+
+    final background = Container(
+      padding: EdgeInsetsDirectional.only(start: 5, bottom: 5),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          Row(
+            children: <Widget>[_buildImageVotes(image)],
+          )
+        ],
+      ),
+    );
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Stack(
         fit: StackFit.expand,
-        children: <Widget>[_buildImage(context, image)],
+        children: <Widget>[_buildImage(context, image), background],
       ),
     );
   }
