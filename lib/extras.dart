@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 class Extras {
   List<Widget> buildstarts(double votes, int maxStart) {
     // Starts
-    Widget _buildStarIcon(IconData icon) =>
-        Icon(icon, color: Colors.yellow[900], size: 12);
+    Widget _buildStarIcon(IconData icon) => Container(
+          decoration: BoxDecoration(),
+          child: Icon(icon, color: Colors.yellow[900], size: 12),
+        );
     List<Widget> starts = [];
     int avg = votes.toInt();
     bool halfStart = ((votes - avg) * 100) > maxStart;

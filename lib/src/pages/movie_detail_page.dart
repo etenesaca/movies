@@ -31,13 +31,13 @@ class MovieDetailPage extends StatelessWidget {
                 children: <Widget>[
                   _buildSectionRating(context, movie),
                   _buildSectionGenres(context, movie, movieGenres),
-                  _buildDescription(context, movie),
-                  _buildDescription(context, movie),
-                  _buildDescription(context, movie),
-                  _buildDescription(context, movie),
-                  _buildDescription(context, movie),
-                  _buildDescription(context, movie),
-                  _buildDescription(context, movie),
+                  _buildSectionDescription(context, movie),
+                  _buildSectionDatesVotes(context, movie),
+                  _buildSectionDescription(context, movie),
+                  _buildSectionDescription(context, movie),
+                  _buildSectionDescription(context, movie),
+                  _buildSectionDescription(context, movie),
+                  _buildSectionCast(context, movie),
                 ],
               ),
             )
@@ -73,12 +73,11 @@ class MovieDetailPage extends StatelessWidget {
   Widget _buildBoxGender(MovieGenre genre) {
     final txtStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 12.0);
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 3),
+      margin: EdgeInsets.symmetric(horizontal: 3, vertical: 2),
       padding: EdgeInsets.symmetric(vertical: 4, horizontal: 13),
       decoration: BoxDecoration(
-        borderRadius: new BorderRadius.circular(30.0),
-        color: Colors.redAccent
-      ),
+          borderRadius: new BorderRadius.circular(30.0),
+          color: Colors.redAccent),
       child: Text(genre.name, style: txtStyle),
     );
   }
@@ -93,7 +92,7 @@ class MovieDetailPage extends StatelessWidget {
     });
     final boxes = genres.map((e) => _buildBoxGender(e)).toList();
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 5),
+      padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 6),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -105,11 +104,14 @@ class MovieDetailPage extends StatelessWidget {
     );
   }
 
-  _buildDescription(BuildContext context, Movie movie) {
+  _buildSectionDescription(BuildContext context, Movie movie) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 0.0),
+      padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 6),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          Text('Sinopsis', style: titleSection),
+          SizedBox(height: 5),
           Text(
             movie.overview,
             textAlign: TextAlign.justify,
@@ -119,47 +121,45 @@ class MovieDetailPage extends StatelessWidget {
     );
   }
 
-  _buildPosterMovie(BuildContext context, Movie movie) {
+  _buildSectionDatesVotes(BuildContext context, Movie movie) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20.0),
-      child: Row(
-        children: <Widget>[
-          Hero(
-            tag: movie.idHero,
-            child: ClipRRect(
-              child: Image(
-                image: movie.getPosterImg(),
-                height: 150.0,
-              ),
-              borderRadius: BorderRadius.circular(20.0),
+        padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 6),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text('Fecha de estreno', style: titleSection),
+                SizedBox(height: 5),
+                Text(
+                  movie.releaseDate,
+                  textAlign: TextAlign.justify,
+                )
+              ],
             ),
-          ),
-          SizedBox(width: 20.0),
-          Flexible(
-              child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                movie.title,
-                style: Theme.of(context).textTheme.title,
-                overflow: TextOverflow.ellipsis,
-              ),
-              Text(
-                movie.originalTitle,
-                style: Theme.of(context).textTheme.subhead,
-                overflow: TextOverflow.ellipsis,
-              ),
-              Row(
-                children: <Widget>[
-                  Icon(Icons.star_border),
-                  Text(
-                    movie.voteAverage.toString(),
-                    style: Theme.of(context).textTheme.subhead,
-                  )
-                ],
-              )
-            ],
-          ))
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                Text('Votos', style: titleSection),
+                SizedBox(height: 5),
+                Text(
+                  '${movie.voteCount}',
+                )
+              ],
+            )
+          ],
+        ));
+  }
+  
+    _buildSectionCast(BuildContext context, Movie movie) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 6),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text('Elenco', style: titleSection),
+          SizedBox(height: 5),
         ],
       ),
     );
