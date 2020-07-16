@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies/extras.dart';
 import 'package:movies/src/models/movie_model.dart';
 
 class SliverMoviePoster extends SliverPersistentHeaderDelegate {
@@ -29,16 +30,9 @@ class SliverMoviePoster extends SliverPersistentHeaderDelegate {
   }
 
   _buildPoster(Movie movie) {
-    final posterCropped = ClipRRect(
-      borderRadius: BorderRadius.circular(7),
-      child: FadeInImage(
-        placeholder: AssetImage('assets/img/no-image.jpg'),
-        image: movie.getPosterImg(),
-        height: 185.0 - (185.0 * 0.10),
-        width: 120.0 - (120.0 * 0.10),
-        fit: BoxFit.cover,
-      ),
-    );
+    final posterCropped = Extras().buildPosterImg(
+        movie.getPosterImgUrl(), 185.0 - (185.0 * 0.10), 120.0 - (120.0 * 0.10),
+        corners: 5 + (5 * 0.20));
     return Container(
       decoration: BoxDecoration(
         boxShadow: [

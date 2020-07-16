@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:movies/extras.dart';
 import 'package:movies/src/models/image_model.dart';
 
 import 'package:flutter_page_indicator/flutter_page_indicator.dart';
@@ -28,7 +29,10 @@ class SwiperBackdrops extends StatelessWidget {
     }
     return Swiper(
       itemBuilder: (BuildContext context, int index) {
-        return ZoomIn(duration: Duration(milliseconds: 500), child: _buildCard(context, images[index]),);
+        return ZoomIn(
+          duration: Duration(milliseconds: 500),
+          child: _buildCard(context, images[index]),
+        );
       },
       itemCount: images.length,
       itemWidth: itemWidth,
@@ -57,14 +61,14 @@ class SwiperBackdrops extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 1, horizontal: 4),
       decoration: BoxDecoration(
-        boxShadow: [shadows],
+          boxShadow: [shadows],
           color: Colors.black87,
           border: Border.all(color: Colors.black54, width: 1),
           borderRadius: BorderRadius.circular(25)),
       child: Row(
         children: <Widget>[
           Text(
-            '${image.voteAverage}',
+            '${image.voteCount}',
             style: TextStyle(
                 color: color, fontWeight: FontWeight.bold, fontSize: 10),
           ),
@@ -80,9 +84,7 @@ class SwiperBackdrops extends StatelessWidget {
   }
 
   Widget _buildCard(BuildContext context, Backdrop image) {
-    
-
-    final background = Container(
+    final votes = Container(
       padding: EdgeInsetsDirectional.only(start: 5, bottom: 5),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -94,26 +96,15 @@ class SwiperBackdrops extends StatelessWidget {
         ],
       ),
     );
+    final posterCropped = Extras().buildPosterImg(
+        image.getPathUrl(), double.infinity, double.infinity,
+        corners: 5.0);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Stack(
         fit: StackFit.expand,
-        children: <Widget>[_buildImage(context, image), background],
+        children: <Widget>[posterCropped, votes],
       ),
     );
-  }
-
-  Widget _buildImage(BuildContext context, Backdrop image) {
-    double _cardCorners = 5.0;
-    final posterCropped = ClipRRect(
-        borderRadius: BorderRadius.circular(_cardCorners),
-        child: FadeInImage(
-          placeholder: AssetImage('assets/img/no-image.jpg'),
-          image: image.getImg(),
-          fit: BoxFit.cover,
-          //width: double.infinity,
-        ));
-
-    return posterCropped;
   }
 }

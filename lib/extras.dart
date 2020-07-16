@@ -23,4 +23,17 @@ class Extras {
     }
     return starts;
   }
+
+  Widget buildPosterImg(String urlImage, double imgHeight, double imgWidth,
+      {double corners = 10}) {
+    return ClipRRect(
+        borderRadius: BorderRadius.circular(corners),
+        child: FadeInImage(
+          placeholder: AssetImage('assets/img/no-image.jpg'),
+          image: NetworkImage(urlImage),
+          fit: BoxFit.cover,
+          height: imgHeight,
+          width: imgWidth,
+        ));
+  }
 }

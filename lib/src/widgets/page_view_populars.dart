@@ -41,17 +41,8 @@ class PageViewPopulars extends StatelessWidget {
   Widget buildStart() {}
 
   Widget _buildCard(BuildContext context, Movie movie) {
-    final posterCropped = ClipRRect(
-      borderRadius: BorderRadius.circular(5),
-      child: FadeInImage(
-        placeholder: AssetImage('assets/img/no-image.jpg'),
-        image: movie.getPosterImg(),
-        height: 185.0,
-        width: 120.0,
-        fit: BoxFit.cover,
-      ),
-    );
-
+    final posterCropped = Extras()
+        .buildPosterImg(movie.getPosterImgUrl(), 185.0, 120.0, corners: 5);
     String movie_title = movie.title.length > 28
         ? '${movie.title.substring(0, 28)}...'
         : movie.title;

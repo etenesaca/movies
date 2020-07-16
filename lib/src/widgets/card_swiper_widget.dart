@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:movies/extras.dart';
 import 'package:movies/src/models/movie_model.dart';
 
 class CardSwiper extends StatelessWidget {
@@ -38,16 +39,9 @@ class CardSwiper extends StatelessWidget {
   }
 
   Widget _buildPoster(BuildContext context, Movie movie) {
-    final posterCropped = ClipRRect(
-        borderRadius: BorderRadius.circular(_cardCorners),
-        child: FadeInImage(
-          placeholder: AssetImage('assets/img/no-image.jpg'),
-          image: movie.getPosterImg(),
-          fit: BoxFit.cover,
-          height: double.infinity,
-          width: double.infinity,
-        ));
-
+    final posterCropped = Extras().buildPosterImg(
+        movie.getPosterImgUrl(), double.infinity, double.infinity,
+        corners: _cardCorners);
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(context, 'movie_detail',
