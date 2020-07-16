@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:movies/extras.dart';
 import 'package:movies/src/models/gender_model.dart';
-import 'package:movies/src/models/image_model.dart';
 import 'package:movies/src/models/movie_model.dart';
 import 'package:movies/src/providers/movie_provider.dart';
 import 'package:movies/src/widgets/card_swiper_backdrops_widget.dart';
+import 'package:movies/src/widgets/chip_widget.dart';
 import 'package:movies/src/widgets/sliver_movie_poster_widget.dart';
 
 class MovieDetailPage extends StatelessWidget {
   final titleSection = TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0);
 
   Size _screenSize;
-  double _cardCorners = 10.0;
-  double _cardWidth;
-  double _cardHeight;
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +19,6 @@ class MovieDetailPage extends StatelessWidget {
     final List<MovieGenre> movieGenres = args['movieGenres'];
 
     _screenSize = MediaQuery.of(context).size;
-    _cardWidth = _screenSize.width * 0.65;
-    _cardHeight = _screenSize.height * 0.45;
 
     return Scaffold(
       body: CustomScrollView(
@@ -85,7 +79,7 @@ class MovieDetailPage extends StatelessWidget {
     final txtStyle = TextStyle(
         fontWeight: FontWeight.bold, fontSize: 12.0, color: Colors.white);
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 3, vertical: 2),
+      //margin: EdgeInsets.symmetric(horizontal: 3, vertical: 2),
       padding: EdgeInsets.symmetric(vertical: 4, horizontal: 13),
       decoration: BoxDecoration(
           borderRadius: new BorderRadius.circular(30.0),
@@ -103,6 +97,7 @@ class MovieDetailPage extends StatelessWidget {
       if (movie.genreIds.toSet().contains(x.id.toInt())) genres.add(x);
     });
     final boxes = genres.map((e) => _buildBoxGender(e)).toList();
+    //final boxes = genres.map((e) => ChipTag(color: Colors.redAccent, label: e.name)).toList();
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 6),
       child: Column(
@@ -110,7 +105,7 @@ class MovieDetailPage extends StatelessWidget {
         children: <Widget>[
           Text('Géneros', style: titleSection),
           SizedBox(height: 3),
-          Wrap(children: boxes),
+          Wrap(spacing: 6.0, runSpacing: 6.0, children: boxes),
         ],
       ),
     );
