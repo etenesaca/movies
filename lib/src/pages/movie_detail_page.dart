@@ -12,8 +12,6 @@ class MovieDetailPage extends StatelessWidget {
     final Map<String, dynamic> args = ModalRoute.of(context).settings.arguments;
     final Movie movie = args['movie'];
     final List<MovieGenre> movieGenres = args['movieGenres'];
-    
-    print('genereo psado: ${movieGenres.length}');
 
     return Scaffold(
       body: CustomScrollView(
@@ -32,7 +30,7 @@ class MovieDetailPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   _buildSectionRating(context, movie),
-                  _buildSectionGenres(context, movie),
+                  _buildSectionGenres(context, movie, movieGenres),
                   _buildDescription(context, movie),
                   _buildDescription(context, movie),
                   _buildDescription(context, movie),
@@ -72,7 +70,28 @@ class MovieDetailPage extends StatelessWidget {
     );
   }
 
-  _buildSectionGenres(BuildContext context, Movie movie) {
+  Widget _buildBoxGender(MovieGenre genre) {
+    final txtStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 12.0);
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 3),
+      padding: EdgeInsets.symmetric(vertical: 4, horizontal: 13),
+      decoration: BoxDecoration(
+        borderRadius: new BorderRadius.circular(30.0),
+        color: Colors.redAccent
+      ),
+      child: Text(genre.name, style: txtStyle),
+    );
+  }
+
+  _buildSectionGenres(
+      BuildContext context, Movie movie, List<MovieGenre> movieGenres) {
+    movieGenres.where((MovieGenre x) => movie.genreIds.toSet().contains(x.id));
+
+    final List<MovieGenre> genres = [];
+    movieGenres.forEach((x) {
+      if (movie.genreIds.toSet().contains(x.id.toInt())) genres.add(x);
+    });
+    final boxes = genres.map((e) => _buildBoxGender(e)).toList();
     return Container(
       padding: EdgeInsets.symmetric(vertical: 5),
       child: Column(
@@ -80,9 +99,7 @@ class MovieDetailPage extends StatelessWidget {
         children: <Widget>[
           Text('Géneros', style: titleSection),
           SizedBox(height: 3),
-          Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: Extras().buildstarts(movie.voteAverage, 10)),
+          Wrap(children: boxes),
         ],
       ),
     );
