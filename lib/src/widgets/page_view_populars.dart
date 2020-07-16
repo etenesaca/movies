@@ -6,8 +6,12 @@ import 'package:movies/src/models/movie_model.dart';
 class PageViewPopulars extends StatelessWidget {
   final List<Movie> movies;
   final Function nextPageCallBack;
+  final Map<String, dynamic> args;
 
-  PageViewPopulars({@required this.movies, @required this.nextPageCallBack});
+  PageViewPopulars(
+      {@required this.movies,
+      @required this.nextPageCallBack,
+      @required this.args});
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +80,8 @@ class PageViewPopulars extends StatelessWidget {
     );
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, 'movie_detail', arguments: movie);
+        Navigator.pushNamed(context, 'movie_detail',
+            arguments: {'movie': movie, 'movieGenres': args['movieGenres']});
       },
       child: ZoomIn(
         delay: Duration(microseconds: 100),

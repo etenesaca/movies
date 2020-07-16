@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies/extras.dart';
+import 'package:movies/src/models/gender_model.dart';
 import 'package:movies/src/models/movie_model.dart';
 import 'package:movies/src/widgets/sliver_movie_poster_widget.dart';
 
@@ -8,7 +9,11 @@ class MovieDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Movie movie = ModalRoute.of(context).settings.arguments;
+    final Map<String, dynamic> args = ModalRoute.of(context).settings.arguments;
+    final Movie movie = args['movie'];
+    final List<MovieGenre> movieGenres = args['movieGenres'];
+    
+    print('genereo psado: ${movieGenres.length}');
 
     return Scaffold(
       body: CustomScrollView(

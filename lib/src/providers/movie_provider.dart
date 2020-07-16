@@ -41,8 +41,7 @@ class MovieProvider {
 
   Future<List<MovieGenre>> getGenreList() async {
     Map<String, String> queryParameters = {};
-    final resJsonData =
-        await _getHttpData('/genre/movie/list', queryParameters);
-    return MovieGenres.fromJsonMap(resJsonData['results']).items;
+    final resJsonData = await _getHttpData('3/genre/movie/list', queryParameters);
+    return MovieGenres.fromJsonMap(resJsonData['genres']).items;
   }
 }

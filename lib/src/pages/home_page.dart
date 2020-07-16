@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/src/block/movie_popular_bloc.dart';
+import 'package:movies/src/models/gender_model.dart';
 import 'package:movies/src/models/movie_model.dart';
 import 'package:movies/src/providers/movie_provider.dart';
 import 'package:movies/src/widgets/card_swiper_widget.dart';
@@ -10,10 +11,17 @@ class HomePage extends StatelessWidget {
   final moviesProvider = MovieProvider();
   final pupularBloc = MoviePopularBloc();
 
+  List<MovieGenre> allMovieGenres = [];
+
   @override
   Widget build(BuildContext context) {
     // Llamar a la primera página del las peliculas populares
     pupularBloc.getNextPage();
+
+    moviesProvider.getGenreList().then((x) {
+      allMovieGenres = x;
+      print('${allMovieGenres.length} Movie Genderes Loaded');
+    });
 
     return Scaffold(
       appBar: AppBar(
@@ -58,7 +66,9 @@ class HomePage extends StatelessWidget {
           if (snapshot.hasData) {
             return Padding(
                 padding: EdgeInsets.only(top: 25.0),
-                child: CardSwiper(movies: snapshot.data));
+                child: CardSwiper(
+                    movies: snapshot.data,
+                    args: {'movieGenres': allMovieGenres}));
           } else {
             return Center(child: CircularProgressIndicator());
           }
@@ -71,8 +81,10 @@ class HomePage extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
           if (snapshot.hasData) {
             return PageViewPopulars(
-                movies: snapshot.data,
-                nextPageCallBack: pupularBloc.getNextPage);
+              movies: snapshot.data,
+              nextPageCallBack: pupularBloc.getNextPage,
+              args: {'movieGenres': allMovieGenres},
+            );
           } else {
             return Padding(
               padding: EdgeInsets.only(top: 25, bottom: 25),

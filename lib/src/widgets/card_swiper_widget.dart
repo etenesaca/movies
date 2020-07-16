@@ -4,13 +4,14 @@ import 'package:movies/src/models/movie_model.dart';
 
 class CardSwiper extends StatelessWidget {
   final List<Movie> movies;
+  final Map<String, dynamic> args;
 
   Size _screenSize;
   double _cardCorners = 10.0;
   double _cardWidth;
   double _cardHeight;
 
-  CardSwiper({@required this.movies});
+  CardSwiper({@required this.movies, @required this.args});
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +50,8 @@ class CardSwiper extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, 'movie_detail', arguments: movie);
+        Navigator.pushNamed(context, 'movie_detail',
+            arguments: {'movie': movie, 'movieGenres': args['movieGenres']});
       },
       child: Hero(tag: movie.idHero, child: posterCropped),
     );
