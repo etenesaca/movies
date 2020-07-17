@@ -5,7 +5,9 @@ import 'package:movies/src/models/actor_model.dart';
 import 'package:movies/src/models/gender_model.dart';
 import 'package:movies/src/models/movie_model.dart';
 import 'package:movies/src/providers/movie_provider.dart';
+import 'package:movies/src/widgets/actors_widget.dart';
 import 'package:movies/src/widgets/card_swiper_backdrops_widget.dart';
+import 'package:movies/src/widgets/loading_data_widget.dart';
 //import 'package:movies/src/widgets/chip_widget.dart';
 import 'package:movies/src/widgets/sliver_movie_poster_widget.dart';
 
@@ -44,11 +46,12 @@ class MovieDetailPage extends StatelessWidget {
                   _buildSectionDescription(context, movie),
                   _buildSectionDatesVotes(context, movie),
                   _buildSectionImages(context, movie),
+                  _buildSectionCast(context, movie),
                 ],
               ),
             )
           ])),
-          _buildSectionCast(context, movie),
+          //_buildSectionCast(context, movie),
         ],
       ),
     );
@@ -190,6 +193,28 @@ class MovieDetailPage extends StatelessWidget {
   }
 
   _buildSectionCast(BuildContext context, Movie movie) {
+    final actorItems = FutureBuilder(
+        future: movieProvider.getMovieCast(movie.id),
+        builder: (BuildContext context, AsyncSnapshot<List<Actor>> snapshot) {
+          if (!snapshot.hasData) {
+            return LoadingData();
+          }
+          return ActorWidget(cast: snapshot.data);
+        });
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 6),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text('Actores', style: titleSection),
+          SizedBox(height: 3),
+          actorItems
+        ],
+      ),
+    );
+
+    /*
+  _buildSectionCastXc(BuildContext context, Movie movie) {
     final sec1 = Container(
       padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 6),
       child: Column(
@@ -224,19 +249,6 @@ class MovieDetailPage extends StatelessWidget {
             )
           ]));
         });
-  }
-
-  Widget _buildActorItem(Actor actor) {
-    return ListTile(
-      leading: CircleAvatar(
-        backgroundImage: actor.getPhotoImg(),
-      ),
-      title: Text(actor.name,
-          style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
-      subtitle: Text(
-        actor.character,
-        style: TextStyle(fontSize: 10, fontWeight: FontWeight.normal),
-      ),
-    );
+   */
   }
 }
