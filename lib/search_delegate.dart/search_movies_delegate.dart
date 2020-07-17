@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:movies/common/debouncer.dart';
 
 class MovieSearch extends SearchDelegate {
+  final debouncer = Debouncer();
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -30,6 +32,9 @@ class MovieSearch extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
+    debouncer.run(() {
+      print('Buscando: $query');
+    });
     return Container();
   }
 }
