@@ -39,13 +39,24 @@ class ActorWidget extends StatelessWidget {
         ? colorsFemale[Random().nextInt(colorsFemale.length)]
         : colorsMale[Random().nextInt(colorsMale.length)];
 
-    Widget avatar = CircleAvatar(
-      radius: 25,
-      backgroundColor: avatarColor,
-      child: CircleAvatar(
-        radius: 23,
+    Widget actorPhoto;
+    if (actor.profilePath == null) {
+      actorPhoto = Center(
+          child: Text(
+        actor.name.substring(0, 2).toUpperCase(),
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ));
+    } else {
+      actorPhoto = CircleAvatar(
+        radius: 27,
         backgroundImage: actor.getPhotoImgSmall(),
-      ),
+      );
+    }
+
+    Widget avatar = CircleAvatar(
+      radius: 30,
+      backgroundColor: avatarColor,
+      child: actorPhoto,
     );
 
     avatar = ZoomIn(child: avatar, duration: Duration(milliseconds: 800));

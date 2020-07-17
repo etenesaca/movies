@@ -25,11 +25,11 @@ class Extras {
   }
 
   Widget buildPosterImg(String urlImage, double imgHeight, double imgWidth,
-      {double corners = 10}) {
+      {double corners = 10, assetImgName='no-image.jpg'}) {
     return ClipRRect(
         borderRadius: BorderRadius.circular(corners),
         child: FadeInImage(
-          placeholder: AssetImage('assets/img/no-image.jpg'),
+          placeholder: AssetImage('assets/img/$assetImgName'),
           image: NetworkImage(urlImage),
           fit: BoxFit.cover,
           height: imgHeight,

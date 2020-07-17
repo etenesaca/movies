@@ -207,7 +207,7 @@ class MovieDetailPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text('Actores', style: titleSection),
-          SizedBox(height: 3),
+          SizedBox(height: 10),
           actorItems
         ],
       ),

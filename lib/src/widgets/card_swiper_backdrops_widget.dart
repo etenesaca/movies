@@ -98,7 +98,7 @@ class SwiperBackdrops extends StatelessWidget {
     );
     final posterCropped = Extras().buildPosterImg(
         image.getPathUrl(), double.infinity, double.infinity,
-        corners: 5.0);
+        corners: 5.0, assetImgName: 'toro.gif');
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Stack(
