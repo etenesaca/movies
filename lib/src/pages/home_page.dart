@@ -38,7 +38,7 @@ class HomePage extends StatelessWidget {
           IconButton(
               icon: Icon(Icons.search),
               onPressed: () {
-                showSearch(context: context, delegate: MovieSearch());
+                showSearch(context: context, delegate: MovieSearch(movieGenres: allMovieGenres));
               }),
         ],
       ),

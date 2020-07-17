@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/common/extras.dart';
 import 'package:movies/src/models/gender_model.dart';
@@ -96,7 +97,10 @@ class MovieDetailPage extends StatelessWidget {
     movieGenres.forEach((x) {
       if (movie.genreIds.toSet().contains(x.id.toInt())) genres.add(x);
     });
-    final boxes = genres.map((e) => _buildBoxGender(e)).toList();
+    final boxes = genres
+        .map((e) => ZoomIn(
+            duration: Duration(milliseconds: 300), child: _buildBoxGender(e)))
+        .toList();
     //final boxes = genres.map((e) => ChipTag(color: Colors.redAccent, label: e.name)).toList();
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 6),
