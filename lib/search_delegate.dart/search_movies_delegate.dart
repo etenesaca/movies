@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies/common/debouncer.dart';
-import 'package:movies/extras.dart';
+import 'package:movies/common/extras.dart';
 import 'package:movies/src/models/gender_model.dart';
 import 'package:movies/src/models/movie_model.dart';
 import 'package:movies/src/providers/movie_provider.dart';

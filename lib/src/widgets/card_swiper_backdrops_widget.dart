@@ -1,7 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:movies/extras.dart';
+import 'package:movies/common/extras.dart';
 import 'package:movies/src/models/image_model.dart';
 
 import 'package:flutter_page_indicator/flutter_page_indicator.dart';

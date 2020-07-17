@@ -1,6 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:movies/extras.dart';
+import 'package:movies/common/extras.dart';
 import 'package:movies/src/models/movie_model.dart';
 
 class PageViewPopulars extends StatelessWidget {
