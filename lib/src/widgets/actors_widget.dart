@@ -48,11 +48,6 @@ class ActorWidget extends StatelessWidget {
       ),
     );
 
-    Rect getClip(Size size) {
-      Rect rect = Rect.fromLTRB(0.0, 0.0, size.width, size.height);
-      return rect;
-    }
-
     avatar = ZoomIn(child: avatar, duration: Duration(milliseconds: 800));
     return Container(
       child: Column(

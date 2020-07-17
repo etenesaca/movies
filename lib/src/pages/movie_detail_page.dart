@@ -174,7 +174,7 @@ class MovieDetailPage extends StatelessWidget {
           if (snapshot.hasData) {
             return SwiperBackdrops(images: snapshot.data);
           } else {
-            return Center(child: CircularProgressIndicator());
+            return LoadingData();
           }
         });
     final res = Column(
@@ -212,43 +212,5 @@ class MovieDetailPage extends StatelessWidget {
         ],
       ),
     );
-
-    /*
-  _buildSectionCastXc(BuildContext context, Movie movie) {
-    final sec1 = Container(
-      padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 6),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          SizedBox(height: 15),
-          Text('Elenco', style: titleSection),
-          SizedBox(height: 5),
-        ],
-      ),
-    );
-
-    return FutureBuilder(
-        future: movieProvider.getMovieCast(movie.id),
-        builder: (BuildContext context, AsyncSnapshot<List<Actor>> snapshot) {
-          List<Widget> xlist = [];
-          xlist.add(sec1);
-          if (snapshot.hasData) {
-            final cast = snapshot.data;
-            xlist.addAll(cast.map((e) => _buildActorItem(e)).toList());
-          } else {
-            xlist.add(Center(child: CircularProgressIndicator()));
-          }
-          return SliverList(
-              delegate: SliverChildListDelegate([
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: xlist,
-              ),
-            )
-          ]));
-        });
-   */
   }
 }

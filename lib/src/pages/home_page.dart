@@ -6,6 +6,7 @@ import 'package:movies/src/models/gender_model.dart';
 import 'package:movies/src/models/movie_model.dart';
 import 'package:movies/src/providers/movie_provider.dart';
 import 'package:movies/src/widgets/card_swiper_widget.dart';
+import 'package:movies/src/widgets/loading_data_widget.dart';
 import 'package:movies/src/widgets/page_view_populars.dart';
 
 class HomePage extends StatelessWidget {
@@ -38,7 +39,9 @@ class HomePage extends StatelessWidget {
           IconButton(
               icon: Icon(Icons.search),
               onPressed: () {
-                showSearch(context: context, delegate: MovieSearch(movieGenres: allMovieGenres));
+                showSearch(
+                    context: context,
+                    delegate: MovieSearch(movieGenres: allMovieGenres));
               }),
         ],
       ),
@@ -64,15 +67,14 @@ class HomePage extends StatelessWidget {
     return FutureBuilder(
         future: moviesProvider.getMoviesNowPlaying(),
         builder: (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
-          if (snapshot.hasData) {
-            return Padding(
-                padding: EdgeInsets.only(top: 25.0),
-                child: CardSwiper(
-                    movies: snapshot.data,
-                    args: {'movieGenres': allMovieGenres}));
-          } else {
-            return Center(child: CircularProgressIndicator());
+          if (!snapshot.hasData) {
+            return LoadingData('Q-Loading.gif');
           }
+          return Padding(
+              padding: EdgeInsets.only(top: 25.0),
+              child: CardSwiper(
+                  movies: snapshot.data,
+                  args: {'movieGenres': allMovieGenres}));
         });
   }
 
@@ -80,18 +82,17 @@ class HomePage extends StatelessWidget {
     return StreamBuilder(
         stream: pupularBloc.popularesStream,
         builder: (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
-          if (snapshot.hasData) {
-            return PageViewPopulars(
-              movies: snapshot.data,
-              nextPageCallBack: pupularBloc.getNextPage,
-              args: {'movieGenres': allMovieGenres},
-            );
-          } else {
+          if (!snapshot.hasData) {
             return Padding(
               padding: EdgeInsets.only(top: 25, bottom: 25),
-              child: Center(child: CircularProgressIndicator()),
+              child: LoadingData(),
             );
           }
+          return PageViewPopulars(
+            movies: snapshot.data,
+            nextPageCallBack: pupularBloc.getNextPage,
+            args: {'movieGenres': allMovieGenres},
+          );
         });
   }
 
