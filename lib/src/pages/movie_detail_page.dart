@@ -1,16 +1,17 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/common/extras.dart';
+import 'package:movies/src/models/actor_model.dart';
 import 'package:movies/src/models/gender_model.dart';
 import 'package:movies/src/models/movie_model.dart';
 import 'package:movies/src/providers/movie_provider.dart';
 import 'package:movies/src/widgets/card_swiper_backdrops_widget.dart';
-import 'package:movies/src/widgets/chip_widget.dart';
+//import 'package:movies/src/widgets/chip_widget.dart';
 import 'package:movies/src/widgets/sliver_movie_poster_widget.dart';
 
 class MovieDetailPage extends StatelessWidget {
   final titleSection = TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0);
-
+  final movieProvider = MovieProvider();
   Size _screenSize;
 
   @override
@@ -43,11 +44,11 @@ class MovieDetailPage extends StatelessWidget {
                   _buildSectionDescription(context, movie),
                   _buildSectionDatesVotes(context, movie),
                   _buildSectionImages(context, movie),
-                  _buildSectionCast(context, movie),
                 ],
               ),
             )
-          ]))
+          ])),
+          _buildSectionCast(context, movie),
         ],
       ),
     );
@@ -189,7 +190,7 @@ class MovieDetailPage extends StatelessWidget {
   }
 
   _buildSectionCast(BuildContext context, Movie movie) {
-    return Container(
+    final sec1 = Container(
       padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 6),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -198,6 +199,27 @@ class MovieDetailPage extends StatelessWidget {
           SizedBox(height: 5),
         ],
       ),
+    );
+
+    return FutureBuilder(
+        future: movieProvider.getMovieCast(movie.id),
+        builder: (BuildContext context, AsyncSnapshot<List<Actor>> snapshot) {
+          List<Widget> xlist = [];
+          xlist.add(sec1);
+          if (snapshot.hasData) {
+            final cast = snapshot.data;
+            xlist.addAll(cast.map((e) => _buildActorItem(e)).toList());
+          } else {
+            xlist.add(Center(child: CircularProgressIndicator()));
+          }
+          return SliverList(delegate: SliverChildListDelegate(xlist));
+        });
+  }
+
+  Widget _buildActorItem(Actor actor) {
+    return ListTile(
+      title: Text(actor.name),
+      subtitle: Text(actor.character),
     );
   }
 }

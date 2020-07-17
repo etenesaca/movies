@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:movies/src/models/actor_model.dart';
 import 'package:movies/src/models/gender_model.dart';
 import 'package:movies/src/models/image_model.dart';
 import 'package:movies/src/models/movie_model.dart';
@@ -54,5 +55,13 @@ class MovieProvider {
     final resJsonData =
         await _getHttpData('3/movie/${movieId}/images', queryParameters);
     return Backdrops.fromJsonMap(resJsonData['backdrops']).items;
+  }
+
+  // Obtener los actores de la pelicula
+  Future<List<Actor>> getMovieCast(int movieId) async {
+    String apiUrl = '3/movie/${movieId}/credits';
+    Map<String, String> queryParameters = {};
+    final resJsonData = await _getHttpData(apiUrl, queryParameters);
+    return Cast.fromJsonMap(resJsonData['cast']).items;
   }
 }
