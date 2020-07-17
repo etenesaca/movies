@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:movies/search_delegate.dart/search_movies_delegate.dart';
 import 'package:movies/src/block/movie_popular_bloc.dart';
 import 'package:movies/src/models/gender_model.dart';
 import 'package:movies/src/models/movie_model.dart';
@@ -34,7 +35,11 @@ class HomePage extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.pinkAccent,
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.search), onPressed: _btnSearch),
+          IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                showSearch(context: context, delegate: MovieSearch());
+              }),
         ],
       ),
       body: Stack(
@@ -53,10 +58,6 @@ class HomePage extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  void _btnSearch() {
-    print('Buscando');
   }
 
   Widget _buildNowPlayingSection(BuildContext context) {
