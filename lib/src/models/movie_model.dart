@@ -75,6 +75,15 @@ class Movie {
 
   NetworkImage getPosterImg() => NetworkImage(getPosterImgUrl());
 
+  String getPosterImgSmallUrl() {
+    final res = (posterPath == null)
+        ? 'https://www.digopaul.com/wp-content/uploads/related_images/2015/09/08/placeholder_2.jpg'
+        : 'https://image.tmdb.org/t/p/w200/$posterPath';
+    return res;
+  }
+
+  NetworkImage getPosterSmallImg() => NetworkImage(getPosterImgSmallUrl());
+
   String getBackgroundImgUrl() {
     final res = (backdropPath == null)
         ? 'https://www.digopaul.com/wp-content/uploads/related_images/2015/09/08/placeholder_2.jpg'
