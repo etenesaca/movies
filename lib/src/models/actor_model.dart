@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class Cast {
   List<Actor> items = List();
   Cast();
@@ -37,4 +39,22 @@ class Actor {
     order = json['order'];
     profilePath = json['profile_path'];
   }
+
+  String getPhotoImgUrl() {
+    final res = (profilePath == null)
+        ? 'https://www.digopaul.com/wp-content/uploads/related_images/2015/09/08/placeholder_2.jpg'
+        : 'https://image.tmdb.org/t/p/w500/$profilePath';
+    return res;
+  }
+
+  NetworkImage getPhotoImg() => NetworkImage(getPhotoImgUrl());
+
+  String getPhotoImgSmallUrl() {
+    final res = (profilePath == null)
+        ? 'https://www.digopaul.com/wp-content/uploads/related_images/2015/09/08/placeholder_2.jpg'
+        : 'https://image.tmdb.org/t/p/w200/$profilePath';
+    return res;
+  }
+
+  NetworkImage getPhotoImgSmall() => NetworkImage(getPhotoImgSmallUrl());
 }

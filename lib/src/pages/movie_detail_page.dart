@@ -195,6 +195,7 @@ class MovieDetailPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          SizedBox(height: 15),
           Text('Elenco', style: titleSection),
           SizedBox(height: 5),
         ],
@@ -212,14 +213,30 @@ class MovieDetailPage extends StatelessWidget {
           } else {
             xlist.add(Center(child: CircularProgressIndicator()));
           }
-          return SliverList(delegate: SliverChildListDelegate(xlist));
+          return SliverList(
+              delegate: SliverChildListDelegate([
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: xlist,
+              ),
+            )
+          ]));
         });
   }
 
   Widget _buildActorItem(Actor actor) {
     return ListTile(
-      title: Text(actor.name),
-      subtitle: Text(actor.character),
+      leading: CircleAvatar(
+        backgroundImage: actor.getPhotoImg(),
+      ),
+      title: Text(actor.name,
+          style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+      subtitle: Text(
+        actor.character,
+        style: TextStyle(fontSize: 10, fontWeight: FontWeight.normal),
+      ),
     );
   }
 }
