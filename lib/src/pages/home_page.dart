@@ -1,7 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/search_delegate.dart/search_movies_delegate.dart';
-import 'package:movies/src/block/movie_popular_bloc.dart';
+import 'package:movies/src/bloc/movie_popular_bloc.dart';
 import 'package:movies/src/models/gender_model.dart';
 import 'package:movies/src/models/movie_model.dart';
 import 'package:movies/src/providers/movie_provider.dart';
