@@ -8,23 +8,58 @@ class RootPage extends StatefulWidget {
 }
 
 class _RootPageState extends State<RootPage> {
-  String tapTitle = 'En cines';
+  String tabTitle = 'En cines';
   Color mainColor = Color.fromRGBO(24, 33, 46, 1.0);
 
   int _page = 0;
   GlobalKey _bottomNavigationKey = GlobalKey();
 
-  Widget getSearch() {
-    tapTitle = 'Buscar';
-    final res = Container(
-        child: Center(
-      child: Text('Buscar'),
-    ));
-    return res;
+  Widget _homeTab;
+  Widget getHomeTab() {
+    if (_homeTab == null) {
+      _homeTab = Container(
+          child: Stack(
+        children: <Widget>[getBackground(context), HomePage()],
+      ));
+    }
+    return _homeTab;
+  }
+
+  Widget _searchTab;
+  Widget getSearchTab() {
+    if (_searchTab == null) {
+      _searchTab = Container(
+          child: Center(
+        child: Text('Buscar'),
+      ));
+    }
+    return _searchTab;
+  }
+
+  Widget _newsTab;
+  Widget getNewsTab() {
+    if (_newsTab == null) {
+      _newsTab = Container(
+          child: Center(
+        child: Text('Buscar'),
+      ));
+    }
+    return _newsTab;
+  }
+
+  Widget _configTab;
+  Widget getConfigTab() {
+    if (_configTab == null) {
+      _configTab = Container(
+          child: Center(
+        child: Text('Buscar'),
+      ));
+    }
+    return _configTab;
   }
 
   Widget getComingsoon() {
-    tapTitle = 'Próximamente';
+    tabTitle = 'Próximamente';
     final res = Container(
         child: Center(
       child: Text('Proximanemente'),
@@ -51,15 +86,15 @@ class _RootPageState extends State<RootPage> {
 
   @override
   Widget build(BuildContext context) {
-    Widget homeTap = Container(
-        child: Stack(
-      children: <Widget>[getBackground(context), HomePage()],
-    ));
-
-    final List<Widget> _children = [homeTap, getSearch(), getComingsoon()];
+    final List<Widget> _children = [
+      getHomeTab(),
+      getSearchTab(),
+      getNewsTab(),
+      getConfigTab()
+    ];
 
     Widget textTitle = Text(
-      tapTitle,
+      tabTitle,
       style: TextStyle(fontFamily: 'RussoOne', fontWeight: FontWeight.normal),
     );
 
