@@ -11,7 +11,14 @@ import 'package:movies/src/widgets/page_view_section_widget.dart';
 
 class HomePage extends StatelessWidget {
   final moviesProvider = MovieProvider();
-  final pupularBloc = MoviePopularBloc();
+  /*
+  now_playing
+  popular
+  upcoming
+  top_rated
+   */
+  final pupularBloc = MovieSectionBloc('popular');
+  final topRatedBloc = MovieSectionBloc('top_rated');
 
   List<MovieGenre> allMovieGenres = [];
   Size _screenSize;
@@ -21,6 +28,7 @@ class HomePage extends StatelessWidget {
     _screenSize = MediaQuery.of(context).size;
     // Llamar a la primera página del las peliculas populares
     pupularBloc.getNextPage();
+    topRatedBloc.getNextPage();
 
     moviesProvider.getGenreList().then((x) {
       allMovieGenres = x;
@@ -31,7 +39,11 @@ class HomePage extends StatelessWidget {
       _buildNowPlayingSection(context),
       FadeInUp(
         duration: Duration(milliseconds: 600),
-        child: _buildPopularSection(context),
+        child: _buildPopulars(context),
+      ),
+      FadeInUp(
+        duration: Duration(milliseconds: 600),
+        child: _buildTopRated(context),
       ),
     ];
     return Scaffold(
@@ -110,9 +122,19 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildPopularSection(BuildContext context) {
+  Widget _buildPopulars(BuildContext context) {
     final res = PageViewSection(
-      bloc: pupularBloc,      
+      titleSection: 'Populars',
+      bloc: pupularBloc,
+      args: {'movieGenres': allMovieGenres},
+    );
+    return res;
+  }
+
+  Widget _buildTopRated(BuildContext context) {
+    final res = PageViewSection(
+      titleSection: 'Mejor calificadas',
+      bloc: topRatedBloc,
       args: {'movieGenres': allMovieGenres},
     );
     return res;

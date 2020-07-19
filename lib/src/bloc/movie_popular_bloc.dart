@@ -1,32 +1,37 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:movies/src/models/movie_model.dart';
 import 'package:movies/src/providers/movie_provider.dart';
 
-class MoviePopularBloc {
+class MovieSectionBloc {
+  final sectionName;
+  MovieSectionBloc(this.sectionName);
+
   // Stream de Datos Para paginación de populares.
   MovieProvider _movieProvider = MovieProvider();
-  int _popularesPage = 0;
-  bool _loadingPopularsData = false;
-  List<Movie> _populars = [];
-  final _popularsStremController = StreamController<List<Movie>>.broadcast();
+  int _sectionPage = 0;
+  bool _loadingData = false;
+  List<Movie> _movies = [];
+  final _stremController = StreamController<List<Movie>>.broadcast();
   // Sink
-  Function(List<Movie>) get popularesSink => _popularsStremController.sink.add;
-  Stream<List<Movie>> get popularesStream => _popularsStremController.stream;
+  Function(List<Movie>) get movieSink => _stremController.sink.add;
+  Stream<List<Movie>> get moviesStream => _stremController.stream;
 
   Future<List<Movie>> getNextPage() async {
-    if (_loadingPopularsData) return [];
-    _loadingPopularsData = true;
-    _popularesPage++;
-    print('Bloc - Loading Popular Data: Page $_popularesPage');
-    final res = await _movieProvider.getMoviesPopulars(_popularesPage);
-    _populars.addAll(res);
-    popularesSink(_populars);
-    _loadingPopularsData = false;
+    if (_loadingData) return [];
+    _loadingData = true;
+    _sectionPage++;
+    print('Bloc - Loading Section Movies: Page $_sectionPage');
+    final res =
+        await _movieProvider.getMoviesSection(sectionName, _sectionPage);
+    _movies.addAll(res);
+    movieSink(_movies);
+    _loadingData = false;
     return res;
   }
 
   void disposeStream() {
-    _popularsStremController?.close();
+    _stremController?.close();
   }
 }

@@ -35,8 +35,9 @@ class MovieProvider {
     return _getMoviesData('3/movie/now_playing', callFrom: 'now_playing');
   }
 
-  Future<List<Movie>> getMoviesPopulars(int page) async {
-    return _getMoviesData('3/movie/popular', callFrom: 'popular', page: page);
+  Future<List<Movie>> getMoviesSection(String sectionName, int page) async {
+    return _getMoviesData('3/movie/$sectionName',
+        callFrom: sectionName, page: page);
   }
 
   Future<List<Movie>> getMoviesByName(String query) async {

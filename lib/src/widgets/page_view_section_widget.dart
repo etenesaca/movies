@@ -6,10 +6,12 @@ import 'package:movies/src/models/movie_model.dart';
 import 'package:movies/src/widgets/loading_data_widget.dart';
 
 class PageViewSection extends StatefulWidget {
-  final MoviePopularBloc bloc;
+  final String titleSection;
+  final MovieSectionBloc bloc;
   final Map<String, dynamic> args;
 
-  PageViewSection({@required this.bloc, @required this.args});
+  PageViewSection(
+      {@required this.titleSection, @required this.bloc, @required this.args});
 
   @override
   _PageViewSectionState createState() => _PageViewSectionState();
@@ -17,14 +19,7 @@ class PageViewSection extends StatefulWidget {
 
 class _PageViewSectionState extends State<PageViewSection> {
   Size _screenSize;
-
   PageController _pageController;
-
-  @override
-  void dispose() {
-    super.dispose();
-    widget.bloc.disposeStream();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +81,7 @@ class _PageViewSectionState extends State<PageViewSection> {
 
   Widget _getStreamData(BuildContext context) {
     return StreamBuilder(
-        stream: widget.bloc.popularesStream,
+        stream: widget.bloc.moviesStream,
         builder: (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
           if (!snapshot.hasData) {
             return Padding(
@@ -116,7 +111,7 @@ class _PageViewSectionState extends State<PageViewSection> {
             BorderRadius.only(topRight: radiusCorners, topLeft: radiusCorners));
     Widget headerSection = Row(
       children: <Widget>[
-        Text('Más populares',
+        Text(widget.titleSection,
             style: TextStyle(
                 fontWeight: FontWeight.bold, color: Colors.white, fontSize: 16))
       ],
@@ -140,5 +135,11 @@ class _PageViewSectionState extends State<PageViewSection> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    widget.bloc.disposeStream();
   }
 }
