@@ -98,8 +98,6 @@ class _RootPageState extends State<RootPage> {
       style: TextStyle(fontFamily: 'RussoOne', fontWeight: FontWeight.normal),
     );
 
-    Color colorNavBar = Colors.blueGrey;
-
     return Scaffold(
       appBar: AppBar(
         title: textTitle,
@@ -133,6 +131,7 @@ class _RootPageState extends State<RootPage> {
           });
         },
       ),
+      drawer: DrawerHeader(child: Container()),
     );
   }
 }
