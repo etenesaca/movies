@@ -17,8 +17,9 @@ class HomePage extends StatelessWidget {
   upcoming
   top_rated
    */
-  final pupularBloc = MovieSectionBloc('popular');
-  final topRatedBloc = MovieSectionBloc('top_rated');
+  final pupularBloc = new MovieSectionBloc('popular');
+  final topRatedBloc = new MovieSectionBloc('top_rated');
+  //final upcomingBloc = new  MovieSectionBloc('upcoming');
 
   List<MovieGenre> allMovieGenres = [];
   Size _screenSize;
@@ -29,6 +30,7 @@ class HomePage extends StatelessWidget {
     // Llamar a la primera página del las peliculas populares
     pupularBloc.getNextPage();
     topRatedBloc.getNextPage();
+    //upcomingBloc.getNextPage();
 
     moviesProvider.getGenreList().then((x) {
       allMovieGenres = x;
@@ -45,6 +47,12 @@ class HomePage extends StatelessWidget {
         duration: Duration(milliseconds: 600),
         child: _buildTopRated(context),
       ),
+      /*
+      FadeInUp(
+        duration: Duration(milliseconds: 600),
+        child: _buildUpcoming(context),
+      ),
+       */
     ];
     return Scaffold(
       appBar: AppBar(
@@ -124,7 +132,7 @@ class HomePage extends StatelessWidget {
 
   Widget _buildPopulars(BuildContext context) {
     final res = PageViewSection(
-      titleSection: 'Populars',
+      titleSection: 'Populares',
       bloc: pupularBloc,
       args: {'movieGenres': allMovieGenres},
     );
@@ -139,4 +147,16 @@ class HomePage extends StatelessWidget {
     );
     return res;
   }
+
+/*
+  
+  Widget _buildUpcoming(BuildContext context) {
+    final res = PageViewSection(
+      titleSection: 'Próximamente',
+      bloc: upcomingBloc,
+      args: {'movieGenres': allMovieGenres},
+    );
+    return res;
+  }
+ */
 }
