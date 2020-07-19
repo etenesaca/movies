@@ -7,7 +7,7 @@ import 'package:movies/src/models/movie_model.dart';
 import 'package:movies/src/providers/movie_provider.dart';
 import 'package:movies/src/widgets/card_swiper_widget.dart';
 import 'package:movies/src/widgets/loading_data_widget.dart';
-import 'package:movies/src/widgets/page_view_populars.dart';
+import 'package:movies/src/widgets/page_view_section_widget.dart';
 
 class HomePage extends StatelessWidget {
   final moviesProvider = MovieProvider();
@@ -29,10 +29,6 @@ class HomePage extends StatelessWidget {
 
     List<Widget> sections = [
       _buildNowPlayingSection(context),
-      FadeInUp(
-        duration: Duration(milliseconds: 600),
-        child: _buildPopularSection(context),
-      ),
       FadeInUp(
         duration: Duration(milliseconds: 600),
         child: _buildPopularSection(context),
@@ -75,6 +71,23 @@ class HomePage extends StatelessWidget {
     );
   }
 
+  _buildBackground(BuildContext context) {
+    return Container(
+      height: double.infinity,
+      width: double.infinity,
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: FractionalOffset(.0, 0.5),
+              end: FractionalOffset(0.0, 1.0),
+              colors: [
+            Color.fromRGBO(24, 33, 46, 1.0),
+            Color.fromRGBO(24, 33, 46, 1.0),
+            Color.fromRGBO(37, 51, 72, 1.0),
+            Color.fromRGBO(57, 79, 111, 1.0),
+          ])),
+    );
+  }
+
   Widget _buildNowPlayingSection(BuildContext context) {
     final _cardHeight = _screenSize.height * 0.55;
 
@@ -97,72 +110,11 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildPopularCards(BuildContext context) {
-    return StreamBuilder(
-        stream: pupularBloc.popularesStream,
-        builder: (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
-          if (!snapshot.hasData) {
-            return Padding(
-              padding: EdgeInsets.only(top: 25, bottom: 25),
-              child: LoadingData(),
-            );
-          }
-          return PageViewPopulars(
-            movies: snapshot.data,
-            nextPageCallBack: pupularBloc.getNextPage,
-            args: {'movieGenres': allMovieGenres},
-          );
-        });
-  }
-
   Widget _buildPopularSection(BuildContext context) {
-    final radiusCorners = Radius.circular(25.0);
-    final boxStyle = BoxDecoration(
-        //color: Colors.white,
-        borderRadius:
-            BorderRadius.only(topRight: radiusCorners, topLeft: radiusCorners));
-    Widget headerSection = Row(
-      children: <Widget>[
-        Text('Más populares',
-            style: TextStyle(
-                fontWeight: FontWeight.bold, color: Colors.white, fontSize: 16))
-      ],
+    final res = PageViewSection(
+      bloc: pupularBloc,      
+      args: {'movieGenres': allMovieGenres},
     );
-    return Padding(
-      padding: EdgeInsets.only(bottom: 1.0),
-      child: Container(
-        width: double.infinity,
-        decoration: boxStyle,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-                padding: EdgeInsets.only(left: 20.0, top: 15.0, bottom: 15.0),
-                child: headerSection),
-            Padding(
-              padding: EdgeInsets.only(left: 3, right: 3),
-              child: _buildPopularCards(context),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  _buildBackground(BuildContext context) {
-    return Container(
-      height: double.infinity,
-      width: double.infinity,
-      decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: FractionalOffset(.0, 0.5),
-              end: FractionalOffset(0.0, 1.0),
-              colors: [
-            Color.fromRGBO(24, 33, 46, 1.0),
-            Color.fromRGBO(24, 33, 46, 1.0),
-            Color.fromRGBO(37, 51, 72, 1.0),
-            Color.fromRGBO(57, 79, 111, 1.0),
-          ])),
-    );
+    return res;
   }
 }
