@@ -1,7 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:movies/search_delegate.dart/search_movies_delegate.dart';
-import 'package:movies/src/bloc/movie_popular_bloc.dart';
+import 'package:movies/src/bloc/movie_section_bloc.dart';
 import 'package:movies/src/models/gender_model.dart';
 import 'package:movies/src/models/movie_model.dart';
 import 'package:movies/src/providers/movie_provider.dart';
@@ -9,17 +8,16 @@ import 'package:movies/src/widgets/card_swiper_widget.dart';
 import 'package:movies/src/widgets/loading_data_widget.dart';
 import 'package:movies/src/widgets/page_view_section_widget.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final moviesProvider = MovieProvider();
-  /*
-  now_playing
-  popular
-  upcoming
-  top_rated
-   */
-  final pupularBloc = new MovieSectionBloc('popular');
-  final topRatedBloc = new MovieSectionBloc('top_rated');
-  //final upcomingBloc = new  MovieSectionBloc('upcoming');
+  MoviePopularBloc pupularBloc;
+  MovieTopRatedBloc topRatedBloc;
+  MovieUpcomingBloc upcomingBloc;
 
   List<MovieGenre> allMovieGenres = [];
   Size _screenSize;
@@ -27,12 +25,6 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _screenSize = MediaQuery.of(context).size;
-    // Llamar a la primera página del las peliculas populares
-    pupularBloc.getNextPage().then((value) {
-      topRatedBloc.getNextPage();
-    });
-    //upcomingBloc.getNextPage();
-
     moviesProvider.getGenreList().then((x) {
       allMovieGenres = x;
       print('${allMovieGenres.length} Movie Genderes Loaded');
@@ -48,11 +40,11 @@ class HomePage extends StatelessWidget {
         duration: Duration(milliseconds: 600),
         child: _buildTopRated(context),
       ),
-      /*
       FadeInUp(
         duration: Duration(milliseconds: 600),
         child: _buildUpcoming(context),
       ),
+      /*
        */
     ];
     return CustomScrollView(
@@ -87,32 +79,43 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _buildPopulars(BuildContext context) {
+    MoviePopularBloc pupularBloc = MoviePopularBloc();
     final res = PageViewSection(
       titleSection: 'Populares',
-      bloc: pupularBloc,
+      moviesStream: pupularBloc.moviesStream,
+      sinkNextPage: pupularBloc.getNextPage,
       args: {'movieGenres': allMovieGenres},
     );
     return res;
   }
 
   Widget _buildTopRated(BuildContext context) {
+    topRatedBloc = MovieTopRatedBloc();
     final res = PageViewSection(
       titleSection: 'Mejor calificadas',
-      bloc: topRatedBloc,
+      moviesStream: topRatedBloc.moviesStream,
+      sinkNextPage: topRatedBloc.getNextPage,
       args: {'movieGenres': allMovieGenres},
     );
     return res;
   }
 
-/*
-  
   Widget _buildUpcoming(BuildContext context) {
+    upcomingBloc = MovieUpcomingBloc();
     final res = PageViewSection(
       titleSection: 'Próximamente',
-      bloc: upcomingBloc,
+      moviesStream: upcomingBloc.moviesStream,
+      sinkNextPage: upcomingBloc.getNextPage,
       args: {'movieGenres': allMovieGenres},
     );
     return res;
   }
- */
+
+  @override
+  void dispose() {
+    this.pupularBloc?.dispose();
+    this.topRatedBloc?.dispose();
+    this.upcomingBloc?.dispose();
+    super.dispose();
+  }
 }

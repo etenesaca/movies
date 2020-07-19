@@ -1,17 +1,20 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/common/extras.dart';
-import 'package:movies/src/bloc/movie_popular_bloc.dart';
 import 'package:movies/src/models/movie_model.dart';
 import 'package:movies/src/widgets/loading_data_widget.dart';
 
 class PageViewSection extends StatefulWidget {
   final String titleSection;
-  final MovieSectionBloc bloc;
+  final Stream<List<Movie>> moviesStream;
+  final Function() sinkNextPage;
   final Map<String, dynamic> args;
 
   PageViewSection(
-      {@required this.titleSection, @required this.bloc, @required this.args});
+      {@required this.titleSection,
+      @required this.moviesStream,
+      @required this.sinkNextPage,
+      @required this.args});
 
   @override
   _PageViewSectionState createState() => _PageViewSectionState();
@@ -26,10 +29,11 @@ class _PageViewSectionState extends State<PageViewSection> {
     _screenSize = MediaQuery.of(context).size;
     _pageController = PageController(initialPage: 1, viewportFraction: 0.375);
 
+    widget.sinkNextPage();
     _pageController.addListener(() {
       if (_pageController.position.pixels >=
           _pageController.position.maxScrollExtent - 200) {
-        widget.bloc.getNextPage();
+        widget.sinkNextPage();
       }
     });
 
@@ -81,7 +85,7 @@ class _PageViewSectionState extends State<PageViewSection> {
 
   Widget _getStreamData(BuildContext context) {
     return StreamBuilder(
-        stream: widget.bloc.moviesStream,
+        stream: widget.moviesStream,
         builder: (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
           if (!snapshot.hasData) {
             return Padding(
@@ -140,6 +144,6 @@ class _PageViewSectionState extends State<PageViewSection> {
   @override
   void dispose() {
     super.dispose();
-    widget.bloc.disposeStream();
+    //widget.bloc.disposeStream();
   }
 }
