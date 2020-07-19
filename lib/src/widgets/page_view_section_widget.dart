@@ -5,14 +5,26 @@ import 'package:movies/src/bloc/movie_popular_bloc.dart';
 import 'package:movies/src/models/movie_model.dart';
 import 'package:movies/src/widgets/loading_data_widget.dart';
 
-class PageViewSection extends StatelessWidget {
+class PageViewSection extends StatefulWidget {
   final MoviePopularBloc bloc;
   final Map<String, dynamic> args;
 
   PageViewSection({@required this.bloc, @required this.args});
 
+  @override
+  _PageViewSectionState createState() => _PageViewSectionState();
+}
+
+class _PageViewSectionState extends State<PageViewSection> {
   Size _screenSize;
+
   PageController _pageController;
+
+  @override
+  void dispose() {
+    super.dispose();
+    widget.bloc.disposeStream();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +34,7 @@ class PageViewSection extends StatelessWidget {
     _pageController.addListener(() {
       if (_pageController.position.pixels >=
           _pageController.position.maxScrollExtent - 200) {
-        bloc.getNextPage();
+        widget.bloc.getNextPage();
       }
     });
 
@@ -60,8 +72,10 @@ class PageViewSection extends StatelessWidget {
     );
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, 'movie_detail',
-            arguments: {'movie': movie, 'movieGenres': args['movieGenres']});
+        Navigator.pushNamed(context, 'movie_detail', arguments: {
+          'movie': movie,
+          'movieGenres': widget.args['movieGenres']
+        });
       },
       child: ZoomIn(
         delay: Duration(microseconds: 100),
@@ -72,7 +86,7 @@ class PageViewSection extends StatelessWidget {
 
   Widget _getStreamData(BuildContext context) {
     return StreamBuilder(
-        stream: bloc.popularesStream,
+        stream: widget.bloc.popularesStream,
         builder: (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
           if (!snapshot.hasData) {
             return Padding(
