@@ -14,9 +14,11 @@ class HomePage extends StatelessWidget {
   final pupularBloc = MoviePopularBloc();
 
   List<MovieGenre> allMovieGenres = [];
+  Size _screenSize;
 
   @override
   Widget build(BuildContext context) {
+    _screenSize = MediaQuery.of(context).size;
     // Llamar a la primera página del las peliculas populares
     pupularBloc.getNextPage();
 
@@ -25,6 +27,17 @@ class HomePage extends StatelessWidget {
       print('${allMovieGenres.length} Movie Genderes Loaded');
     });
 
+    List<Widget> sections = [
+      _buildNowPlayingSection(context),
+      FadeInUp(
+        duration: Duration(milliseconds: 600),
+        child: _buildPopularSection(context),
+      ),
+      FadeInUp(
+        duration: Duration(milliseconds: 600),
+        child: _buildPopularSection(context),
+      ),
+    ];
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -34,7 +47,7 @@ class HomePage extends StatelessWidget {
         ),
         centerTitle: true,
         elevation: 0,
-        backgroundColor: Colors.pinkAccent,
+        backgroundColor: Color.fromRGBO(24, 33, 46, 1.0),
         actions: <Widget>[
           IconButton(
               icon: Icon(Icons.search),
@@ -45,26 +58,27 @@ class HomePage extends StatelessWidget {
               }),
         ],
       ),
-      body: Stack(
-        children: <Widget>[
-          _buildBackground(context),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              _buildNowPlayingSection(context),
-              FadeInUp(
-                duration: Duration(milliseconds: 600),
-                child: _buildPopularSection(context),
-              ),
-            ],
-          )
-        ],
+      body: Container(
+        child: Stack(
+          children: <Widget>[
+            _buildBackground(context),
+            CustomScrollView(
+              slivers: <Widget>[
+                SliverList(
+                  delegate: SliverChildListDelegate(sections),
+                ),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildNowPlayingSection(BuildContext context) {
-    return FutureBuilder(
+    final _cardHeight = _screenSize.height * 0.55;
+
+    final res = FutureBuilder(
         future: moviesProvider.getMoviesNowPlaying(),
         builder: (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
           if (!snapshot.hasData) {
@@ -76,6 +90,11 @@ class HomePage extends StatelessWidget {
                   movies: snapshot.data,
                   args: {'movieGenres': allMovieGenres}));
         });
+    return Container(
+      height: _cardHeight,
+      padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 6),
+      child: res,
+    );
   }
 
   Widget _buildPopularCards(BuildContext context) {
@@ -99,11 +118,18 @@ class HomePage extends StatelessWidget {
   Widget _buildPopularSection(BuildContext context) {
     final radiusCorners = Radius.circular(25.0);
     final boxStyle = BoxDecoration(
-        color: Colors.white,
+        //color: Colors.white,
         borderRadius:
             BorderRadius.only(topRight: radiusCorners, topLeft: radiusCorners));
+    Widget headerSection = Row(
+      children: <Widget>[
+        Text('Más populares',
+            style: TextStyle(
+                fontWeight: FontWeight.bold, color: Colors.white, fontSize: 16))
+      ],
+    );
     return Padding(
-      padding: EdgeInsets.only(bottom: 10.0),
+      padding: EdgeInsets.only(bottom: 1.0),
       child: Container(
         width: double.infinity,
         decoration: boxStyle,
@@ -111,11 +137,8 @@ class HomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.only(left: 20.0, top: 8.0, bottom: 10.0),
-              child: Text('Más populares',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.purple[900])),
-            ),
+                padding: EdgeInsets.only(left: 20.0, top: 15.0, bottom: 15.0),
+                child: headerSection),
             Padding(
               padding: EdgeInsets.only(left: 3, right: 3),
               child: _buildPopularCards(context),
@@ -135,9 +158,10 @@ class HomePage extends StatelessWidget {
               begin: FractionalOffset(.0, 0.5),
               end: FractionalOffset(0.0, 1.0),
               colors: [
-            Colors.pinkAccent,
-            Color.fromRGBO(168, 0, 223, 1.0),
-            Color.fromRGBO(112, 0, 223, 1.0),
+            Color.fromRGBO(24, 33, 46, 1.0),
+            Color.fromRGBO(24, 33, 46, 1.0),
+            Color.fromRGBO(37, 51, 72, 1.0),
+            Color.fromRGBO(57, 79, 111, 1.0),
           ])),
     );
   }

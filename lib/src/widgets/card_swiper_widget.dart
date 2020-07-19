@@ -21,10 +21,12 @@ class CardSwiper extends StatelessWidget {
     _cardHeight = _screenSize.height * 0.45;
     return Container(
       child: Swiper(
-        layout: SwiperLayout.STACK,
-        itemWidth: _cardWidth,
-        itemHeight: _cardHeight,
+        //layout: SwiperLayout.STACK,
+        //itemHeight: _cardHeight,
         itemCount: movies.length,
+        itemWidth: _cardWidth,
+        viewportFraction: .67,
+        scale: .75,
         itemBuilder: (BuildContext context, int index) {
           Movie movie = movies[index];
           return Stack(

@@ -38,14 +38,13 @@ class PageViewPopulars extends StatelessWidget {
     );
   }
 
-  Widget buildStart() {}
-
   Widget _buildCard(BuildContext context, Movie movie) {
     final posterCropped = Extras()
-        .buildPosterImg(movie.getPosterImgUrl(), 185.0, 120.0, corners: 5);
+        .buildPosterImg(movie.getPosterImgUrl(), 175.0, 110.0, corners: 5);
     String movie_title = movie.title.length > 28
         ? '${movie.title.substring(0, 28)}...'
         : movie.title;
+    final textStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 11, color: Colors.white70);
     final details = Container(
       padding: EdgeInsets.only(left: 5, right: 5, top: 8),
       child: Column(
@@ -55,9 +54,7 @@ class PageViewPopulars extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: Extras().buildstarts(movie.voteAverage / 2, 5)),
           SizedBox(height: 2.0),
-          Text(movie_title,
-              overflow: TextOverflow.fade,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11)),
+          Text(movie_title, overflow: TextOverflow.fade, style: textStyle),
         ],
       ),
     );
