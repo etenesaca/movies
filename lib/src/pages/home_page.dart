@@ -54,57 +54,12 @@ class HomePage extends StatelessWidget {
       ),
        */
     ];
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'En Cines',
-          style:
-              TextStyle(fontFamily: 'RussoOne', fontWeight: FontWeight.normal),
+    return CustomScrollView(
+      slivers: <Widget>[
+        SliverList(
+          delegate: SliverChildListDelegate(sections),
         ),
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: Color.fromRGBO(24, 33, 46, 1.0),
-        actions: <Widget>[
-          IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () {
-                showSearch(
-                    context: context,
-                    delegate: MovieSearch(movieGenres: allMovieGenres));
-              }),
-        ],
-      ),
-      body: Container(
-        child: Stack(
-          children: <Widget>[
-            _buildBackground(context),
-            CustomScrollView(
-              slivers: <Widget>[
-                SliverList(
-                  delegate: SliverChildListDelegate(sections),
-                ),
-              ],
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-  _buildBackground(BuildContext context) {
-    return Container(
-      height: double.infinity,
-      width: double.infinity,
-      decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: FractionalOffset(.0, 0.5),
-              end: FractionalOffset(0.0, 1.0),
-              colors: [
-            Color.fromRGBO(24, 33, 46, 1.0),
-            Color.fromRGBO(24, 33, 46, 1.0),
-            Color.fromRGBO(37, 51, 72, 1.0),
-            Color.fromRGBO(57, 79, 111, 1.0),
-          ])),
+      ],
     );
   }
 

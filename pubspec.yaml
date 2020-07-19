@@ -32,6 +32,7 @@ dependencies:
   http: ^0.12.1
   animate_do:
   circular_profile_avatar: ^1.0.6
+  curved_navigation_bar: ^0.3.3
   
 dev_dependencies:
   flutter_test:
