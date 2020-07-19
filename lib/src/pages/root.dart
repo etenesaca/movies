@@ -72,28 +72,11 @@ class _RootPageState extends State<RootPage> {
         elevation: 0,
         backgroundColor: mainColor,
       ),
-      body: _children[_page],
-      /**
-       * 
-      body: Container(
-        color: Colors.blueAccent,
-        child: Center(
-          child: Column(
-            children: <Widget>[
-              Text(_page.toString(), textScaleFactor: 10.0),
-              RaisedButton(
-                child: Text('Go To Page of index 1'),
-                onPressed: () {
-                  final CurvedNavigationBarState navBarState =
-                      _bottomNavigationKey.currentState;
-                  navBarState.setPage(1);
-                },
-              )
-            ],
-          ),
-        ),
+      //body: _children[_page],
+      body: IndexedStack(
+        children: _children,
+        index: _page,
       ),
-       */
       bottomNavigationBar: CurvedNavigationBar(
         key: _bottomNavigationKey,
         index: 0,
@@ -105,7 +88,7 @@ class _RootPageState extends State<RootPage> {
           Icon(Icons.settings, size: 25, color: Colors.orangeAccent),
         ],
         color: mainColor,
-        buttonBackgroundColor: mainColor,        
+        buttonBackgroundColor: mainColor,
         backgroundColor: Color.fromRGBO(57, 79, 111, 1.0),
         animationCurve: Curves.easeInOut,
         animationDuration: Duration(milliseconds: 400),
