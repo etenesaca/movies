@@ -28,8 +28,9 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     _screenSize = MediaQuery.of(context).size;
     // Llamar a la primera página del las peliculas populares
-    pupularBloc.getNextPage();
-    topRatedBloc.getNextPage();
+    pupularBloc.getNextPage().then((value) {
+      topRatedBloc.getNextPage();
+    });
     //upcomingBloc.getNextPage();
 
     moviesProvider.getGenreList().then((x) {
@@ -64,7 +65,7 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _buildNowPlayingSection(BuildContext context) {
-    final _cardHeight = _screenSize.height * 0.55;
+    final _cardHeight = _screenSize.height * 0.50;
 
     final res = FutureBuilder(
         future: moviesProvider.getMoviesNowPlaying(),

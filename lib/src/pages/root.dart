@@ -1,3 +1,4 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/src/pages/home_page.dart';
 
@@ -7,8 +8,11 @@ class RootPage extends StatefulWidget {
 }
 
 class _RootPageState extends State<RootPage> {
-  String tapTitle;
-  int _currentIndex = 0;
+  String tapTitle = 'En cines';
+  Color mainColor = Color.fromRGBO(24, 33, 46, 1.0);
+
+  int _page = 0;
+  GlobalKey _bottomNavigationKey = GlobalKey();
 
   Widget getSearch() {
     tapTitle = 'Buscar';
@@ -37,7 +41,7 @@ class _RootPageState extends State<RootPage> {
               begin: FractionalOffset(.0, 0.5),
               end: FractionalOffset(0.0, 1.0),
               colors: [
-            Color.fromRGBO(24, 33, 46, 1.0),
+            mainColor,
             Color.fromRGBO(24, 33, 46, 1.0),
             Color.fromRGBO(37, 51, 72, 1.0),
             Color.fromRGBO(57, 79, 111, 1.0),
@@ -52,45 +56,64 @@ class _RootPageState extends State<RootPage> {
       children: <Widget>[getBackground(context), HomePage()],
     ));
 
-    final List<Widget> _children = [
-      homeTap,
-      getSearch(),
-      getComingsoon()
-    ];
-
-    void onTabTapped(int index) {
-      _currentIndex = index;
-      setState(() {});
-    }
+    final List<Widget> _children = [homeTap, getSearch(), getComingsoon()];
 
     Widget textTitle = Text(
       tapTitle,
       style: TextStyle(fontFamily: 'RussoOne', fontWeight: FontWeight.normal),
     );
 
+    Color colorNavBar = Colors.blueGrey;
+
     return Scaffold(
       appBar: AppBar(
         title: textTitle,
         centerTitle: true,
         elevation: 0,
-        backgroundColor: Color.fromRGBO(24, 33, 46, 1.0),
+        backgroundColor: mainColor,
       ),
-      body: _children[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: onTabTapped, // new
-        currentIndex: _currentIndex, // new
-        items: [
-          new BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text('Home'),
+      body: _children[_page],
+      /**
+       * 
+      body: Container(
+        color: Colors.blueAccent,
+        child: Center(
+          child: Column(
+            children: <Widget>[
+              Text(_page.toString(), textScaleFactor: 10.0),
+              RaisedButton(
+                child: Text('Go To Page of index 1'),
+                onPressed: () {
+                  final CurvedNavigationBarState navBarState =
+                      _bottomNavigationKey.currentState;
+                  navBarState.setPage(1);
+                },
+              )
+            ],
           ),
-          new BottomNavigationBarItem(
-            icon: Icon(Icons.mail),
-            title: Text('Messages'),
-          ),
-          new BottomNavigationBarItem(
-              icon: Icon(Icons.person), title: Text('Profile'))
+        ),
+      ),
+       */
+      bottomNavigationBar: CurvedNavigationBar(
+        key: _bottomNavigationKey,
+        index: 0,
+        height: 50.0,
+        items: <Widget>[
+          Icon(Icons.home, size: 25, color: Colors.orangeAccent),
+          Icon(Icons.search, size: 25, color: Colors.orangeAccent),
+          Icon(Icons.fiber_new, size: 25, color: Colors.orangeAccent),
+          Icon(Icons.settings, size: 25, color: Colors.orangeAccent),
         ],
+        color: mainColor,
+        buttonBackgroundColor: mainColor,        
+        backgroundColor: Color.fromRGBO(57, 79, 111, 1.0),
+        animationCurve: Curves.easeInOut,
+        animationDuration: Duration(milliseconds: 400),
+        onTap: (index) {
+          setState(() {
+            _page = index;
+          });
+        },
       ),
     );
   }
