@@ -73,7 +73,6 @@ class _PageViewSectionState extends State<PageViewSection> {
       onTap: () {
         Navigator.pushNamed(context, 'movie_detail', arguments: {
           'movie': movie,
-          'movieGenres': widget.args['movieGenres']
         });
       },
       child: ZoomIn(

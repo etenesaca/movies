@@ -1,7 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/src/bloc/movie_section_bloc.dart';
-import 'package:movies/src/models/gender_model.dart';
 import 'package:movies/src/models/movie_model.dart';
 import 'package:movies/src/providers/movie_provider.dart';
 import 'package:movies/src/widgets/card_swiper_widget.dart';
@@ -9,11 +8,8 @@ import 'package:movies/src/widgets/loading_data_widget.dart';
 import 'package:movies/src/widgets/page_view_section_widget.dart';
 
 class HomePage extends StatefulWidget {
-  List<MovieGenre> movieGenres = [];
-  HomePage({@required this.movieGenres});
-
   @override
-  _HomePageState createState() => _HomePageState(movieGenres: movieGenres);
+  _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
@@ -23,8 +19,6 @@ class _HomePageState extends State<HomePage> {
   //MovieUpcomingBloc upcomingBloc;
 
   final moviesProvider = MovieProvider();
-  final List<MovieGenre> movieGenres;
-  _HomePageState({@required this.movieGenres});
 
   @override
   Widget build(BuildContext context) {
@@ -67,8 +61,7 @@ class _HomePageState extends State<HomePage> {
           }
           return Padding(
               padding: EdgeInsets.only(top: 25.0),
-              child: CardSwiper(
-                  movies: snapshot.data, args: {'movieGenres': movieGenres}));
+              child: CardSwiper(movies: snapshot.data, args: {}));
         });
     return Container(
       height: _cardHeight,
@@ -83,7 +76,7 @@ class _HomePageState extends State<HomePage> {
       titleSection: 'Populares',
       moviesStream: pupularBloc.moviesStream,
       sinkNextPage: pupularBloc.getNextPage,
-      args: {'movieGenres': movieGenres},
+      args: {},
     );
     return res;
   }
@@ -94,7 +87,7 @@ class _HomePageState extends State<HomePage> {
       titleSection: 'Mejor calificadas',
       moviesStream: topRatedBloc.moviesStream,
       sinkNextPage: topRatedBloc.getNextPage,
-      args: {'movieGenres': movieGenres},
+      args: {},
     );
     return res;
   }
@@ -106,7 +99,7 @@ class _HomePageState extends State<HomePage> {
       titleSection: 'Próximamente',
       moviesStream: upcomingBloc.moviesStream,
       sinkNextPage: upcomingBloc.getNextPage,
-      args: {'movieGenres': allMovieGenres},
+      args: {},
     );
     return res;
   }

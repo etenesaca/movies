@@ -1,20 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:movies/common/debouncer.dart';
 import 'package:movies/common/extras.dart';
-import 'package:movies/src/models/gender_model.dart';
 import 'package:movies/src/models/movie_model.dart';
 import 'package:movies/src/providers/movie_provider.dart';
 
 class MovieSearch extends SearchDelegate {
   final debouncer = Debouncer();
   final movieProvider = MovieProvider();
-  List<MovieGenre> movieGenres = List<MovieGenre>();
-
-  MovieSearch({@required this.movieGenres}) {
-    if (movieGenres == null) {
-      movieGenres = List<MovieGenre>();
-    }
-  }
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -64,7 +56,7 @@ class MovieSearch extends SearchDelegate {
       onTap: () {
         close(context, null);
         Navigator.pushNamed(context, 'movie_detail',
-            arguments: {'movie': movie, 'movieGenres': movieGenres});
+            arguments: {'movie': movie});
       },
     );
   }

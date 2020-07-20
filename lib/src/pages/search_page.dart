@@ -6,9 +6,6 @@ import 'package:movies/src/models/movie_model.dart';
 import 'package:provider/provider.dart';
 
 class SearchPage extends StatelessWidget {
-  final List<MovieGenre> movieGenres;
-  SearchPage({@required this.movieGenres});
-
   @override
   Widget build(BuildContext context) {
     Widget txtField = TextField(
@@ -113,7 +110,7 @@ class SearchPage extends StatelessWidget {
       onTap: () {
         //close(context, null);
         Navigator.pushNamed(context, 'movie_detail',
-            arguments: {'movie': movie, 'movieGenres': movieGenres});
+            arguments: {'movie': movie});
       },
     );
   }

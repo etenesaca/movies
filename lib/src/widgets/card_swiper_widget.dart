@@ -47,7 +47,7 @@ class CardSwiper extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(context, 'movie_detail',
-            arguments: {'movie': movie, 'movieGenres': args['movieGenres']});
+            arguments: {'movie': movie});
       },
       child: Hero(tag: movie.idHero, child: posterCropped),
     );

@@ -4,11 +4,13 @@ import 'package:movies/common/extras.dart';
 import 'package:movies/src/models/actor_model.dart';
 import 'package:movies/src/models/gender_model.dart';
 import 'package:movies/src/models/movie_model.dart';
+import 'package:movies/src/providers/global_provider.dart';
 import 'package:movies/src/providers/movie_provider.dart';
 import 'package:movies/src/widgets/actors_widget.dart';
 import 'package:movies/src/widgets/card_swiper_backdrops_widget.dart';
 import 'package:movies/src/widgets/loading_data_widget.dart';
 //import 'package:movies/src/widgets/chip_widget.dart';
+import 'package:provider/provider.dart';
 import 'package:movies/src/widgets/sliver_movie_poster_widget.dart';
 
 class MovieDetailPage extends StatelessWidget {
@@ -20,7 +22,6 @@ class MovieDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final Map<String, dynamic> args = ModalRoute.of(context).settings.arguments;
     final Movie movie = args['movie'];
-    final List<MovieGenre> movieGenres = args['movieGenres'];
 
     _screenSize = MediaQuery.of(context).size;
 
@@ -42,7 +43,8 @@ class MovieDetailPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   _buildSectionRating(context, movie),
-                  _buildSectionGenres(context, movie, movieGenres),
+                  _buildSectionGenres(context, movie,
+                      context.watch<GlobalProvider>().allMovieGenres),
                   _buildSectionDescription(context, movie),
                   _buildSectionDatesVotes(context, movie),
                   _buildSectionImages(context, movie),

@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:movies/src/models/gender_model.dart';
 import 'package:movies/src/pages/home_page.dart';
 import 'package:movies/src/pages/search_page.dart';
+import 'package:movies/src/providers/global_provider.dart';
 import 'package:movies/src/providers/movie_provider.dart';
+import 'package:provider/provider.dart';
 
 class RootPage extends StatefulWidget {
   @override
@@ -14,7 +16,6 @@ class _RootPageState extends State<RootPage> with WidgetsBindingObserver {
   String tabTitle = 'En cines';
   Color mainColor = Color.fromRGBO(24, 33, 46, 1.0);
   final moviesProvider = MovieProvider();
-  List<MovieGenre> allMovieGenres = [];
 
   int _page = 0;
   GlobalKey _bottomNavigationKey = GlobalKey();
@@ -26,7 +27,7 @@ class _RootPageState extends State<RootPage> with WidgetsBindingObserver {
           child: Stack(
         children: <Widget>[
           getBackground(context),
-          HomePage(movieGenres: allMovieGenres)
+          HomePage()
         ],
       ));
     }
@@ -39,8 +40,8 @@ class _RootPageState extends State<RootPage> with WidgetsBindingObserver {
       _searchTab = Container(
           child: Stack(
         children: <Widget>[
-          getBackground(context),        
-          SearchPage(movieGenres: allMovieGenres)
+          getBackground(context),
+          SearchPage()
         ],
       ));
     }
@@ -97,11 +98,9 @@ class _RootPageState extends State<RootPage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    moviesProvider.getGenreList().then((x) {
-      allMovieGenres = x;
-      print('${allMovieGenres.length} Movie Genderes Loaded');
-    });
-
+    if (context.watch<GlobalProvider>().allMovieGenres.length == 0) {
+      Provider.of<GlobalProvider>(context).loadMovieGenders();
+    }
     final List<Widget> _children = [
       getHomeTab(),
       getSearchTab(),
