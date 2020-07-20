@@ -25,7 +25,7 @@ class Extras {
   }
 
   Widget buildPosterImg(String urlImage, double imgHeight, double imgWidth,
-      {double corners = 10, assetImgName='placeholder-dark-2.png'}) {
+      {double corners = 10, assetImgName = 'placeholder-dark-2.png'}) {
     return ClipRRect(
         borderRadius: BorderRadius.circular(corners),
         child: FadeInImage(
@@ -35,5 +35,18 @@ class Extras {
           height: imgHeight,
           width: imgWidth,
         ));
+  }
+
+  Widget buildPlaceholderImg(double imgHeight, double imgWidth,
+      {double corners = 10, assetImgName = 'placeholder-dark-2.png'}) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(corners),
+      child: Image.asset(
+        'assets/img/$assetImgName',
+        fit: BoxFit.cover,
+        height: imgHeight,
+        width: imgWidth,
+      ),
+    );
   }
 }

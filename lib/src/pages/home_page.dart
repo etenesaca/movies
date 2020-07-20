@@ -9,26 +9,26 @@ import 'package:movies/src/widgets/loading_data_widget.dart';
 import 'package:movies/src/widgets/page_view_section_widget.dart';
 
 class HomePage extends StatefulWidget {
+  List<MovieGenre> movieGenres = [];
+  HomePage({@required this.movieGenres});
+
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomePageState createState() => _HomePageState(movieGenres: movieGenres);
 }
 
 class _HomePageState extends State<HomePage> {
-  final moviesProvider = MovieProvider();
+  Size _screenSize;
   MoviePopularBloc pupularBloc;
   MovieTopRatedBloc topRatedBloc;
-  MovieUpcomingBloc upcomingBloc;
+  //MovieUpcomingBloc upcomingBloc;
 
-  List<MovieGenre> allMovieGenres = [];
-  Size _screenSize;
+  final moviesProvider = MovieProvider();
+  final List<MovieGenre> movieGenres;
+  _HomePageState({@required this.movieGenres});
 
   @override
   Widget build(BuildContext context) {
     _screenSize = MediaQuery.of(context).size;
-    moviesProvider.getGenreList().then((x) {
-      allMovieGenres = x;
-      print('${allMovieGenres.length} Movie Genderes Loaded');
-    });
 
     List<Widget> sections = [
       _buildNowPlayingSection(context),
@@ -40,12 +40,12 @@ class _HomePageState extends State<HomePage> {
         duration: Duration(milliseconds: 600),
         child: _buildTopRated(context),
       ),
+      /* 
       FadeInUp(
         duration: Duration(milliseconds: 600),
         child: _buildUpcoming(context),
       ),
-      /*
-       */
+      */
     ];
     return CustomScrollView(
       slivers: <Widget>[
@@ -68,8 +68,7 @@ class _HomePageState extends State<HomePage> {
           return Padding(
               padding: EdgeInsets.only(top: 25.0),
               child: CardSwiper(
-                  movies: snapshot.data,
-                  args: {'movieGenres': allMovieGenres}));
+                  movies: snapshot.data, args: {'movieGenres': movieGenres}));
         });
     return Container(
       height: _cardHeight,
@@ -84,7 +83,7 @@ class _HomePageState extends State<HomePage> {
       titleSection: 'Populares',
       moviesStream: pupularBloc.moviesStream,
       sinkNextPage: pupularBloc.getNextPage,
-      args: {'movieGenres': allMovieGenres},
+      args: {'movieGenres': movieGenres},
     );
     return res;
   }
@@ -95,11 +94,12 @@ class _HomePageState extends State<HomePage> {
       titleSection: 'Mejor calificadas',
       moviesStream: topRatedBloc.moviesStream,
       sinkNextPage: topRatedBloc.getNextPage,
-      args: {'movieGenres': allMovieGenres},
+      args: {'movieGenres': movieGenres},
     );
     return res;
   }
 
+  /*
   Widget _buildUpcoming(BuildContext context) {
     upcomingBloc = MovieUpcomingBloc();
     final res = PageViewSection(
@@ -110,12 +110,13 @@ class _HomePageState extends State<HomePage> {
     );
     return res;
   }
+   */
 
   @override
   void dispose() {
     this.pupularBloc?.dispose();
     this.topRatedBloc?.dispose();
-    this.upcomingBloc?.dispose();
+    //this.upcomingBloc?.dispose();
     super.dispose();
   }
 }
