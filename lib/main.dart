@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies/src/providers/global_provider.dart';
 import 'package:movies/src/providers/search_provider.dart';
 import 'package:movies/src/pages/home_page.dart';
 import 'package:movies/src/pages/movie_detail_page.dart';
@@ -14,6 +15,8 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider<SearchMovieProvider>(
               create: (_) => SearchMovieProvider()),
+          ChangeNotifierProvider<GlobalProvider>(
+              create: (_) => GlobalProvider())
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
