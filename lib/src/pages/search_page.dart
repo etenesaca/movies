@@ -4,11 +4,10 @@ import 'package:movies/src/models/movie_model.dart';
 import 'package:provider/provider.dart';
 
 class SearchPage extends StatelessWidget {
-  void callSearch() {}
-
   @override
   Widget build(BuildContext context) {
     Widget txtField = TextField(
+      controller: context.watch<SearchMovieProvider>().txtSearchController,
       onChanged: (query) =>
           context.read<SearchMovieProvider>().onChangeText(query),
       style: TextStyle(
@@ -22,17 +21,14 @@ class SearchPage extends StatelessWidget {
               Icons.clear,
               color: Colors.white,
             ),
-            onPressed: () {
-              callSearch();
-            }),
+            onPressed: () =>
+                context.read<SearchMovieProvider>().clearInputField()),
         prefixIcon: IconButton(
             icon: Icon(
               Icons.search,
               color: Colors.white,
             ),
-            onPressed: () {
-              callSearch();
-            }),
+            onPressed: () {}),
         fillColor: Colors.white,
         focusColor: Colors.white,
       ),

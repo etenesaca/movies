@@ -11,10 +11,10 @@ class SearchMovieProvider with ChangeNotifier, DiagnosticableTreeMixin {
   List<Movie> _movies = [];
   List<Movie> get movies => _movies;
 
-  bool _loading = false;
-  bool get loading => _loading;
+  bool loading = false;
 
   void onChangeText(String query) {
+    query = query.trim().toLowerCase();
     _debouncer.run(() {
       if (query.isNotEmpty && query.trim().length > 2) {
         requestSearch(query);
@@ -22,14 +22,21 @@ class SearchMovieProvider with ChangeNotifier, DiagnosticableTreeMixin {
     });
   }
 
+  TextEditingController txtSearchController = TextEditingController();
+  void clearInputField() {
+    txtSearchController.clear();
+    _movies = [];
+    notifyListeners();
+  }
+
   void requestSearch(String query) async {
-    _loading = true;
+    loading = true;
     notifyListeners();
 
     _movies = await _movieProvider.getMoviesByName(query);
     print('Buscando: $query - Resultados. (${movies.length})');
 
-    _loading = false;
+    loading = false;
     notifyListeners();
   }
 }
