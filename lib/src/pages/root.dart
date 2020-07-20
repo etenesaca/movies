@@ -1,13 +1,14 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/src/pages/home_page.dart';
+import 'package:movies/src/pages/search_page.dart';
 
 class RootPage extends StatefulWidget {
   @override
   _RootPageState createState() => _RootPageState();
 }
 
-class _RootPageState extends State<RootPage> {
+class _RootPageState extends State<RootPage> with WidgetsBindingObserver {
   String tabTitle = 'En cines';
   Color mainColor = Color.fromRGBO(24, 33, 46, 1.0);
 
@@ -29,8 +30,8 @@ class _RootPageState extends State<RootPage> {
   Widget getSearchTab() {
     if (_searchTab == null) {
       _searchTab = Container(
-          child: Center(
-        child: Text('Buscar'),
+          child: Stack(
+        children: <Widget>[getBackground(context), SearchPage()],
       ));
     }
     return _searchTab;
@@ -124,7 +125,7 @@ class _RootPageState extends State<RootPage> {
         buttonBackgroundColor: mainColor,
         backgroundColor: Color.fromRGBO(57, 79, 111, 1.0),
         animationCurve: Curves.easeInOut,
-        animationDuration: Duration(milliseconds: 400),
+        animationDuration: Duration(milliseconds: 350),
         onTap: (index) {
           setState(() {
             _page = index;
