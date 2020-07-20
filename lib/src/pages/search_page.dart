@@ -108,7 +108,7 @@ class SearchPage extends StatelessWidget {
       ),
       leading: Padding(
         padding: EdgeInsets.symmetric(vertical: 5),
-        child: poster,
+        child: Hero(tag: movie.idHero, child: poster),
       ),
       onTap: () {
         //close(context, null);
