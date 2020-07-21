@@ -20,9 +20,9 @@ class ActorWidget extends StatelessWidget {
   }
 
   Widget _buildActorItem(Actor actor) {
-    final textShadow = BoxShadow(
+    final styleShadow = BoxShadow(
       color: Colors.black.withOpacity(0.9),
-      spreadRadius: 5,
+      spreadRadius: 1,
       blurRadius: 15,
       offset: Offset(3, 3), // changes position of shadow
     );
@@ -57,6 +57,15 @@ class ActorWidget extends StatelessWidget {
       radius: 30,
       backgroundColor: avatarColor,
       child: actorPhoto,
+    );
+
+
+    avatar = Container(
+      decoration: BoxDecoration(
+        boxShadow: [styleShadow],
+        shape: BoxShape.circle,
+      ),
+      child: avatar,
     );
 
     avatar = ZoomIn(child: avatar, duration: Duration(milliseconds: 800));

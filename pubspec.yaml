@@ -34,6 +34,7 @@ dependencies:
   circular_profile_avatar: ^1.0.6
   curved_navigation_bar: ^0.3.3
   provider: ^4.3.1
+  page_transition: "^1.1.5"
   
 dev_dependencies:
   flutter_test:
