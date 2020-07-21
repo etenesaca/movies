@@ -46,11 +46,15 @@ class SearchPage extends StatelessWidget {
         ),
         SizedBox(height: 8),
         Expanded(
-            child: _buildResults(context.watch<SearchMovieProvider>().movies)),
+            child: _buildResults(
+                context, context.watch<SearchMovieProvider>().movies)),
         if (context.watch<SearchMovieProvider>().loading)
           Center(
             child: Center(
-              child: CircularProgressIndicator(),
+              child: Padding(
+                padding: EdgeInsets.all(20),
+                child: CircularProgressIndicator(),
+              ),
             ),
           ),
       ],
@@ -58,13 +62,35 @@ class SearchPage extends StatelessWidget {
     return resList;
   }
 
-  Widget _buildResults(List<Movie> movies) {
+  Widget _buildResults(BuildContext context, List<Movie> movies) {
+    if (context.watch<SearchMovieProvider>().noHasResults) {
+      return _buildNoHasResult();
+    }
     Widget res = ListView.builder(
         itemCount: movies.length,
         itemBuilder: (BuildContext context, int index) {
           return _buildItem(context, movies[index]);
         });
     return res;
+  }
+
+  Widget _buildNoHasResult() {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 20),
+      child: Column(
+        children: <Widget>[
+          Text(
+            'No tenemos esta pelicula por ahora.',
+            style: TextStyle(
+                color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
+          ),
+          Text(
+            'Intenta buscar otra peli.',
+            style: TextStyle(color: Colors.white60, fontSize: 12),
+          )
+        ],
+      ),
+    );
   }
 
   Widget _buildItem(BuildContext context, Movie movie) {
