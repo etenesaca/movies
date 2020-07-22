@@ -1,11 +1,12 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/common/extras.dart';
+import 'package:movies/src/bloc/movie_section_bloc.dart';
 import 'package:movies/src/models/actor_model.dart';
 import 'package:movies/src/providers/movie_api.dart';
 import 'package:movies/src/widgets/card_swiper_backdrops_widget.dart';
-import 'package:movies/src/widgets/chip_widget.dart';
 import 'package:movies/src/widgets/loading_data_widget.dart';
+import 'package:movies/src/widgets/page_view_actor_movies_widget.dart';
 
 class ActorPage extends StatelessWidget {
   MovieProvider movieApi = MovieProvider();
@@ -98,8 +99,10 @@ class ActorPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: mainColor,
-      body: Column(
-        children: <Widget>[poster, _buildInfo(actor)],
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[poster, _buildInfo(actor)],
+        ),
       ),
     );
   }
@@ -126,6 +129,7 @@ class ActorPage extends StatelessWidget {
                       ),
                 _buildBith(actor),
                 _buildSectionImages(context, actor),
+                _buildMovieRelateds(context, actor),
               ],
             ));
       },
@@ -216,7 +220,7 @@ class ActorPage extends StatelessWidget {
   }
 
   _buildSectionImages(BuildContext context, Actor actor) {
-    final images_cards = FutureBuilder(
+    final imagesCards = FutureBuilder(
         future: MovieProvider().getActorImagesList(actor.id),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.hasData) {
@@ -228,7 +232,15 @@ class ActorPage extends StatelessWidget {
     return Container(
       height: 150,
       padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 6),
-      child: images_cards,
+      child: imagesCards,
     );
+  }
+
+  Widget _buildMovieRelateds(BuildContext context, Actor actor) {
+    final res = PageViewMovieSection(
+      titleSection: 'Peliculas en las que aparece',
+      actor: actor,
+    );
+    return res;
   }
 }

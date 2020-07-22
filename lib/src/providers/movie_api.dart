@@ -23,12 +23,15 @@ class MovieProvider {
   }
 
   Future<List<Movie>> _getMoviesData(String apiUrl,
-      {String callFrom = 'x', int page, String query}) async {
+      {String callFrom = 'x',
+      int page,
+      String query,
+      String key = 'results'}) async {
     Map<String, String> queryParameters = {};
     if (page != null) queryParameters['page'] = '$page';
     if (query != null) queryParameters['query'] = query;
     final resJsonData = await _getHttpData(apiUrl, queryParameters);
-    return Movies.fromJsonMap(resJsonData['results'], callFrom).items;
+    return Movies.fromJsonMap(resJsonData[key], callFrom).items;
   }
 
   Future<List<Movie>> getMoviesNowPlaying() async {
@@ -78,7 +81,13 @@ class MovieProvider {
   Future<List<Backdrop>> getActorImagesList(int actorId) async {
     Map<String, String> queryParameters = {'language': '$_language,null'};
     final resJsonData =
-        await _getHttpData('3/person/${actorId}/images', queryParameters);
+        await _getHttpData('3/person/$actorId/images', queryParameters);
     return Backdrops.fromJsonMap(resJsonData['profiles']).items;
+  }
+
+  // Obtener peliculas relacionadas a un actor
+  Future<List<Movie>> getActorMovies(int actorId) async {
+    return _getMoviesData('3/person/$actorId/movie_credits',
+        callFrom: 'actor_movie', key: 'cast');
   }
 }
