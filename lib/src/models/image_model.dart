@@ -28,11 +28,11 @@ class Backdrop {
   });
 
   Backdrop.fromJsonMap(Map<String, dynamic> json) {
-    aspectRatio = json['aspect_ratio'];
+    aspectRatio = json['aspect_ratio'] / 1;
     filePath = json['file_path'];
     height = json['height'];
     iso6391 = json['iso6391'];
-    voteAverage = json['vote_average'];
+    voteAverage = json['vote_average'] / 1;
     voteCount = json['vote_count'];
     width = json['width'];
   }
