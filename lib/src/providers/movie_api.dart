@@ -65,4 +65,12 @@ class MovieProvider {
     final resJsonData = await _getHttpData(apiUrl, queryParameters);
     return Cast.fromJsonMap(resJsonData['cast']).items;
   }
+
+  // Obtener los detalles de un actor
+  Future<Actor> getActorDetail(int actorId) async {
+    String apiUrl = '3/person/$actorId';
+    Map<String, String> queryParameters = {};
+    final resJsonData = await _getHttpData(apiUrl, queryParameters);
+    return Actor.fromJsonMap(resJsonData);
+  }
 }

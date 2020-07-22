@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:movies/src/models/movie_model.dart';
-import 'package:movies/src/providers/movie_provider.dart';
+import 'package:movies/src/providers/movie_api.dart';
 
 class MoviePopularBloc {
   final sectionName = 'popular';

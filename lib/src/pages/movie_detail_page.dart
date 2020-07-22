@@ -5,7 +5,7 @@ import 'package:movies/src/models/actor_model.dart';
 import 'package:movies/src/models/gender_model.dart';
 import 'package:movies/src/models/movie_model.dart';
 import 'package:movies/src/providers/global_provider.dart';
-import 'package:movies/src/providers/movie_provider.dart';
+import 'package:movies/src/providers/movie_api.dart';
 import 'package:movies/src/widgets/actors_widget.dart';
 import 'package:movies/src/widgets/card_swiper_backdrops_widget.dart';
 import 'package:movies/src/widgets/loading_data_widget.dart';
@@ -95,16 +95,7 @@ class MovieDetailPage extends StatelessWidget {
   }
 
   Widget _buildBoxGender(MovieGenre genre) {
-    final txtStyle = TextStyle(
-        fontWeight: FontWeight.bold, fontSize: 12.0, color: Colors.white);
-    return Container(
-      //margin: EdgeInsets.symmetric(horizontal: 3, vertical: 2),
-      padding: EdgeInsets.symmetric(vertical: 4, horizontal: 13),
-      decoration: BoxDecoration(
-          borderRadius: new BorderRadius.circular(30.0),
-          color: Colors.redAccent),
-      child: Text(genre.name, style: txtStyle),
-    );
+    return Extras().buildBoxTag(genre.name, Colors.redAccent);
   }
 
   _buildSectionGenres(
@@ -144,7 +135,7 @@ class MovieDetailPage extends StatelessWidget {
           Text(
             movie.overview,
             textAlign: TextAlign.justify,
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.white70),
           )
         ],
       ),
@@ -227,7 +218,10 @@ class MovieDetailPage extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
           child: Text('Actores',
               style: TextStyle(
-                  color: Colors.white10, fontSize: 60, fontWeight: FontWeight.bold, fontFamily: 'RussoOne')),
+                  color: Colors.white10,
+                  fontSize: 60,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'RussoOne')),
         ),
         res
       ],

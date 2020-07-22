@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/common/debouncer.dart';
 import 'package:movies/src/models/movie_model.dart';
-import 'package:movies/src/providers/movie_provider.dart';
+import 'package:movies/src/providers/movie_api.dart';
 
 class SearchMovieProvider with ChangeNotifier, DiagnosticableTreeMixin {
   final _debouncer = Debouncer();

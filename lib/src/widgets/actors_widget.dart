@@ -82,7 +82,7 @@ class ActorWidget extends StatelessWidget {
           Text(
             actor.name,
             style: TextStyle(
-                fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white),
+                fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white70),
             overflow: TextOverflow.clip,
           ),
           Text(

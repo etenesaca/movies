@@ -70,4 +70,18 @@ class Extras {
       decoration: BoxDecoration(gradient: Extras().getBackgroundGradientApp()),
     );
   }
+
+
+  Widget buildBoxTag(String label,Color color) {
+    final txtStyle = TextStyle(
+        fontWeight: FontWeight.bold, fontSize: 12.0, color: Colors.white);
+    return Container(
+      //margin: EdgeInsets.symmetric(horizontal: 3, vertical: 2),
+      padding: EdgeInsets.symmetric(vertical: 4, horizontal: 13),
+      decoration: BoxDecoration(
+          borderRadius: new BorderRadius.circular(30.0),
+          color: color),
+      child: Text(label, style: txtStyle),
+    );
+  }
 }
