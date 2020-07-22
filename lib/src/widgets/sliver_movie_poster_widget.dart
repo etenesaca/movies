@@ -91,13 +91,26 @@ class SliverMoviePoster extends SliverPersistentHeaderDelegate {
           fontSize: 18,
           shadows: [textShadow, textShadow, textShadow]),
     );
-
-    return AppBar(
+    Widget res = AppBar(
       backgroundColor: Colors.transparent,
       title: Container(
         child: text,
       ),
     );
+    return SafeArea(
+        child: Column(children: <Widget>[
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          IconButton(
+              icon: Icon(Icons.arrow_back, color: Colors.white),
+              onPressed: () {
+                Navigator.pop(context);
+              }),
+          text
+        ],
+      )
+    ]));
   }
 
   @override
