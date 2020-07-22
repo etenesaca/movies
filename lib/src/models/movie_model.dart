@@ -61,7 +61,8 @@ class Movie {
     originalTitle = json['original_title'];
     genreIds = json['genre_ids'].cast<int>();
     title = json['title'];
-    voteAverage = json['vote_average'] / 1;
+    voteAverage =
+        (!json.keys.contains('vote_average')) ? 0.0 : json['vote_average'] / 1;
     overview = json['overview'];
     releaseDate = json['release_date'];
   }

@@ -1,7 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/common/extras.dart';
-import 'package:movies/src/bloc/movie_section_bloc.dart';
 import 'package:movies/src/models/actor_model.dart';
 import 'package:movies/src/providers/movie_api.dart';
 import 'package:movies/src/widgets/card_swiper_backdrops_widget.dart';
@@ -122,7 +121,7 @@ class ActorPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 _buildSec1(actor),
-                (actor.biography == null)
+                (actor.biography != '')
                     ? _buildBiography(actor)
                     : SizedBox(
                         height: 20,
@@ -181,11 +180,13 @@ class ActorPage extends StatelessWidget {
 
   Widget _buildBiography(Actor actor) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
       child: Column(
         children: <Widget>[
+          SizedBox(height: 10),
           Text(
             actor.biography,
+            textAlign: TextAlign.justify,
             style: TextStyle(color: Colors.white70),
           ),
         ],
@@ -241,6 +242,9 @@ class ActorPage extends StatelessWidget {
       titleSection: 'Peliculas en las que aparece',
       actor: actor,
     );
-    return res;
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 10),
+      child: res,
+    );
   }
 }

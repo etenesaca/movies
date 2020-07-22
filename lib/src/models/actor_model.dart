@@ -58,7 +58,8 @@ class Actor {
     alsoKnownAs = json['also_known_as'];
     gender = json['gender'];
     biography = json['biography'];
-    popularity = json['popularity'];
+    popularity =
+        (!json.keys.contains('popularity')) ? 0.0 : json['popularity'] / 1;
     placeOfBirth = json['place_of_birth'];
     profilePath = json['profile_path'];
     adult = json['adult'];

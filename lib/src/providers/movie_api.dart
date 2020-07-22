@@ -22,14 +22,18 @@ class MovieProvider {
     return json.decode(resp.body);
   }
 
-  Future<List<Movie>> _getMoviesData(String apiUrl,
-      {String callFrom = 'x',
-      int page,
-      String query,
-      String key = 'results'}) async {
+  Future<List<Movie>> _getMoviesData(
+    String apiUrl, {
+    String callFrom = 'x',
+    int page,
+    String query,
+    String language,
+    String key = 'results',
+  }) async {
     Map<String, String> queryParameters = {};
     if (page != null) queryParameters['page'] = '$page';
     if (query != null) queryParameters['query'] = query;
+    if (language != null) queryParameters['language'] = language;
     final resJsonData = await _getHttpData(apiUrl, queryParameters);
     return Movies.fromJsonMap(resJsonData[key], callFrom).items;
   }
@@ -57,13 +61,13 @@ class MovieProvider {
   Future<List<Backdrop>> getMovieImagesList(int movieId) async {
     Map<String, String> queryParameters = {'language': '$_language,null'};
     final resJsonData =
-        await _getHttpData('3/movie/${movieId}/images', queryParameters);
+        await _getHttpData('3/movie/$movieId/images', queryParameters);
     return Backdrops.fromJsonMap(resJsonData['backdrops']).items;
   }
 
   // Obtener los actores de la pelicula
   Future<List<Actor>> getMovieCast(int movieId) async {
-    String apiUrl = '3/movie/${movieId}/credits';
+    String apiUrl = '3/movie/$movieId/credits';
     Map<String, String> queryParameters = {};
     final resJsonData = await _getHttpData(apiUrl, queryParameters);
     return Cast.fromJsonMap(resJsonData['cast']).items;
@@ -72,7 +76,7 @@ class MovieProvider {
   // Obtener los detalles de un actor
   Future<Actor> getActorDetail(int actorId) async {
     String apiUrl = '3/person/$actorId';
-    Map<String, String> queryParameters = {};
+    Map<String, String> queryParameters = {'language': 'en-US'};
     final resJsonData = await _getHttpData(apiUrl, queryParameters);
     return Actor.fromJsonMap(resJsonData);
   }
@@ -88,6 +92,6 @@ class MovieProvider {
   // Obtener peliculas relacionadas a un actor
   Future<List<Movie>> getActorMovies(int actorId) async {
     return _getMoviesData('3/person/$actorId/movie_credits',
-        callFrom: 'actor_movie', key: 'cast');
+        callFrom: 'actor_movie', key: 'cast', language: '$_language,null');
   }
 }
