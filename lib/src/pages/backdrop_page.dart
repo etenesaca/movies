@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/common/extras.dart';
 import 'package:movies/src/models/image_model.dart';
@@ -5,13 +6,25 @@ import 'package:movies/src/models/image_model.dart';
 class MoviePosterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Size _screenSize = MediaQuery.of(context).size;
+
+    double imageHeight = _screenSize.height * 0.6;
     Backdrop image = ModalRoute.of(context).settings.arguments;
+
+    Widget buttonDownload = FloatingActionButton(
+        backgroundColor: Colors.teal,
+        child: Icon(Icons.cloud_download),
+        onPressed: () {});
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
-          _buildAppBar(image),
+          _buildAppBar(image, imageHeight),
           SliverList(delegate: SliverChildListDelegate([]))
         ],
+      ),
+      floatingActionButton: ZoomIn(
+        child: buttonDownload,
+        duration: Duration(milliseconds: 500),
       ),
       /* 
       floatingActionButton: Row(
@@ -22,23 +35,16 @@ class MoviePosterPage extends StatelessWidget {
               child: Icon(Icons.image),
               onPressed: () {}),
           SizedBox(width: 5),
-          FloatingActionButton(
-              backgroundColor: Colors.teal,
-              child: Icon(
-                Icons.cloud_download,
-              ),
-              onPressed: () {})
-        ],
-      ),
+          ,
       */
     );
   }
 
-  Widget _buildAppBar(Backdrop image) {
+  Widget _buildAppBar(Backdrop image, double height) {
     return SliverAppBar(
       elevation: 2.0,
       backgroundColor: Extras().mainColor,
-      expandedHeight: 300.0,
+      expandedHeight: height,
       floating: false,
       pinned: true,
       title: Text(
