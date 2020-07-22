@@ -14,7 +14,7 @@ class ActorWidget extends StatelessWidget {
     final items = cast.map((e) => _buildActorItem(context, e)).toList();
     return Wrap(
         alignment: WrapAlignment.center,
-        spacing: 6.0,
+        spacing: 7.0,
         runSpacing: 6.0,
         children: items);
   }

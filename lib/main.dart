@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies/src/pages/actor_page.dart';
-import 'package:movies/src/pages/movie_poster_page.dart';
+import 'package:movies/src/pages/backdrop_page.dart';
 import 'package:movies/src/providers/global_provider.dart';
 import 'package:movies/src/providers/search_provider.dart';
 import 'package:movies/src/pages/home_page.dart';

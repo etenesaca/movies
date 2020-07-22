@@ -45,4 +45,22 @@ class Backdrop {
   }
 
   NetworkImage getImg() => NetworkImage(getPathUrl());
+
+  String getSmallPathUrl() {
+    final res = (filePath == null)
+        ? 'https://www.digopaul.com/wp-content/uploads/related_images/2015/09/08/placeholder_2.jpg'
+        : 'https://image.tmdb.org/t/p/w200/$filePath';
+    return res;
+  }
+
+  NetworkImage getImgSmall() => NetworkImage(getSmallPathUrl());
+
+  String getLargePathUrl() {
+    final res = (filePath == null)
+        ? 'https://www.digopaul.com/wp-content/uploads/related_images/2015/09/08/placeholder_2.jpg'
+        : 'https://image.tmdb.org/t/p/original/$filePath';
+    return res;
+  }
+
+  NetworkImage getImgLarge() => NetworkImage(getLargePathUrl());
 }

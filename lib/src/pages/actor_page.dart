@@ -230,10 +230,12 @@ class ActorPage extends StatelessWidget {
             return LoadingData();
           }
         });
-    return Container(
-      height: 150,
-      padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 6),
-      child: imagesCards,
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 18),
+      child: Container(
+        height: 150,
+        child: imagesCards,
+      ),
     );
   }
 

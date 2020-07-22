@@ -11,7 +11,7 @@ import 'package:movies/src/widgets/card_swiper_backdrops_widget.dart';
 import 'package:movies/src/widgets/loading_data_widget.dart';
 //import 'package:movies/src/widgets/chip_widget.dart';
 import 'package:provider/provider.dart';
-import 'package:movies/src/widgets/sliver_movie_poster_widget.dart';
+import 'package:movies/src/widgets/slivers/sliver_movie_poster_widget.dart';
 
 class MovieDetailPage extends StatelessWidget {
   final movieProvider = MovieProvider();
@@ -185,10 +185,12 @@ class MovieDetailPage extends StatelessWidget {
             return LoadingData();
           }
         });
-    return Container(
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 18),
+      child: Container(
       height: 150,
-      padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 6),
       child: images_cards,
+    ),
     );
   }
 
