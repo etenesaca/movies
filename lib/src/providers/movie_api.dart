@@ -51,7 +51,7 @@ class MovieProvider {
     return MovieGenres.fromJsonMap(resJsonData['genres']).items;
   }
 
-  Future<List<Backdrop>> getImagesList(int movieId) async {
+  Future<List<Backdrop>> getMovieImagesList(int movieId) async {
     Map<String, String> queryParameters = {'language': '$_language,null'};
     final resJsonData =
         await _getHttpData('3/movie/${movieId}/images', queryParameters);
@@ -72,5 +72,13 @@ class MovieProvider {
     Map<String, String> queryParameters = {};
     final resJsonData = await _getHttpData(apiUrl, queryParameters);
     return Actor.fromJsonMap(resJsonData);
+  }
+
+  // Portadas de un actor
+  Future<List<Backdrop>> getActorImagesList(int actorId) async {
+    Map<String, String> queryParameters = {'language': '$_language,null'};
+    final resJsonData =
+        await _getHttpData('3/person/${actorId}/images', queryParameters);
+    return Backdrops.fromJsonMap(resJsonData['profiles']).items;
   }
 }

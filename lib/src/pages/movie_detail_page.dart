@@ -177,7 +177,7 @@ class MovieDetailPage extends StatelessWidget {
 
   _buildSectionImages(BuildContext context, Movie movie) {
     final images_cards = FutureBuilder(
-        future: MovieProvider().getImagesList(movie.id),
+        future: MovieProvider().getMovieImagesList(movie.id),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.hasData) {
             return SwiperBackdrops(images: snapshot.data);

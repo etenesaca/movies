@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:movies/common/extras.dart';
 import 'package:movies/src/models/actor_model.dart';
 import 'package:movies/src/providers/movie_api.dart';
+import 'package:movies/src/widgets/card_swiper_backdrops_widget.dart';
 import 'package:movies/src/widgets/chip_widget.dart';
 import 'package:movies/src/widgets/loading_data_widget.dart';
 
@@ -120,8 +121,11 @@ class ActorPage extends StatelessWidget {
                 _buildSec1(actor),
                 (actor.biography == null)
                     ? _buildBiography(actor)
-                    : SizedBox(height: 20,),
-                _buildBith(actor)
+                    : SizedBox(
+                        height: 20,
+                      ),
+                _buildBith(actor),
+                _buildSectionImages(context, actor),
               ],
             ));
       },
@@ -208,6 +212,23 @@ class ActorPage extends StatelessWidget {
               : Container()
         ],
       ),
+    );
+  }
+
+  _buildSectionImages(BuildContext context, Actor actor) {
+    final images_cards = FutureBuilder(
+        future: MovieProvider().getActorImagesList(actor.id),
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          if (snapshot.hasData) {
+            return SwiperBackdrops(images: snapshot.data);
+          } else {
+            return LoadingData();
+          }
+        });
+    return Container(
+      height: 150,
+      padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 6),
+      child: images_cards,
     );
   }
 }
