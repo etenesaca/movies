@@ -29,10 +29,15 @@ class SwiperBackdrops extends StatelessWidget {
     }
     return Swiper(
       itemBuilder: (BuildContext context, int index) {
-        return ZoomIn(
-          duration: Duration(milliseconds: 500),
-          child: _buildCard(context, images[index]),
-        );
+        final image = images[index];
+        return GestureDetector(
+            child: ZoomIn(
+              duration: Duration(milliseconds: 500),
+              child: _buildCard(context, image),
+            ),
+            onTap: () {
+              Navigator.pushNamed(context, 'movie_poster', arguments: image);
+            });
       },
       itemCount: images.length,
       itemWidth: itemWidth,

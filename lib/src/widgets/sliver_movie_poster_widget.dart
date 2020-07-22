@@ -5,6 +5,7 @@ import 'package:movies/src/models/movie_model.dart';
 class SliverMoviePoster extends SliverPersistentHeaderDelegate {
   final double expandedHeight;
   final Movie movie;
+  Color mainColor = Color.fromRGBO(24, 33, 46, 1.0);
 
   SliverMoviePoster({@required this.expandedHeight, @required this.movie});
 
@@ -16,6 +17,7 @@ class SliverMoviePoster extends SliverPersistentHeaderDelegate {
       overflow: Overflow.visible,
       children: [
         _buildBackGround(context, movie),
+        _buildBackGroundOpacity(context),
         _buildAppBar(context, movie),
         Positioned(
           top: expandedHeight / 2 - shrinkOffset,
@@ -53,6 +55,24 @@ class SliverMoviePoster extends SliverPersistentHeaderDelegate {
       placeholder: AssetImage('assets/img/loading.gif'),
       image: movie.getBackgroundImg(),
       fit: BoxFit.cover,
+    );
+  }
+
+  _buildBackGroundOpacity(
+    BuildContext context,
+  ) {
+    return Container(
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: FractionalOffset(.0, 0.5),
+              end: FractionalOffset(0.0, 1.0),
+              colors: [
+            Colors.transparent,
+            mainColor.withOpacity(0.0),
+            mainColor.withOpacity(0.5),
+            mainColor.withOpacity(0.9),
+            mainColor,
+          ])),
     );
   }
 

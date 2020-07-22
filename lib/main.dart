@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies/src/pages/actor_page.dart';
+import 'package:movies/src/pages/movie_poster_page.dart';
 import 'package:movies/src/providers/global_provider.dart';
 import 'package:movies/src/providers/search_provider.dart';
 import 'package:movies/src/pages/home_page.dart';
@@ -34,6 +35,13 @@ class MyApp extends StatelessWidget {
                 return PageTransition(
                     child: ActorPage(),
                     type: PageTransitionType.rightToLeftWithFade,
+                    settings: settings,
+                    duration: Duration(milliseconds: 300));
+                break;
+              case 'movie_poster':
+                return PageTransition(
+                    child: MoviePosterPage(),
+                    type: PageTransitionType.downToUp,
                     settings: settings,
                     duration: Duration(milliseconds: 300));
                 break;

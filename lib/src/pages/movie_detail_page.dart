@@ -14,7 +14,6 @@ import 'package:provider/provider.dart';
 import 'package:movies/src/widgets/sliver_movie_poster_widget.dart';
 
 class MovieDetailPage extends StatelessWidget {
-  final titleSection = TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0);
   final movieProvider = MovieProvider();
   Size _screenSize;
 
@@ -26,34 +25,39 @@ class MovieDetailPage extends StatelessWidget {
     _screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: CustomScrollView(
-        //shrinkWrap: true,
-        slivers: <Widget>[
-          _buildSliverPoster(movie),
-          //_buildPosterContent(movie),
-          SliverList(
-              delegate: SliverChildListDelegate([
-            //_buildPosterMovie(context, movie),
-            SizedBox(
-              height: 10.0,
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  _buildSectionRating(context, movie),
-                  _buildSectionGenres(context, movie,
-                      context.watch<GlobalProvider>().allMovieGenres),
-                  _buildSectionDescription(context, movie),
-                  _buildSectionDatesVotes(context, movie),
-                  _buildSectionImages(context, movie),
-                  _buildSectionCast(context, movie),
-                ],
-              ),
-            )
-          ])),
-          //_buildSectionCast(context, movie),
+      body: Stack(
+        children: <Widget>[
+          Extras().getBackgroundApp(),
+          CustomScrollView(
+            //shrinkWrap: true,
+            slivers: <Widget>[
+              _buildSliverPoster(movie),
+              //_buildPosterContent(movie),
+              SliverList(
+                  delegate: SliverChildListDelegate([
+                //_buildPosterMovie(context, movie),
+                SizedBox(
+                  height: 10.0,
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      _buildSectionRating(context, movie),
+                      _buildSectionGenres(context, movie,
+                          context.watch<GlobalProvider>().allMovieGenres),
+                      _buildSectionDescription(context, movie),
+                      _buildSectionDatesVotes(context, movie),
+                      _buildSectionImages(context, movie),
+                      _buildSectionCast(context, movie),
+                    ],
+                  ),
+                )
+              ])),
+              //_buildSectionCast(context, movie),
+            ],
+          )
         ],
       ),
     );
@@ -66,13 +70,21 @@ class MovieDetailPage extends StatelessWidget {
     );
   }
 
+  Widget _geTitleSection(String text) {
+    final titleSection = TextStyle(
+        fontWeight: FontWeight.bold, fontSize: 15.0, color: Colors.white);
+    return Padding(
+        padding: EdgeInsets.symmetric(vertical: 8),
+        child: Text(text, style: titleSection));
+  }
+
   _buildSectionRating(BuildContext context, Movie movie) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 5),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('Valoración ${movie.voteAverage}', style: titleSection),
+          _geTitleSection('Valoración ${movie.voteAverage}'),
           SizedBox(height: 3),
           Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -113,7 +125,7 @@ class MovieDetailPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('Géneros', style: titleSection),
+          _geTitleSection('Géneros'),
           SizedBox(height: 3),
           Wrap(spacing: 6.0, runSpacing: 6.0, children: boxes),
         ],
@@ -127,11 +139,12 @@ class MovieDetailPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('Sinopsis', style: titleSection),
+          _geTitleSection('Sinopsis'),
           SizedBox(height: 5),
           Text(
             movie.overview,
             textAlign: TextAlign.justify,
+            style: TextStyle(color: Colors.white),
           )
         ],
       ),
@@ -147,21 +160,23 @@ class MovieDetailPage extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('Fecha de estreno', style: titleSection),
-                SizedBox(height: 5),
+                _geTitleSection('Fecha de estreno'),
                 Text(
                   movie.releaseDate,
                   textAlign: TextAlign.justify,
+                  style: TextStyle(
+                      color: Colors.blueAccent, fontWeight: FontWeight.w700),
                 )
               ],
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
-                Text('Votos', style: titleSection),
-                SizedBox(height: 5),
+                _geTitleSection('Votos'),
                 Text(
                   '${movie.voteCount}',
+                  style: TextStyle(
+                      color: Colors.blueAccent, fontWeight: FontWeight.w700),
                 )
               ],
             )
@@ -179,14 +194,6 @@ class MovieDetailPage extends StatelessWidget {
             return LoadingData();
           }
         });
-    final res = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text('Imagenes', style: titleSection),
-        SizedBox(height: 5),
-        images_cards
-      ],
-    );
     return Container(
       height: 150,
       padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 6),
@@ -208,7 +215,7 @@ class MovieDetailPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('Actores', style: titleSection),
+          _geTitleSection('Actores'),
           SizedBox(height: 10),
           actorItems
         ],

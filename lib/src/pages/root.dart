@@ -1,6 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:movies/src/models/gender_model.dart';
+import 'package:movies/common/extras.dart';
 import 'package:movies/src/pages/home_page.dart';
 import 'package:movies/src/pages/search_page.dart';
 import 'package:movies/src/providers/global_provider.dart';
@@ -21,28 +21,22 @@ class _RootPageState extends State<RootPage> with WidgetsBindingObserver {
   GlobalKey _bottomNavigationKey = GlobalKey();
 
   Widget _homeTab;
-  Widget getHomeTab() {
+  Widget getHomeTab(BuildContext context) {
     if (_homeTab == null) {
       _homeTab = Container(
           child: Stack(
-        children: <Widget>[
-          getBackground(context),
-          HomePage()
-        ],
+        children: <Widget>[Extras().getBackgroundApp(), HomePage()],
       ));
     }
     return _homeTab;
   }
 
   Widget _searchTab;
-  Widget getSearchTab() {
+  Widget getSearchTab(BuildContext context) {
     if (_searchTab == null) {
       _searchTab = Container(
           child: Stack(
-        children: <Widget>[
-          getBackground(context),
-          SearchPage()
-        ],
+        children: <Widget>[Extras().getBackgroundApp(), SearchPage()],
       ));
     }
     return _searchTab;
@@ -79,31 +73,14 @@ class _RootPageState extends State<RootPage> with WidgetsBindingObserver {
     return res;
   }
 
-  getBackground(BuildContext context) {
-    return Container(
-      height: double.infinity,
-      width: double.infinity,
-      decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: FractionalOffset(.0, 0.5),
-              end: FractionalOffset(0.0, 1.0),
-              colors: [
-            mainColor,
-            Color.fromRGBO(24, 33, 46, 1.0),
-            Color.fromRGBO(37, 51, 72, 1.0),
-            Color.fromRGBO(57, 79, 111, 1.0),
-          ])),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     if (context.watch<GlobalProvider>().allMovieGenres.length == 0) {
       Provider.of<GlobalProvider>(context).loadMovieGenders();
     }
     final List<Widget> _children = [
-      getHomeTab(),
-      getSearchTab(),
+      getHomeTab(context),
+      getSearchTab(context),
       getNewsTab(),
       getConfigTab()
     ];
