@@ -9,7 +9,7 @@ class SearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget txtField = TextField(
-      autofocus: true,
+      //autofocus: false,
       controller: context.watch<SearchMovieProvider>().txtSearchController,
       onChanged: (query) =>
           context.read<SearchMovieProvider>().onChangeText(query),

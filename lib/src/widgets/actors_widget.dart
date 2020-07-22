@@ -36,6 +36,8 @@ class ActorWidget extends StatelessWidget {
       Colors.brown
     ];
     List colorsFemale = [Colors.pink, Colors.yellow];
+    colorsMale = [Colors.blueGrey];
+    colorsFemale = [Colors.pink];
     Color avatarColor = (actor.gender == 0)
         ? colorsFemale[Random().nextInt(colorsFemale.length)]
         : colorsMale[Random().nextInt(colorsMale.length)];
@@ -55,7 +57,7 @@ class ActorWidget extends StatelessWidget {
     }
 
     Widget avatar = CircleAvatar(
-      radius: 30,
+      radius: 29,
       backgroundColor: avatarColor,
       child: actorPhoto,
     );
@@ -67,7 +69,7 @@ class ActorWidget extends StatelessWidget {
       child: avatar,
     );
     avatar = GestureDetector(
-      child: avatar,
+      child: Hero(tag: actor.id, child: avatar),
       onTap: () {
         //Navigator.push(context, PageTransition(type: PageTransitionType.leftToRightWithFade, child: DetailScreen()));
         Navigator.pushNamed(context, 'actor', arguments: actor);
