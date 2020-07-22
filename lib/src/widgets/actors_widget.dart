@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:animate_do/animate_do.dart';
 import 'package:movies/src/models/actor_model.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 class ActorWidget extends StatelessWidget {
   final List<Actor> cast;
@@ -11,7 +12,7 @@ class ActorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final items = cast.map((e) => _buildActorItem(e)).toList();
+    final items = cast.map((e) => _buildActorItem(context, e)).toList();
     return Wrap(
         alignment: WrapAlignment.center,
         spacing: 6.0,
@@ -19,7 +20,7 @@ class ActorWidget extends StatelessWidget {
         children: items);
   }
 
-  Widget _buildActorItem(Actor actor) {
+  Widget _buildActorItem(BuildContext context, Actor actor) {
     final styleShadow = BoxShadow(
       color: Colors.black.withOpacity(0.9),
       spreadRadius: 1,
@@ -58,8 +59,6 @@ class ActorWidget extends StatelessWidget {
       backgroundColor: avatarColor,
       child: actorPhoto,
     );
-
-
     avatar = Container(
       decoration: BoxDecoration(
         boxShadow: [styleShadow],
@@ -67,7 +66,13 @@ class ActorWidget extends StatelessWidget {
       ),
       child: avatar,
     );
-
+    avatar = GestureDetector(
+      child: avatar,
+      onTap: () {
+        //Navigator.push(context, PageTransition(type: PageTransitionType.leftToRightWithFade, child: DetailScreen()));
+        Navigator.pushNamed(context, 'actor', arguments: actor);
+      },
+    );
     avatar = ZoomIn(child: avatar, duration: Duration(milliseconds: 800));
     return Container(
       child: Column(
