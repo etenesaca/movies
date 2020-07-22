@@ -210,7 +210,7 @@ class MovieDetailPage extends StatelessWidget {
           }
           return ActorWidget(cast: snapshot.data);
         });
-    return Container(
+    final res = Container(
       padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 6),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -220,6 +220,17 @@ class MovieDetailPage extends StatelessWidget {
           actorItems
         ],
       ),
+    );
+    return Stack(
+      children: <Widget>[
+        Container(
+          padding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+          child: Text('Actores',
+              style: TextStyle(
+                  color: Colors.white10, fontSize: 60, fontWeight: FontWeight.bold, fontFamily: 'RussoOne')),
+        ),
+        res
+      ],
     );
   }
 }

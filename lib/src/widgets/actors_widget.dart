@@ -37,7 +37,7 @@ class ActorWidget extends StatelessWidget {
     ];
     List colorsFemale = [Colors.pink, Colors.yellow];
     colorsMale = [Colors.blueGrey];
-    colorsFemale = [Colors.pink];
+    colorsFemale = [Colors.blueGrey];
     Color avatarColor = (actor.gender == 0)
         ? colorsFemale[Random().nextInt(colorsFemale.length)]
         : colorsMale[Random().nextInt(colorsMale.length)];
