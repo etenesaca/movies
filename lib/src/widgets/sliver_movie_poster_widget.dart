@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:icon_shadow/icon_shadow.dart';
 import 'package:movies/common/extras.dart';
 import 'package:movies/src/models/movie_model.dart';
 
@@ -91,24 +92,23 @@ class SliverMoviePoster extends SliverPersistentHeaderDelegate {
           fontSize: 18,
           shadows: [textShadow, textShadow, textShadow]),
     );
-    Widget res = AppBar(
-      backgroundColor: Colors.transparent,
-      title: Container(
-        child: text,
-      ),
-    );
+    Widget buttonBack = Padding(
+        padding: EdgeInsets.symmetric(vertical: 6, horizontal: 9),
+        child: IconShadowWidget(
+          Icon(Icons.arrow_back, color: Colors.white, size: 28),
+          showShadow: true,
+          shadowColor: Colors.black,
+        ));
+    buttonBack = GestureDetector(
+        child: buttonBack,
+        onTap: () {
+          Navigator.pop(context);
+        });
     return SafeArea(
         child: Column(children: <Widget>[
       Row(
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          IconButton(
-              icon: Icon(Icons.arrow_back, color: Colors.white),
-              onPressed: () {
-                Navigator.pop(context);
-              }),
-          text
-        ],
+        children: <Widget>[buttonBack, text],
       )
     ]));
   }
