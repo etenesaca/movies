@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:animate_do/animate_do.dart';
 import 'package:movies/src/models/actor_model.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 
 class ActorWidget extends StatelessWidget {
   final List<Actor> cast;
@@ -82,13 +81,16 @@ class ActorWidget extends StatelessWidget {
           avatar,
           Text(
             actor.name,
-            style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white),
+            style: TextStyle(
+                fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white),
             overflow: TextOverflow.clip,
-          
           ),
           Text(
             actor.character,
-            style: TextStyle(fontSize: 10, fontWeight: FontWeight.normal, color: Colors.orangeAccent),
+            style: TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.normal,
+                color: Colors.orangeAccent),
           )
         ],
       ),

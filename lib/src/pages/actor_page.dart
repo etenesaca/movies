@@ -47,7 +47,7 @@ class ActorPage extends StatelessWidget {
 
     Widget _actorName() {
       final textStyle = TextStyle(
-          color: Colors.white, fontWeight: FontWeight.bold, fontSize: 30);
+          color: Colors.white, fontWeight: FontWeight.bold, fontSize: 30, fontFamily: 'Cinzel');
       return Container(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 70),
         height: imageHeight,
