@@ -26,15 +26,20 @@ class ActorPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: mainColor,
-      body: CustomScrollView(
-        slivers: <Widget>[
-          _buildAppBar(actor),
-          SliverList(
-            delegate: SliverChildListDelegate([
-              Column(
-                children: <Widget>[_buildInfo(actor)],
+      body: Stack(
+        children: <Widget>[
+          extras.getBackgroundApp(),
+          CustomScrollView(
+            slivers: <Widget>[
+              _buildAppBar(actor),
+              SliverList(
+                delegate: SliverChildListDelegate([
+                  Column(
+                    children: <Widget>[_buildInfo(actor)],
+                  )
+                ]),
               )
-            ]),
+            ],
           )
         ],
       ),
@@ -148,7 +153,8 @@ class ActorPage extends StatelessWidget {
                       '40 años',
                       textAlign: TextAlign.justify,
                       style: TextStyle(
-                          color: Colors.blueAccent, fontWeight: FontWeight.bold),
+                          color: Colors.blueAccent,
+                          fontWeight: FontWeight.bold),
                     )
                   : Container()
             ],
@@ -282,6 +288,8 @@ class ActorPage extends StatelessWidget {
       expandedHeight: imageHeight,
       floating: false,
       pinned: true,
+      title: Text('Perfil'),
+      centerTitle: false,
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: true,
         background: poster,
