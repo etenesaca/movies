@@ -1,6 +1,23 @@
 import 'package:flutter/material.dart';
 
 class Extras {
+  int calculateAge(DateTime birthDate) {
+    DateTime currentDate = DateTime.now();
+    int age = currentDate.year - birthDate.year;
+    int month1 = currentDate.month;
+    int month2 = birthDate.month;
+    if (month2 > month1) {
+      age--;
+    } else if (month1 == month2) {
+      int day1 = currentDate.day;
+      int day2 = birthDate.day;
+      if (day2 > day1) {
+        age--;
+      }
+    }
+    return age;
+  }
+
   List<Widget> buildstarts(double votes, int maxStart) {
     // Starts
     Widget _buildStarIcon(IconData icon, Color color) => Container(
@@ -71,16 +88,14 @@ class Extras {
     );
   }
 
-
-  Widget buildBoxTag(String label,Color color) {
+  Widget buildBoxTag(String label, Color color) {
     final txtStyle = TextStyle(
         fontWeight: FontWeight.bold, fontSize: 12.0, color: Colors.white);
     return Container(
       //margin: EdgeInsets.symmetric(horizontal: 3, vertical: 2),
       padding: EdgeInsets.symmetric(vertical: 4, horizontal: 13),
       decoration: BoxDecoration(
-          borderRadius: new BorderRadius.circular(30.0),
-          color: color),
+          borderRadius: new BorderRadius.circular(30.0), color: color),
       child: Text(label, style: txtStyle),
     );
   }

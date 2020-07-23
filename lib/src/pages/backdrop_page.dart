@@ -47,10 +47,6 @@ class MoviePosterPage extends StatelessWidget {
       expandedHeight: height,
       floating: false,
       pinned: true,
-      title: Text(
-        'pelicula.title',
-        style: TextStyle(color: Colors.white, fontSize: 14.0),
-      ),
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: true,
         background: FadeInImage(

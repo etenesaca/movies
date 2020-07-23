@@ -19,11 +19,6 @@ class ActorPage extends StatelessWidget {
     _screenSize = MediaQuery.of(context).size;
     mainColor = Extras().mainColor;
 
-    Widget appBar = AppBar(
-      elevation: 0,
-      backgroundColor: Colors.transparent,
-    );
-
     return Scaffold(
       backgroundColor: mainColor,
       body: Stack(
@@ -47,7 +42,6 @@ class ActorPage extends StatelessWidget {
   }
 
   Widget _buildInfo(Actor actor) {
-    print('${actor.id} - ${actor.name}');
     return FutureBuilder(
       future: movieApi.getActorDetail(actor.id),
       builder: (BuildContext context, AsyncSnapshot<Actor> snapshot) {
@@ -61,7 +55,7 @@ class ActorPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 15),
+                  padding: EdgeInsets.symmetric(vertical: 8),
                   child: _buildSec1(actor),
                 ),
                 _buildBith(actor),
@@ -139,6 +133,13 @@ class ActorPage extends StatelessWidget {
   }
 
   _buildBith(Actor actor) {
+    int age = 0;
+    if (actor.deathday == null && actor.birthday != null){
+      try {
+        age = extras.calculateAge(DateTime.parse(actor.birthday.toString()))
+      } catch (e) {
+      }
+    }
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 6),
       child: Column(
@@ -148,9 +149,9 @@ class ActorPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               _geTitleSection('Fecha de nacimiento'),
-              (actor.deathday == null)
+              (age > 0)
                   ? Text(
-                      '40 años',
+                      '$age años',
                       textAlign: TextAlign.justify,
                       style: TextStyle(
                           color: Colors.blueAccent,
@@ -161,11 +162,13 @@ class ActorPage extends StatelessWidget {
           ),
           SizedBox(height: 5),
           Text(
-            '${actor.birthday} - ${actor.placeOfBirth}',
+            (actor.birthday != null)
+                ? '${actor.birthday} - ${actor.placeOfBirth}'
+                : '--',
             textAlign: TextAlign.justify,
             style: TextStyle(color: Colors.white70),
           ),
-          (actor.deathday != null)
+          (actor.deathday != null && actor.birthday != null)
               ? Text(
                   'Muerte ${actor.deathday}',
                   textAlign: TextAlign.justify,
@@ -248,10 +251,10 @@ class ActorPage extends StatelessWidget {
       final textStyle = TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,
-          fontSize: 30,
+          fontSize: 33,
           fontFamily: 'Cinzel');
       return Container(
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 70),
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 50),
         height: imageHeight,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
