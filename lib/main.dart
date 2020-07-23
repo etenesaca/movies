@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies/src/pages/actor_page.dart';
 import 'package:movies/src/pages/backdrop_page.dart';
+import 'package:movies/src/pages/movie_videos.dart';
 import 'package:movies/src/providers/global_provider.dart';
 import 'package:movies/src/providers/search_provider.dart';
 import 'package:movies/src/pages/home_page.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
             'home': (BuildContext context) => HomePage(),
             'movie_detail': (BuildContext context) => MovieDetailPage(),
             'actor': (BuildContext context) => ActorPage(),
+            'video_list': (BuildContext context) => VideoListPage(),
           },
           onGenerateRoute: (settings) {
             switch (settings.name) {

@@ -60,6 +60,15 @@ class MovieDetailPage extends StatelessWidget {
           )
         ],
       ),
+      floatingActionButton: ZoomIn(
+        duration: Duration(milliseconds: 500),
+        child: FloatingActionButton(
+            backgroundColor: Colors.teal,
+            child: Icon(Icons.play_arrow),
+            onPressed: () {
+              Navigator.pushNamed(context, 'video_list', arguments: movie);
+            }),
+      ),
     );
   }
 
@@ -188,9 +197,9 @@ class MovieDetailPage extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 18),
       child: Container(
-      height: 150,
-      child: images_cards,
-    ),
+        height: 150,
+        child: images_cards,
+      ),
     );
   }
 
