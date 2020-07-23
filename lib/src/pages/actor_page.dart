@@ -10,15 +10,200 @@ import 'package:movies/src/widgets/page_view_actor_movies_widget.dart';
 class ActorPage extends StatelessWidget {
   MovieProvider movieApi = MovieProvider();
   Extras extras = Extras();
+  Color mainColor;
+  Size _screenSize;
 
   @override
   Widget build(BuildContext context) {
     Actor actor = ModalRoute.of(context).settings.arguments;
-    Color mainColor = extras.mainColor;
-    Size _screenSize = MediaQuery.of(context).size;
+    _screenSize = MediaQuery.of(context).size;
+    mainColor = Extras().mainColor;
 
+    Widget appBar = AppBar(
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+    );
+
+    return Scaffold(
+      backgroundColor: mainColor,
+      body: CustomScrollView(
+        slivers: <Widget>[
+          _buildAppBar(actor),
+          SliverList(
+            delegate: SliverChildListDelegate([
+              Column(
+                children: <Widget>[_buildInfo(actor)],
+              )
+            ]),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildInfo(Actor actor) {
+    print('${actor.id} - ${actor.name}');
+    return FutureBuilder(
+      future: movieApi.getActorDetail(actor.id),
+      builder: (BuildContext context, AsyncSnapshot<Actor> snapshot) {
+        if (!snapshot.hasData) {
+          return LoadingData();
+        }
+        actor = snapshot.data;
+        return Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 15),
+                  child: _buildSec1(actor),
+                ),
+                _buildBith(actor),
+                _buildSectionImages(context, actor),
+                _buildMovieRelateds(context, actor),
+                (actor.biography != '')
+                    ? _buildBiography(actor)
+                    : SizedBox(
+                        height: 20,
+                      ),
+              ],
+            ));
+      },
+    );
+  }
+
+  Widget _buildSec1(Actor actor) {
+    Widget popularity = Container(
+      child: Row(
+        children: <Widget>[
+          Icon(Icons.stars, color: Colors.orange, size: 15),
+          SizedBox(
+            width: 3,
+          ),
+          Text(
+            '${actor.popularity}',
+            style: TextStyle(color: Colors.orange, fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
+    );
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          ZoomIn(
+            delay: Duration(microseconds: 100),
+            child: extras.buildBoxTag(actor.knownForDepartment, Colors.teal),
+          ),
+          SizedBox(
+            width: 20,
+          ),
+          ZoomIn(
+            delay: Duration(microseconds: 100),
+            child: popularity,
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _geTitleSection(String text) {
+    final titleSection = TextStyle(
+        fontWeight: FontWeight.bold, fontSize: 15.0, color: Colors.white);
+    return Padding(
+        padding: EdgeInsets.symmetric(vertical: 8),
+        child: Text(text, style: titleSection));
+  }
+
+  Widget _buildBiography(Actor actor) {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+      child: Column(
+        children: <Widget>[
+          _geTitleSection('Biografía'),
+          SizedBox(height: 10),
+          Text(
+            actor.biography,
+            textAlign: TextAlign.justify,
+            style: TextStyle(color: Colors.white70),
+          ),
+        ],
+      ),
+    );
+  }
+
+  _buildBith(Actor actor) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 6),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              _geTitleSection('Fecha de nacimiento'),
+              (actor.deathday == null)
+                  ? Text(
+                      '40 años',
+                      textAlign: TextAlign.justify,
+                      style: TextStyle(
+                          color: Colors.blueAccent, fontWeight: FontWeight.bold),
+                    )
+                  : Container()
+            ],
+          ),
+          SizedBox(height: 5),
+          Text(
+            '${actor.birthday} - ${actor.placeOfBirth}',
+            textAlign: TextAlign.justify,
+            style: TextStyle(color: Colors.white70),
+          ),
+          (actor.deathday != null)
+              ? Text(
+                  'Muerte ${actor.deathday}',
+                  textAlign: TextAlign.justify,
+                  style: TextStyle(
+                      color: Colors.white70, fontWeight: FontWeight.bold),
+                )
+              : Container()
+        ],
+      ),
+    );
+  }
+
+  _buildSectionImages(BuildContext context, Actor actor) {
+    final imagesCards = FutureBuilder(
+        future: MovieProvider().getActorImagesList(actor.id),
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          if (snapshot.hasData) {
+            return SwiperBackdrops(images: snapshot.data);
+          } else {
+            return LoadingData();
+          }
+        });
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 18),
+      child: Container(
+        height: 150,
+        child: imagesCards,
+      ),
+    );
+  }
+
+  Widget _buildMovieRelateds(BuildContext context, Actor actor) {
+    final res = PageViewMovieSection(
+      titleSection: 'Peliculas en las que aparece',
+      actor: actor,
+    );
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 10),
+      child: res,
+    );
+  }
+
+  Widget _buildAppBar(Actor actor) {
     double imageHeight = _screenSize.height * 0.6;
-
     Widget _imagePoster() {
       Widget res = FadeInImage(
         placeholder: AssetImage('assets/img/loading.gif'),
@@ -74,11 +259,6 @@ class ActorPage extends StatelessWidget {
       );
     }
 
-    Widget appBar = AppBar(
-      elevation: 0,
-      backgroundColor: Colors.transparent,
-    );
-
     Widget poster = Container(
       child: Center(
         child: Stack(
@@ -90,163 +270,22 @@ class ActorPage extends StatelessWidget {
             ),
             _filter(),
             _actorName(),
-            appBar,
+            //appBar,
           ],
         ),
       ),
     );
 
-    return Scaffold(
-      backgroundColor: mainColor,
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[poster, _buildInfo(actor)],
-        ),
+    return SliverAppBar(
+      elevation: 2.0,
+      backgroundColor: Extras().mainColor,
+      expandedHeight: imageHeight,
+      floating: false,
+      pinned: true,
+      flexibleSpace: FlexibleSpaceBar(
+        centerTitle: true,
+        background: poster,
       ),
-    );
-  }
-
-  Widget _buildInfo(Actor actor) {
-    print('${actor.id} - ${actor.name}');
-    return FutureBuilder(
-      future: movieApi.getActorDetail(actor.id),
-      builder: (BuildContext context, AsyncSnapshot<Actor> snapshot) {
-        if (!snapshot.hasData) {
-          return LoadingData();
-        }
-        actor = snapshot.data;
-        return Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                _buildSec1(actor),
-                (actor.biography != '')
-                    ? _buildBiography(actor)
-                    : SizedBox(
-                        height: 20,
-                      ),
-                _buildBith(actor),
-                _buildSectionImages(context, actor),
-                _buildMovieRelateds(context, actor),
-              ],
-            ));
-      },
-    );
-  }
-
-  Widget _buildSec1(Actor actor) {
-    Widget popularity = Container(
-      child: Row(
-        children: <Widget>[
-          Icon(Icons.stars, color: Colors.orange, size: 15),
-          SizedBox(
-            width: 3,
-          ),
-          Text(
-            '${actor.popularity}',
-            style: TextStyle(color: Colors.orange, fontWeight: FontWeight.bold),
-          ),
-        ],
-      ),
-    );
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          ZoomIn(
-            delay: Duration(microseconds: 100),
-            child: extras.buildBoxTag(actor.knownForDepartment, Colors.teal),
-          ),
-          SizedBox(
-            width: 20,
-          ),
-          ZoomIn(
-            delay: Duration(microseconds: 100),
-            child: popularity,
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget _geTitleSection(String text) {
-    final titleSection = TextStyle(
-        fontWeight: FontWeight.bold, fontSize: 15.0, color: Colors.white);
-    return Padding(
-        padding: EdgeInsets.symmetric(vertical: 8),
-        child: Text(text, style: titleSection));
-  }
-
-  Widget _buildBiography(Actor actor) {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-      child: Column(
-        children: <Widget>[
-          SizedBox(height: 10),
-          Text(
-            actor.biography,
-            textAlign: TextAlign.justify,
-            style: TextStyle(color: Colors.white70),
-          ),
-        ],
-      ),
-    );
-  }
-
-  _buildBith(Actor actor) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 6),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          _geTitleSection('Fecha de nacimiento'),
-          SizedBox(height: 5),
-          Text(
-            '${actor.birthday} - ${actor.placeOfBirth}',
-            textAlign: TextAlign.justify,
-            style: TextStyle(color: Colors.white70),
-          ),
-          (actor.deathday != null)
-              ? Text(
-                  'Muerte ${actor.deathday}',
-                  textAlign: TextAlign.justify,
-                  style: TextStyle(
-                      color: Colors.white70, fontWeight: FontWeight.bold),
-                )
-              : Container()
-        ],
-      ),
-    );
-  }
-
-  _buildSectionImages(BuildContext context, Actor actor) {
-    final imagesCards = FutureBuilder(
-        future: MovieProvider().getActorImagesList(actor.id),
-        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-          if (snapshot.hasData) {
-            return SwiperBackdrops(images: snapshot.data);
-          } else {
-            return LoadingData();
-          }
-        });
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 18),
-      child: Container(
-        height: 150,
-        child: imagesCards,
-      ),
-    );
-  }
-
-  Widget _buildMovieRelateds(BuildContext context, Actor actor) {
-    final res = PageViewMovieSection(
-      titleSection: 'Peliculas en las que aparece',
-      actor: actor,
-    );
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10),
-      child: res,
     );
   }
 }
