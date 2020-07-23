@@ -11,7 +11,13 @@ class MoviePosterPage extends StatelessWidget {
     double imageHeight = _screenSize.height * 0.6;
     Backdrop image = ModalRoute.of(context).settings.arguments;
 
-    Widget buttonDownload = FloatingActionButton(
+    Widget btnApplyWallpaper = FloatingActionButton(
+        heroTag: 'btnApplyWallpaper',
+        backgroundColor: Colors.redAccent,
+        child: Icon(Icons.image),
+        onPressed: () {});
+    Widget btnDownload = FloatingActionButton(
+        heroTag: 'btnDownload',
         backgroundColor: Colors.teal,
         child: Icon(Icons.cloud_download),
         onPressed: () {});
@@ -22,11 +28,29 @@ class MoviePosterPage extends StatelessWidget {
           SliverList(delegate: SliverChildListDelegate([]))
         ],
       ),
-      floatingActionButton: ZoomIn(
-        child: buttonDownload,
-        duration: Duration(milliseconds: 500),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          ZoomIn(
+            child: btnApplyWallpaper,
+            duration: Duration(milliseconds: 500),
+          ),
+          SizedBox(
+            width: 5,
+          ),
+          ZoomIn(
+            child: btnDownload,
+            duration: Duration(milliseconds: 500),
+          )
+        ],
       ),
       /* 
+
+      ZoomIn(
+        child: buttonDownload,
+        duration: Duration(milliseconds: 500),
+      )
+
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[

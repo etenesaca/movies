@@ -134,11 +134,10 @@ class ActorPage extends StatelessWidget {
 
   _buildBith(Actor actor) {
     int age = 0;
-    if (actor.deathday == null && actor.birthday != null){
+    if (actor.deathday == null && actor.birthday != null) {
       try {
-        age = extras.calculateAge(DateTime.parse(actor.birthday.toString()))
-      } catch (e) {
-      }
+        age = extras.calculateAge(DateTime.parse(actor.birthday.toString()));
+      } catch (e) {}
     }
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 6),
