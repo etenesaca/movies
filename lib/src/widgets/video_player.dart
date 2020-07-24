@@ -20,7 +20,7 @@ class _VideoScreenState extends State<VideoScreen> {
       initialVideoId: widget.id,
       flags: YoutubePlayerFlags(
         mute: false,
-        autoPlay: true,
+        autoPlay: false,
       ),
     );
   }

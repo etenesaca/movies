@@ -5,6 +5,7 @@ import 'package:movies/src/models/movie_model.dart';
 import 'package:movies/src/models/video_model.dart';
 import 'package:movies/src/providers/movie_api.dart';
 import 'package:movies/src/widgets/loading_data_widget.dart';
+import 'package:movies/src/widgets/video_player.dart';
 
 class VideoListPage extends StatelessWidget {
   Extras extras = Extras();
@@ -47,11 +48,37 @@ class VideoListPage extends StatelessWidget {
             if (!snapshot.hasData) {
               return LoadingData();
             }
+            //
+            final ytVideos =
+                snapshot.data.where((e) => e.site.toLowerCase() == 'youtube');
+            if (ytVideos.isEmpty) {
+              return Center(
+                child: _buildNoHasResult(),
+              );
+            }
             return Column(
-              children:
-                  snapshot.data.map((e) => getVideoCard(e, movie)).toList(),
+              children: ytVideos.map((e) => getVideoCard(e, movie)).toList(),
             );
           }),
+    );
+  }
+
+  Widget _buildNoHasResult() {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 20),
+      child: Column(
+        children: <Widget>[
+          Text(
+            'No hay video de esta pelicula.',
+            style: TextStyle(
+                color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
+          ),
+          Text(
+            'Intenta buscar otra peli.',
+            style: TextStyle(color: Colors.white60, fontSize: 12),
+          )
+        ],
+      ),
     );
   }
 
@@ -85,8 +112,8 @@ class VideoListPage extends StatelessWidget {
       child: Card(
         color: Color.fromRGBO(57, 79, 111, 1.0),
         child: Column(
-          //VideoScreen(id: video.key),
           children: <Widget>[
+            VideoScreen(id: video.key),
             ListTile(
               leading: avatar,
               title: Text(video.name,
