@@ -108,34 +108,44 @@ class Extras {
         child: Text(text, style: titleSection));
   }
 
-  buildSection(String title, Widget infoSection, [String textBackground]) {
+  buildSection(String title, Widget infoSection,
+      {String textBackground, Widget action}) {
     if (textBackground == null) {
       textBackground = title;
     }
+    if (action == null){
+      action = Container();
+    }
+    final header = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        buildTitleSection(title),
+        action
+      ],
+    );
     final res = Container(
       padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 6),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          buildTitleSection(title),
-          SizedBox(height: 10),
-          infoSection
-        ],
+        children: <Widget>[header, SizedBox(height: 10), infoSection],
       ),
     );
-    return Stack(
-      children: <Widget>[
-        Container(
-          padding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
-          child: Text(textBackground,
-              style: TextStyle(
-                  color: Colors.white10,
-                  fontSize: 60,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'RussoOne')),
-        ),
-        res
-      ],
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 6),
+      child: Stack(
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+            child: Text(textBackground,
+                style: TextStyle(
+                    color: Colors.white10,
+                    fontSize: 60,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'RussoOne')),
+          ),
+          res
+        ],
+      ),
     );
   }
 }

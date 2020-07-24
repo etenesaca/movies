@@ -10,7 +10,6 @@ import 'package:movies/src/widgets/actors_widget.dart';
 import 'package:movies/src/widgets/card_swiper_backdrops_widget.dart';
 import 'package:movies/src/widgets/loading_data_widget.dart';
 import 'package:movies/src/widgets/page_view_actor_movies_widget.dart';
-//import 'package:movies/src/widgets/chip_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:movies/src/widgets/slivers/sliver_movie_poster_widget.dart';
 
@@ -51,7 +50,7 @@ class MovieDetailPage extends StatelessWidget {
                           context.watch<GlobalProvider>().allMovieGenres),
                       _buildSectionDescription(context, movie),
                       _buildSectionDatesVotes(context, movie),
-                      _buildSectionImages(context, movie),
+                      _buildSectionGalery(context, movie),
                       _buildSectionCast(context, movie),
                       _buildMovieRelateds(context, movie),
                     ],
@@ -179,8 +178,8 @@ class MovieDetailPage extends StatelessWidget {
         ));
   }
 
-  _buildSectionImages(BuildContext context, Movie movie) {
-    final images_cards = FutureBuilder(
+  _buildSectionGalery(BuildContext context, Movie movie) {
+    final images = FutureBuilder(
         future: movieApi.getMovieImagesList(movie.id),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.hasData) {
@@ -189,13 +188,15 @@ class MovieDetailPage extends StatelessWidget {
             return LoadingData();
           }
         });
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 18),
-      child: Container(
-        height: 150,
-        child: images_cards,
-      ),
+    final res = Container(
+      height: 150,
+      child: images,
     );
+    final showAllImages = Text(
+      'Ver todo',
+      style: TextStyle(color: Colors.blueAccent, fontSize: 12),
+    );
+    return extras.buildSection('Galeria', res, action: showAllImages);
   }
 
   _buildSectionCast(BuildContext context, Movie movie) {
@@ -213,6 +214,6 @@ class MovieDetailPage extends StatelessWidget {
   Widget _buildMovieRelateds(BuildContext context, Movie movie) {
     final res =
         PageViewMovieSection(futureMovies: movieApi.getMovieRelateds(movie.id));
-    return extras.buildSection('Sugeridas', res, 'movies');
+    return extras.buildSection('Sugeridas', res, textBackground: 'movies');
   }
 }
