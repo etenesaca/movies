@@ -5,6 +5,7 @@ import 'package:movies/src/models/actor_model.dart';
 import 'package:movies/src/models/gender_model.dart';
 import 'package:movies/src/models/image_model.dart';
 import 'package:movies/src/models/movie_model.dart';
+import 'package:movies/src/models/video_model.dart';
 
 class MovieProvider {
   String _apikey = '0c87c373e9ddc6969a2751ea710b2b0c';
@@ -71,6 +72,14 @@ class MovieProvider {
     Map<String, String> queryParameters = {};
     final resJsonData = await _getHttpData(apiUrl, queryParameters);
     return Cast.fromJsonMap(resJsonData['cast']).items;
+  }
+
+  // Obtener una lista de video relacionado a una pelicula
+  Future<List<Video>> getVideos(int movieId) async {
+    String apiUrl = '3/movie/$movieId/videos';
+    Map<String, String> queryParameters = {'language': 'en-US'};
+    final resJsonData = await _getHttpData(apiUrl, queryParameters);
+    return Videos.fromJsonMap(resJsonData['results']).items;
   }
 
   // Obtener los detalles de un actor
