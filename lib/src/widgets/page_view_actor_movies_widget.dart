@@ -71,6 +71,23 @@ class PageViewMovieSection extends StatelessWidget {
             );
           }
           final movies = snapshot.data;
+          if (movies.isEmpty) {
+            return Padding(
+              padding: EdgeInsets.symmetric(vertical: 10),
+              child: Center(
+                  child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(Icons.movie, color: Colors.white),
+                  SizedBox(width: 5),
+                  Text(
+                    'No hay peliculas.',
+                    style: TextStyle(color: Colors.white),
+                  )
+                ],
+              )),
+            );
+          }
           return Container(
             height: _screenSize.height * 0.313,
             child: PageView.builder(
