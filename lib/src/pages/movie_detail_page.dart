@@ -9,12 +9,14 @@ import 'package:movies/src/providers/movie_api.dart';
 import 'package:movies/src/widgets/actors_widget.dart';
 import 'package:movies/src/widgets/card_swiper_backdrops_widget.dart';
 import 'package:movies/src/widgets/loading_data_widget.dart';
+import 'package:movies/src/widgets/page_view_actor_movies_widget.dart';
 //import 'package:movies/src/widgets/chip_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:movies/src/widgets/slivers/sliver_movie_poster_widget.dart';
 
 class MovieDetailPage extends StatelessWidget {
-  final movieProvider = MovieProvider();
+  final movieApi = MovieProvider();
+  final extras = Extras();
   Size _screenSize;
 
   @override
@@ -51,6 +53,7 @@ class MovieDetailPage extends StatelessWidget {
                       _buildSectionDatesVotes(context, movie),
                       _buildSectionImages(context, movie),
                       _buildSectionCast(context, movie),
+                      _buildMovieRelateds(context, movie),
                     ],
                   ),
                 )
@@ -79,21 +82,13 @@ class MovieDetailPage extends StatelessWidget {
     );
   }
 
-  Widget _geTitleSection(String text) {
-    final titleSection = TextStyle(
-        fontWeight: FontWeight.bold, fontSize: 15.0, color: Colors.white);
-    return Padding(
-        padding: EdgeInsets.symmetric(vertical: 8),
-        child: Text(text, style: titleSection));
-  }
-
   _buildSectionRating(BuildContext context, Movie movie) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 5),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          _geTitleSection('Valoración ${movie.voteAverage}'),
+          extras.buildTitleSection('Valoración ${movie.voteAverage}'),
           SizedBox(height: 3),
           Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -125,7 +120,7 @@ class MovieDetailPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          _geTitleSection('Géneros'),
+          extras.buildTitleSection('Géneros'),
           SizedBox(height: 3),
           Wrap(spacing: 6.0, runSpacing: 6.0, children: boxes),
         ],
@@ -139,7 +134,7 @@ class MovieDetailPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          _geTitleSection('Sinopsis'),
+          extras.buildTitleSection('Sinopsis'),
           SizedBox(height: 5),
           Text(
             movie.overview,
@@ -160,7 +155,7 @@ class MovieDetailPage extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _geTitleSection('Fecha de estreno'),
+                extras.buildTitleSection('Fecha de estreno'),
                 Text(
                   movie.releaseDate,
                   textAlign: TextAlign.justify,
@@ -172,7 +167,7 @@ class MovieDetailPage extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
-                _geTitleSection('Votos'),
+                extras.buildTitleSection('Votos'),
                 Text(
                   '${movie.voteCount}',
                   style: TextStyle(
@@ -186,7 +181,7 @@ class MovieDetailPage extends StatelessWidget {
 
   _buildSectionImages(BuildContext context, Movie movie) {
     final images_cards = FutureBuilder(
-        future: MovieProvider().getMovieImagesList(movie.id),
+        future: movieApi.getMovieImagesList(movie.id),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.hasData) {
             return SwiperBackdrops(images: snapshot.data);
@@ -205,37 +200,19 @@ class MovieDetailPage extends StatelessWidget {
 
   _buildSectionCast(BuildContext context, Movie movie) {
     final actorItems = FutureBuilder(
-        future: movieProvider.getMovieCast(movie.id),
+        future: movieApi.getMovieCast(movie.id),
         builder: (BuildContext context, AsyncSnapshot<List<Actor>> snapshot) {
           if (!snapshot.hasData) {
             return LoadingData();
           }
           return ActorWidget(cast: snapshot.data);
         });
-    final res = Container(
-      padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 6),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          _geTitleSection('Actores'),
-          SizedBox(height: 10),
-          actorItems
-        ],
-      ),
-    );
-    return Stack(
-      children: <Widget>[
-        Container(
-          padding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
-          child: Text('Actores',
-              style: TextStyle(
-                  color: Colors.white10,
-                  fontSize: 60,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'RussoOne')),
-        ),
-        res
-      ],
-    );
+    return extras.buildSection('Actores', actorItems);
+  }
+
+  Widget _buildMovieRelateds(BuildContext context, Movie movie) {
+    final res =
+        PageViewMovieSection(futureMovies: movieApi.getMovieRelateds(movie.id));
+    return extras.buildSection('Sugeridas', res, 'movies');
   }
 }

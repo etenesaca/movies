@@ -200,14 +200,9 @@ class ActorPage extends StatelessWidget {
   }
 
   Widget _buildMovieRelateds(BuildContext context, Actor actor) {
-    final res = PageViewMovieSection(
-      titleSection: 'Peliculas en las que aparece',
-      actor: actor,
-    );
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10),
-      child: res,
-    );
+    final res =
+        PageViewMovieSection(futureMovies: movieApi.getActorMovies(actor.id));
+    return extras.buildSection('Peliculas en las que aparece', res, 'movies');
   }
 
   Widget _buildAppBar(Actor actor) {

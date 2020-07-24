@@ -99,4 +99,43 @@ class Extras {
       child: Text(label, style: txtStyle),
     );
   }
+
+  Widget buildTitleSection(String text) {
+    final titleSection = TextStyle(
+        fontWeight: FontWeight.bold, fontSize: 15.0, color: Colors.white);
+    return Padding(
+        padding: EdgeInsets.symmetric(vertical: 8),
+        child: Text(text, style: titleSection));
+  }
+
+  buildSection(String title, Widget infoSection, [String textBackground]) {
+    if (textBackground == null) {
+      textBackground = title;
+    }
+    final res = Container(
+      padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 6),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          buildTitleSection(title),
+          SizedBox(height: 10),
+          infoSection
+        ],
+      ),
+    );
+    return Stack(
+      children: <Widget>[
+        Container(
+          padding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+          child: Text(textBackground,
+              style: TextStyle(
+                  color: Colors.white10,
+                  fontSize: 60,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'RussoOne')),
+        ),
+        res
+      ],
+    );
+  }
 }

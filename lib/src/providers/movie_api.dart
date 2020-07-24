@@ -74,6 +74,12 @@ class MovieProvider {
     return Cast.fromJsonMap(resJsonData['cast']).items;
   }
 
+  // Obtener las peliculas relacionadas
+  Future<List<Movie>> getMovieRelateds(int movieId) async {
+    return _getMoviesData('3/movie/$movieId/recommendations',
+        callFrom: 'movie_related', language: '$_language,null');
+  }
+
   // Obtener una lista de video relacionado a una pelicula
   Future<List<Video>> getVideos(int movieId) async {
     String apiUrl = '3/movie/$movieId/videos';

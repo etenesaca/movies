@@ -1,20 +1,15 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/common/extras.dart';
-import 'package:movies/src/models/actor_model.dart';
 import 'package:movies/src/models/movie_model.dart';
-import 'package:movies/src/providers/movie_api.dart';
 import 'package:movies/src/widgets/loading_data_widget.dart';
 
 class PageViewMovieSection extends StatelessWidget {
-  MovieProvider movieApi = MovieProvider();
+  final Future<List<Movie>> futureMovies;
   Size _screenSize;
   PageController _pageController;
 
-  final String titleSection;
-  final Actor actor;
-
-  PageViewMovieSection({@required this.titleSection, @required this.actor});
+  PageViewMovieSection({@required this.futureMovies});
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +62,7 @@ class PageViewMovieSection extends StatelessWidget {
 
   Widget _getData(BuildContext context) {
     return FutureBuilder(
-        future: movieApi.getActorMovies(actor.id),
+        future: futureMovies,
         builder: (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
           if (!snapshot.hasData) {
             return Padding(
@@ -95,31 +90,12 @@ class PageViewMovieSection extends StatelessWidget {
         //color: Colors.white,
         borderRadius:
             BorderRadius.only(topRight: radiusCorners, topLeft: radiusCorners));
-    Widget headerSection = Row(
-      children: <Widget>[
-        Text(titleSection,
-            style: TextStyle(
-                fontWeight: FontWeight.bold, color: Colors.white, fontSize: 16))
-      ],
-    );
     return Padding(
-      padding: EdgeInsets.only(bottom: 1.0),
+      padding: EdgeInsets.only(bottom: 1.0, left: 3, right: 3),
       child: Container(
-        width: double.infinity,
-        decoration: boxStyle,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-                padding: EdgeInsets.only(left: 20.0, top: 15.0, bottom: 15.0),
-                child: headerSection),
-            Padding(
-              padding: EdgeInsets.only(left: 3, right: 3),
-              child: _getData(context),
-            ),
-          ],
-        ),
-      ),
+          width: double.infinity,
+          decoration: boxStyle,
+          child: _getData(context)),
     );
   }
 }
