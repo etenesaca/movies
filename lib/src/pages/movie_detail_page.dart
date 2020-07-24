@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/common/extras.dart';
@@ -114,17 +116,19 @@ class MovieDetailPage extends StatelessWidget {
             duration: Duration(milliseconds: 300), child: _buildBoxGender(e)))
         .toList();
     //final boxes = genres.map((e) => ChipTag(color: Colors.redAccent, label: e.name)).toList();
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 6),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          extras.buildTitleSection('Géneros'),
-          SizedBox(height: 3),
-          Wrap(spacing: 6.0, runSpacing: 6.0, children: boxes),
-        ],
-      ),
+
+    final movieDuration = Row(
+      children: <Widget>[
+        Icon(Icons.access_time, color: Colors.blueAccent, size: 15),
+        SizedBox(width: 2,),
+        Text('15mins', style: TextStyle(color: Colors.blueAccent, fontSize: 12, fontWeight: FontWeight.bold))
+      ],
     );
+    return extras.buildSection(
+        title: 'Géneros',
+        action: movieDuration,
+        child: Wrap(spacing: 6.0, runSpacing: 6.0, children: boxes),
+        showBackground: false);
   }
 
   _buildSectionDescription(BuildContext context, Movie movie) {
@@ -196,7 +200,8 @@ class MovieDetailPage extends StatelessWidget {
       'Ver todo',
       style: TextStyle(color: Colors.blueAccent, fontSize: 12),
     );
-    return extras.buildSection('Galeria', res, action: showAllImages);
+    return extras.buildSection(
+        title: 'Galeria', child: res, action: showAllImages);
   }
 
   _buildSectionCast(BuildContext context, Movie movie) {
@@ -208,12 +213,13 @@ class MovieDetailPage extends StatelessWidget {
           }
           return ActorWidget(cast: snapshot.data);
         });
-    return extras.buildSection('Actores', actorItems);
+    return extras.buildSection(title: 'Actores', child: actorItems);
   }
 
   Widget _buildMovieRelateds(BuildContext context, Movie movie) {
     final res =
         PageViewMovieSection(futureMovies: movieApi.getMovieRelateds(movie.id));
-    return extras.buildSection('Sugeridas', res, textBackground: 'movies');
+    return extras.buildSection(
+        title: 'Sugeridas', child: res, textBackground: 'movies');
   }
 }
