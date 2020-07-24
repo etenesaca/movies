@@ -20,6 +20,9 @@ class MovieDetailPage extends StatelessWidget {
   final extras = Extras();
   Size _screenSize;
 
+  EdgeInsets paddingSections =
+      EdgeInsets.symmetric(vertical: 0, horizontal: 20);
+
   @override
   Widget build(BuildContext context) {
     final Map<String, dynamic> args = ModalRoute.of(context).settings.arguments;
@@ -43,17 +46,19 @@ class MovieDetailPage extends StatelessWidget {
                   height: 10.0,
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+                  //padding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      _buildSectionRating(context, movie),
-                      _buildSectionGenres(context, movie,
-                          context.watch<GlobalProvider>().allMovieGenres),
-                      _buildSectionDescription(context, movie),
-                      _buildSectionDatesVotes(context, movie),
+                      setPaddingsection(_buildSectionRating(context, movie)),
+                      setPaddingsection(_buildSectionGenres(context, movie,
+                          context.watch<GlobalProvider>().allMovieGenres)),
+                      setPaddingsection(
+                          _buildSectionDescription(context, movie)),
+                      setPaddingsection(
+                          _buildSectionDatesVotes(context, movie)),
                       _buildSectionGalery(context, movie),
-                      _buildSectionCast(context, movie),
+                      setPaddingsection(_buildSectionCast(context, movie)),
                       _buildMovieRelateds(context, movie),
                     ],
                   ),
@@ -120,8 +125,14 @@ class MovieDetailPage extends StatelessWidget {
     final movieDuration = Row(
       children: <Widget>[
         Icon(Icons.access_time, color: Colors.blueAccent, size: 15),
-        SizedBox(width: 2,),
-        Text('15mins', style: TextStyle(color: Colors.blueAccent, fontSize: 12, fontWeight: FontWeight.bold))
+        SizedBox(
+          width: 2,
+        ),
+        Text('15mins',
+            style: TextStyle(
+                color: Colors.blueAccent,
+                fontSize: 12,
+                fontWeight: FontWeight.bold))
       ],
     );
     return extras.buildSection(
@@ -129,6 +140,10 @@ class MovieDetailPage extends StatelessWidget {
         action: movieDuration,
         child: Wrap(spacing: 6.0, runSpacing: 6.0, children: boxes),
         showBackground: false);
+  }
+
+  Widget setPaddingsection(Widget child) {
+    return Padding(padding: paddingSections, child: child);
   }
 
   _buildSectionDescription(BuildContext context, Movie movie) {
@@ -201,7 +216,10 @@ class MovieDetailPage extends StatelessWidget {
       style: TextStyle(color: Colors.blueAccent, fontSize: 12),
     );
     return extras.buildSection(
-        title: 'Galeria', child: res, action: showAllImages);
+        title: 'Galeria',
+        child: res,
+        action: showAllImages,
+        paddingHeader: paddingSections);
   }
 
   _buildSectionCast(BuildContext context, Movie movie) {
@@ -220,6 +238,9 @@ class MovieDetailPage extends StatelessWidget {
     final res =
         PageViewMovieSection(futureMovies: movieApi.getMovieRelateds(movie.id));
     return extras.buildSection(
-        title: 'Sugeridas', child: res, textBackground: 'movies');
+        title: 'Sugeridas',
+        child: res,
+        textBackground: 'movies',
+        paddingHeader: paddingSections);
   }
 }

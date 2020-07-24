@@ -13,6 +13,9 @@ class ActorPage extends StatelessWidget {
   Color mainColor;
   Size _screenSize;
 
+  EdgeInsets paddingSections =
+      EdgeInsets.symmetric(vertical: 0, horizontal: 20);
+
   @override
   Widget build(BuildContext context) {
     Actor actor = ModalRoute.of(context).settings.arguments;
@@ -41,6 +44,10 @@ class ActorPage extends StatelessWidget {
     );
   }
 
+  Widget setPaddingsection(Widget child) {
+    return Padding(padding: paddingSections, child: child);
+  }
+
   Widget _buildInfo(Actor actor) {
     return FutureBuilder(
       future: movieApi.getActorDetail(actor.id),
@@ -49,25 +56,23 @@ class ActorPage extends StatelessWidget {
           return LoadingData();
         }
         actor = snapshot.data;
-        return Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 8),
-                  child: _buildSec1(actor),
-                ),
-                _buildBith(actor),
-                _buildSectionImages(context, actor),
-                _buildMovieRelateds(context, actor),
-                (actor.biography != '')
-                    ? _buildBiography(actor)
-                    : SizedBox(
-                        height: 20,
-                      ),
-              ],
-            ));
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 8),
+              child: _buildSec1(actor),
+            ),
+            setPaddingsection(_buildBith(actor)),
+            _buildSectionImages(context, actor),
+            _buildMovieRelateds(context, actor),
+            (actor.biography != '')
+                ? _buildBiography(actor)
+                : SizedBox(
+                    height: 20,
+                  ),
+          ],
+        );
       },
     );
   }
@@ -190,13 +195,15 @@ class ActorPage extends StatelessWidget {
             return LoadingData();
           }
         });
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 18),
-      child: Container(
-        height: 150,
-        child: imagesCards,
-      ),
-    );
+
+    return extras.buildSection(
+        title: '',
+        child: Container(
+          height: 150,
+          child: imagesCards,
+        ),
+        textBackground: actor.name,
+        paddingHeader: paddingSections);
   }
 
   Widget _buildMovieRelateds(BuildContext context, Actor actor) {
@@ -205,7 +212,8 @@ class ActorPage extends StatelessWidget {
     return extras.buildSection(
         title: 'Peliculas en las que aparece',
         child: res,
-        textBackground: 'movies');
+        textBackground: 'movies',
+        paddingHeader: paddingSections);
   }
 
   Widget _buildAppBar(Actor actor) {

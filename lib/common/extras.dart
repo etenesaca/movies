@@ -113,17 +113,24 @@ class Extras {
       @required Widget child,
       bool showBackground = true,
       String textBackground,
-      Widget action}) {
+      Widget action,
+      EdgeInsets paddingHeader
+      }) {
+    if (paddingHeader == null) {
+      paddingHeader = EdgeInsets.symmetric();
+    }
     if (textBackground == null) {
       textBackground = title;
     }
     if (action == null) {
       action = Container();
     }
-    final header = Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[buildTitleSection(title), action],
-    );
+    final header = Padding(
+        padding: paddingHeader,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[buildTitleSection(title), action],
+        ));
     final res = Container(
       padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 6),
       child: Column(
@@ -132,7 +139,9 @@ class Extras {
       ),
     );
     final background = (showBackground)
-        ? Container(
+        ? Padding(
+      padding: paddingHeader,
+      child: Container(
             padding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
             child: Text(textBackground,
                 style: TextStyle(
@@ -140,7 +149,8 @@ class Extras {
                     fontSize: 60,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'RussoOne')),
-          )
+          ),
+    )
         : Container();
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 6),
