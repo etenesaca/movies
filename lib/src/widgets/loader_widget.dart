@@ -15,7 +15,7 @@ class _LoaderWidgetState extends State<LoaderWidget>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 2500),
+      duration: const Duration(milliseconds: 1500),
     );
     _controller.repeat();
   }

@@ -32,6 +32,7 @@ class SearchMovieProvider with ChangeNotifier, DiagnosticableTreeMixin {
   }
 
   void requestSearch(String query) async {
+    _movies = [];
     loading = true;
     noHasResults = false;
     notifyListeners();

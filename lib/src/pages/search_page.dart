@@ -3,6 +3,7 @@ import 'package:movies/common/extras.dart';
 import 'package:movies/src/models/gender_model.dart';
 import 'package:movies/src/providers/search_provider.dart';
 import 'package:movies/src/models/movie_model.dart';
+import 'package:movies/src/widgets/loading_data_widget.dart';
 import 'package:provider/provider.dart';
 
 class SearchPage extends StatelessWidget {
@@ -45,18 +46,10 @@ class SearchPage extends StatelessWidget {
           decoration: BoxDecoration(color: Colors.white10),
         ),
         SizedBox(height: 8),
+        if (context.watch<SearchMovieProvider>().loading) LoadingData(),
         Expanded(
             child: _buildResults(
                 context, context.watch<SearchMovieProvider>().movies)),
-        if (context.watch<SearchMovieProvider>().loading)
-          Center(
-            child: Center(
-              child: Padding(
-                padding: EdgeInsets.all(20),
-                child: CircularProgressIndicator(),
-              ),
-            ),
-          ),
       ],
     );
     return resList;
