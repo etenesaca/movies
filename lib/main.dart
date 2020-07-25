@@ -22,8 +22,6 @@ class MyApp extends StatelessWidget {
               create: (_) => SearchMovieProvider()),
           ChangeNotifierProvider<GlobalProvider>(
               create: (_) => GlobalProvider()),
-          ChangeNotifierProvider<MovieDetailProvider>(
-              create: (_) => MovieDetailProvider())
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
