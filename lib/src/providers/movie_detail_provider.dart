@@ -7,9 +7,9 @@ class MovieDetailProvider with ChangeNotifier, DiagnosticableTreeMixin {
   MovieProvider movieApi = MovieProvider();
 
   bool loading = false;
-  Movie movie;
+  Movie movie = Movie();
 
-  void getMovieDetails(int movieId) async {
+  void loadMovieDetails(int movieId) async {
     loading = true;
     notifyListeners();
     movie = await movieApi.getMovieDetail(movieId);

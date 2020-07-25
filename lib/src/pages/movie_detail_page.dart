@@ -8,6 +8,7 @@ import 'package:movies/src/models/gender_model.dart';
 import 'package:movies/src/models/movie_model.dart';
 import 'package:movies/src/providers/global_provider.dart';
 import 'package:movies/src/apis/the_movie_db_api.dart';
+import 'package:movies/src/providers/movie_detail_provider.dart';
 import 'package:movies/src/widgets/actors_widget.dart';
 import 'package:movies/src/widgets/card_swiper_backdrops_widget.dart';
 import 'package:movies/src/widgets/loading_data_widget.dart';
@@ -18,7 +19,8 @@ import 'package:movies/src/widgets/slivers/sliver_movie_poster_widget.dart';
 class MovieDetailPage extends StatelessWidget {
   final movieApi = MovieProvider();
   final extras = Extras();
-  Size _screenSize;
+  MovieDetailProvider xblox;
+  MovieDetailProvider bloc;
 
   EdgeInsets paddingSections =
       EdgeInsets.symmetric(vertical: 0, horizontal: 20);
@@ -27,10 +29,10 @@ class MovieDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final Map<String, dynamic> args = ModalRoute.of(context).settings.arguments;
     final Movie movie = args['movie'];
+    bloc = MovieDetailProvider();
+    bloc.loadMovieDetails(movie.id);    
 
-    _screenSize = MediaQuery.of(context).size;
-
-    return Scaffold(
+    final page = Scaffold(
       body: Stack(
         children: <Widget>[
           Extras().getBackgroundApp(),
@@ -79,6 +81,13 @@ class MovieDetailPage extends StatelessWidget {
             }),
       ),
     );
+    xblox = Provider.of<MovieDetailProvider>(context);
+    return AnimatedBuilder(
+      animation: bloc,
+      builder: (BuildContext context, Widget child) {
+        return page;
+      },
+    );
   }
 
   _buildSliverPoster(Movie movie) {
@@ -121,18 +130,20 @@ class MovieDetailPage extends StatelessWidget {
             duration: Duration(milliseconds: 300), child: _buildBoxGender(e)))
         .toList();
     //final boxes = genres.map((e) => ChipTag(color: Colors.redAccent, label: e.name)).toList();
-
     final movieDuration = Row(
       children: <Widget>[
         Icon(Icons.access_time, color: Colors.blueAccent, size: 15),
         SizedBox(
           width: 2,
         ),
-        Text('15mins',
-            style: TextStyle(
-                color: Colors.blueAccent,
-                fontSize: 12,
-                fontWeight: FontWeight.bold))
+        !bloc.loading
+            ? Text(
+                context.watch<MovieDetailProvider>().movie.runtime.toString(),
+                style: TextStyle(
+                    color: Colors.blueAccent,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold))
+            : Container()
       ],
     );
     return extras.buildSection(

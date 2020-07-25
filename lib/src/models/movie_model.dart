@@ -75,15 +75,15 @@ class Movie {
     backdropPath = json['backdrop_path'];
     originalLanguage = json['original_language'];
     originalTitle = json['original_title'];
-    genreIds = json['genre_ids'].cast<int>();
+    genreIds = json['genre_ids'] != null ? json['genre_ids'].cast<int>() : [];
     title = json['title'];
     voteAverage =
         (!json.keys.contains('vote_average')) ? 0.0 : json['vote_average'] / 1;
     overview = json['overview'];
     releaseDate = json['release_date'];
     belongsToCollection = json['belongsToCollection'];
-    imdbId = json['imdbId'];
-    budget = json['budget'];
+    imdbId = json['imdb_id'];
+    budget = json['budget'] != null ? json['budget'] : 0;
     homepage = json['homepage'];
     revenue = json['revenue'];
     runtime = json['runtime'];
