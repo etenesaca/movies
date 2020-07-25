@@ -76,7 +76,7 @@ class MovieProvider {
   }
 
   // Obtener las peliculas relacionadas
-  Future<List<Movie>> getMovieRelateds(int movieId) async {
+  Future<List<Movie>> getMovieRecommendeds(int movieId) async {
     return _getMoviesData('/movie/$movieId/recommendations',
         callFrom: 'movie_related', language: '$_language,null');
   }

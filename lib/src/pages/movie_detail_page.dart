@@ -56,7 +56,8 @@ class MovieDetailPage extends StatelessWidget {
                           _buildSectionDatesVotes(context, movie)),
                       _buildSectionGalery(context, movie),
                       setPaddingsection(_buildSectionCast(context, movie)),
-                      _buildMovieRelateds(context, movie),
+                      _buildMovieSimilars(context, movie),
+                      _buildMovieRecommendeds(context, movie),
                     ],
                   ),
                 )
@@ -246,13 +247,17 @@ class MovieDetailPage extends StatelessWidget {
     return extras.buildSection(title: 'Actores', child: actorItems);
   }
 
-  Widget _buildMovieRelateds(BuildContext context, Movie movie) {
-    final res =
-        PageViewMovieSection(futureMovies: movieApi.getMovieRelateds(movie.id));
+  Widget _buildMovieRecommendeds(BuildContext context, Movie movie) {
+    final res = PageViewMovieSection(
+        futureMovies: movieApi.getMovieRecommendeds(movie.id));
     return extras.buildSection(
-        title: 'Sugeridas',
-        child: res,
-        textBackground: 'movies',
-        paddingHeader: paddingSections);
+        title: 'Sugeridas', child: res, paddingHeader: paddingSections);
+  }
+
+  Widget _buildMovieSimilars(BuildContext context, Movie movie) {
+    final res =
+        PageViewMovieSection(futureMovies: movieApi.getMovieSimilars(movie.id));
+    return extras.buildSection(
+        title: 'Similares', child: res, paddingHeader: paddingSections);
   }
 }
