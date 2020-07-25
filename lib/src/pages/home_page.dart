@@ -57,7 +57,7 @@ class _HomePageState extends State<HomePage> {
         future: moviesProvider.getMoviesNowPlaying(),
         builder: (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
           if (!snapshot.hasData) {
-            return LoadingData('Q-Loading.gif');
+            return LoadingData();
           }
           return Padding(
               padding: EdgeInsets.only(top: 25.0),

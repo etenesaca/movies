@@ -74,10 +74,19 @@ class _RootPageState extends State<RootPage> with WidgetsBindingObserver {
   }
 
   @override
+  void initState() {
+    super.initState();
+    Future.microtask(() =>
+        Provider.of<GlobalProvider>(context, listen: false).loadMovieGenders());
+  }
+
+  @override
   Widget build(BuildContext context) {
+    /*
     if (context.watch<GlobalProvider>().allMovieGenres.length == 0) {
       Provider.of<GlobalProvider>(context).loadMovieGenders();
     }
+     */
     final List<Widget> _children = [
       getHomeTab(context),
       getSearchTab(context),
