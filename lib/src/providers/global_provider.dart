@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/src/models/gender_model.dart';
-import 'package:movies/src/providers/movie_api.dart';
+import 'package:movies/src/apis/the_movie_db_api.dart';
 
 class GlobalProvider with ChangeNotifier, DiagnosticableTreeMixin {
   final _movieProvider = MovieProvider();

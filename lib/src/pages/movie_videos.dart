@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:movies/common/extras.dart';
 import 'package:movies/src/models/movie_model.dart';
 import 'package:movies/src/models/video_model.dart';
-import 'package:movies/src/providers/movie_api.dart';
+import 'package:movies/src/apis/the_movie_db_api.dart';
 import 'package:movies/src/widgets/loading_data_widget.dart';
 import 'package:movies/src/widgets/video_player.dart';
 

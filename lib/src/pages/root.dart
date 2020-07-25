@@ -4,7 +4,7 @@ import 'package:movies/common/extras.dart';
 import 'package:movies/src/pages/home_page.dart';
 import 'package:movies/src/pages/search_page.dart';
 import 'package:movies/src/providers/global_provider.dart';
-import 'package:movies/src/providers/movie_api.dart';
+import 'package:movies/src/apis/the_movie_db_api.dart';
 import 'package:provider/provider.dart';
 
 class RootPage extends StatefulWidget {

@@ -2,7 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/src/bloc/movie_section_bloc.dart';
 import 'package:movies/src/models/movie_model.dart';
-import 'package:movies/src/providers/movie_api.dart';
+import 'package:movies/src/apis/the_movie_db_api.dart';
 import 'package:movies/src/widgets/card_swiper_widget.dart';
 import 'package:movies/src/widgets/loading_data_widget.dart';
 import 'package:movies/src/widgets/page_view_section_widget.dart';

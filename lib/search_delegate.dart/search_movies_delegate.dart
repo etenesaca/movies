@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movies/common/debouncer.dart';
 import 'package:movies/common/extras.dart';
 import 'package:movies/src/models/movie_model.dart';
-import 'package:movies/src/providers/movie_api.dart';
+import 'package:movies/src/apis/the_movie_db_api.dart';
 
 class MovieSearch extends SearchDelegate {
   final debouncer = Debouncer();

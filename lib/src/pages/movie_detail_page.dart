@@ -7,7 +7,7 @@ import 'package:movies/src/models/actor_model.dart';
 import 'package:movies/src/models/gender_model.dart';
 import 'package:movies/src/models/movie_model.dart';
 import 'package:movies/src/providers/global_provider.dart';
-import 'package:movies/src/providers/movie_api.dart';
+import 'package:movies/src/apis/the_movie_db_api.dart';
 import 'package:movies/src/widgets/actors_widget.dart';
 import 'package:movies/src/widgets/card_swiper_backdrops_widget.dart';
 import 'package:movies/src/widgets/loading_data_widget.dart';
