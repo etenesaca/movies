@@ -3,6 +3,7 @@ import 'package:movies/src/pages/actor_page.dart';
 import 'package:movies/src/pages/backdrop_page.dart';
 import 'package:movies/src/pages/movie_videos.dart';
 import 'package:movies/src/providers/global_provider.dart';
+import 'package:movies/src/providers/movie_detail_provider.dart';
 import 'package:movies/src/providers/search_provider.dart';
 import 'package:movies/src/pages/home_page.dart';
 import 'package:movies/src/pages/movie_detail_page.dart';
@@ -20,7 +21,9 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider<SearchMovieProvider>(
               create: (_) => SearchMovieProvider()),
           ChangeNotifierProvider<GlobalProvider>(
-              create: (_) => GlobalProvider())
+              create: (_) => GlobalProvider()),
+          ChangeNotifierProvider<MovieDetailProvider>(
+              create: (_) => MovieDetailProvider())
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

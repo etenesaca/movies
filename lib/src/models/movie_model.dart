@@ -29,6 +29,14 @@ class Movie {
   double voteAverage;
   String overview;
   String releaseDate;
+  dynamic belongsToCollection;
+  String imdbId;
+  int budget;
+  String homepage;
+  int revenue;
+  int runtime;
+  String status;
+  String tagline;
 
   Movie({
     this.voteCount,
@@ -46,6 +54,14 @@ class Movie {
     this.voteAverage,
     this.overview,
     this.releaseDate,
+    this.belongsToCollection,
+    this.imdbId,
+    this.budget,
+    this.homepage,
+    this.revenue,
+    this.runtime,
+    this.status,
+    this.tagline,
   });
 
   Movie.fromJsonMap(Map<String, dynamic> json, String callFrom) {
@@ -65,6 +81,14 @@ class Movie {
         (!json.keys.contains('vote_average')) ? 0.0 : json['vote_average'] / 1;
     overview = json['overview'];
     releaseDate = json['release_date'];
+    belongsToCollection = json['belongsToCollection'];
+    imdbId = json['imdbId'];
+    budget = json['budget'];
+    homepage = json['homepage'];
+    revenue = json['revenue'];
+    runtime = json['runtime'];
+    status = json['status'];
+    tagline = json['tagline'];
   }
 
   String getPosterImgUrl() {

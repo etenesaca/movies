@@ -80,12 +80,26 @@ class MovieProvider {
         callFrom: 'movie_related', language: '$_language,null');
   }
 
+  // Obtener las peliculas similares
+  Future<List<Movie>> getMovieSimilars(int movieId) async {
+    return _getMoviesData('3/movie/$movieId/similar',
+        callFrom: 'movie_related', language: '$_language,null');
+  }
+
   // Obtener una lista de video relacionado a una pelicula
   Future<List<Video>> getVideos(int movieId) async {
     String apiUrl = '3/movie/$movieId/videos';
     Map<String, String> queryParameters = {'language': 'en-US'};
     final resJsonData = await _getHttpData(apiUrl, queryParameters);
     return Videos.fromJsonMap(resJsonData['results']).items;
+  }
+
+  // Obtener los detalles de una pelicula
+  Future<Movie> getMovieDetail(int movieId) async {
+    String apiUrl = '3/movie/$movieId';
+    Map<String, String> queryParameters = {'language': 'en-US'};
+    final resJsonData = await _getHttpData(apiUrl, queryParameters);
+    return Movie.fromJsonMap(resJsonData, 'movie_detail');
   }
 
   // Obtener los detalles de un actor
