@@ -23,8 +23,22 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     _screenSize = MediaQuery.of(context).size;
+    final title = Padding(
+        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text('En Cines',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.normal,
+                    fontSize: 23,
+                    fontFamily: 'RussoOne'))
+          ],
+        ));
 
     List<Widget> sections = [
+      title,
       _buildNowPlayingSection(context),
       FadeInUp(
         duration: Duration(milliseconds: 600),
@@ -41,13 +55,15 @@ class _HomePageState extends State<HomePage> {
       ),
       */
     ];
-    return CustomScrollView(
+
+    return SafeArea(
+        child: CustomScrollView(
       slivers: <Widget>[
         SliverList(
           delegate: SliverChildListDelegate(sections),
         ),
       ],
-    );
+    ));
   }
 
   Widget _buildNowPlayingSection(BuildContext context) {

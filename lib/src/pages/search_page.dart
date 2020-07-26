@@ -41,18 +41,27 @@ class SearchPage extends StatelessWidget {
     Widget resList = Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
+        Padding(
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+            child: Text('Buscar',
+                style: TextStyle(
+                    color: Colors.white70,
+                    fontWeight: FontWeight.normal,
+                    fontSize: 25,
+                    fontFamily: 'RussoOne'))),
         Container(
           child: txtField,
           decoration: BoxDecoration(color: Colors.white10),
         ),
         SizedBox(height: 8),
-        if (context.watch<SearchMovieProvider>().loading) LoadingData(),
+        if (context.watch<SearchMovieProvider>().loading)
+          Padding(padding: EdgeInsets.all(15), child: LoadingData()),
         Expanded(
             child: _buildResults(
                 context, context.watch<SearchMovieProvider>().movies)),
       ],
     );
-    return resList;
+    return SafeArea(child: resList);
   }
 
   Widget _buildResults(BuildContext context, List<Movie> movies) {

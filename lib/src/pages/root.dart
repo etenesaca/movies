@@ -100,12 +100,14 @@ class _RootPageState extends State<RootPage> with WidgetsBindingObserver {
     );
 
     return Scaffold(
+      /*
       appBar: AppBar(
         title: textTitle,
         centerTitle: true,
         elevation: 0,
         backgroundColor: mainColor,
       ),
+       */
       //body: _children[_page],
       body: IndexedStack(
         children: _children,
