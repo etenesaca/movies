@@ -6,6 +6,7 @@ import 'package:movies/src/apis/the_movie_db_api.dart';
 import 'package:movies/src/models/actor_model.dart';
 import 'package:movies/src/widgets/loading_data_widget.dart';
 import 'package:movies/src/widgets/page_view_actor_movies_widget.dart';
+import 'package:movies/src/widgets/page_view_actor_widget.dart';
 
 class PopularActorsPage extends StatelessWidget {
   MovieProvider movieApi = MovieProvider();
@@ -22,10 +23,7 @@ class PopularActorsPage extends StatelessWidget {
 
     return SingleChildScrollView(
       child: Column(
-        children: <Widget>[
-          buildPosterLastActor(),
-          //_buildMovieUpcoming()
-        ],
+        children: <Widget>[buildPosterLastActor(), buildBestActors()],
       ),
     );
   }
@@ -150,13 +148,12 @@ class PopularActorsPage extends StatelessWidget {
     return poster;
   }
 
-  Widget _buildBestActors() {
-    final res = PageViewMovieSection(
-        futureMovies: movieApi.getMoviesSection('upcoming', 1));
+  Widget buildBestActors() {
+    final res = PageViewActor(futureActors: movieApi.getPopularActors());
     return extras.buildSection(
-        title: 'Próximamente',
+        title: 'Mejor calificados',
         child: res,
-        textBackground: 'movies',
+        textBackground: 'Actores',
         paddingHeader: paddingSections);
   }
 }
