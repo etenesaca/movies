@@ -2,6 +2,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/common/extras.dart';
 import 'package:movies/src/pages/home_page.dart';
+import 'package:movies/src/pages/new_page.dart';
 import 'package:movies/src/pages/search_page.dart';
 import 'package:movies/src/providers/global_provider.dart';
 import 'package:movies/src/apis/the_movie_db_api.dart';
@@ -46,8 +47,8 @@ class _RootPageState extends State<RootPage> with WidgetsBindingObserver {
   Widget getNewsTab() {
     if (_newsTab == null) {
       _newsTab = Container(
-          child: Center(
-        child: Text('Buscar'),
+          child: Stack(
+        children: <Widget>[Extras().getBackgroundApp(), NewPage()],
       ));
     }
     return _newsTab;
@@ -62,15 +63,6 @@ class _RootPageState extends State<RootPage> with WidgetsBindingObserver {
       ));
     }
     return _configTab;
-  }
-
-  Widget getComingsoon() {
-    tabTitle = 'Próximamente';
-    final res = Container(
-        child: Center(
-      child: Text('Proximanemente'),
-    ));
-    return res;
   }
 
   @override
