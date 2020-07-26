@@ -11,6 +11,7 @@ class PageViewActor extends StatelessWidget {
   Extras extras = Extras();
   Size _screenSize;
   PageController _pageController;
+  double avatarCardHeight;
 
   PageViewActor({@required this.futureActors});
 
@@ -18,6 +19,7 @@ class PageViewActor extends StatelessWidget {
   Widget build(BuildContext context) {
     _screenSize = MediaQuery.of(context).size;
     _pageController = PageController(initialPage: 1, viewportFraction: 0.275);
+    avatarCardHeight = _screenSize.height * 0.20;
     return _buildSection(context);
   }
 
@@ -50,7 +52,7 @@ class PageViewActor extends StatelessWidget {
             );
           }
           return Container(
-            height: _screenSize.height * 0.20,
+            height: avatarCardHeight,
             child: PageView.builder(
               pageSnapping: false,
               controller: _pageController,
@@ -86,6 +88,12 @@ class PageViewActor extends StatelessWidget {
     final actorPhoto =
         actor.profilePath != null ? actor.getPhotoImgSmall() : null;
     Widget avatar = extras.buildAvatar(avatarColor, actor.name, actorPhoto, 40);
+    print(avatarCardHeight);
+    avatar = Container(
+      height: 100,
+      decoration: BoxDecoration(color: Colors.red),
+      child: avatar,
+    );
     actor.idHero = 'BA_${actor.idHero}';
     avatar = GestureDetector(
       child: Hero(tag: actor.idHero, child: avatar),
@@ -94,25 +102,24 @@ class PageViewActor extends StatelessWidget {
         Navigator.pushNamed(context, 'actor', arguments: actor);
       },
     );
-    avatar = Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          avatar,
-          SizedBox(height: 5),
-          Container(
-            width: 70,
-            child: Text(
-              actor.name,
-              style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white70),
-              overflow: TextOverflow.clip,
-            ),
-          )
-        ],
-      ),
+    avatar = Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        avatar,
+        SizedBox(height: 5),
+        SizedBox(
+          width: 80,
+          child: Text(
+            actor.name,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+                color: Colors.white70),
+            overflow: TextOverflow.clip,
+          ),
+        ),
+      ],
     );
     avatar = FadeIn(child: avatar, duration: Duration(milliseconds: 600));
     return avatar;

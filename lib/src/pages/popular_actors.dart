@@ -23,7 +23,10 @@ class PopularActorsPage extends StatelessWidget {
 
     return SingleChildScrollView(
       child: Column(
-        children: <Widget>[buildPosterLastActor(), buildBestActors()],
+        children: <Widget>[
+          buildPosterLastActor(),
+          buildBestActors()
+        ],
       ),
     );
   }
