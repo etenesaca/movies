@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:movies/src/models/actor_model.dart';
 
 class Extras {
   int calculateAge(DateTime birthDate) {
@@ -174,5 +177,43 @@ class Extras {
         children: <Widget>[background, res],
       ),
     );
+  }
+
+  Widget buildAvatar(Color avatarColor, String name,
+      [NetworkImage image, double avatarSize]) {
+    final styleShadow = BoxShadow(
+      color: Colors.black.withOpacity(0.9),
+      spreadRadius: 1,
+      blurRadius: 15,
+      offset: Offset(3, 3), // changes position of shadow
+    );
+
+    Widget actorPhoto;
+    if (image == null) {
+      actorPhoto = Center(
+          child: Text(
+        name.substring(0, 2).toUpperCase(),
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ));
+    } else {
+      actorPhoto = CircleAvatar(
+        radius: avatarSize - 2,
+        backgroundImage: image,
+      );
+    }
+
+    Widget avatar = CircleAvatar(
+      radius: avatarSize,
+      backgroundColor: avatarColor,
+      child: actorPhoto,
+    );
+    avatar = Container(
+      decoration: BoxDecoration(
+        boxShadow: [styleShadow],
+        shape: BoxShape.circle,
+      ),
+      child: avatar,
+    );
+    return avatar;
   }
 }

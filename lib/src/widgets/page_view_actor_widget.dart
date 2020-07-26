@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/common/extras.dart';
@@ -6,6 +8,7 @@ import 'package:movies/src/widgets/loading_data_widget.dart';
 
 class PageViewActor extends StatelessWidget {
   final Future<List<Actor>> futureActors;
+  Extras extras = Extras();
   Size _screenSize;
   PageController _pageController;
 
@@ -14,50 +17,8 @@ class PageViewActor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _screenSize = MediaQuery.of(context).size;
-    _pageController = PageController(initialPage: 1, viewportFraction: 0.375);
+    _pageController = PageController(initialPage: 1, viewportFraction: 0.275);
     return _buildSection(context);
-  }
-
-  Widget _buildCard(BuildContext context, Actor actor) {
-    final posterCropped = Extras()
-        .buildPosterImg(actor.getPhotoImgUrl(), 175.0, 110.0, corners: 5);
-    String actor_title = actor.name.length > 28
-        ? '${actor.name.substring(0, 28)}...'
-        : actor.name;
-    final textStyle = TextStyle(
-        fontWeight: FontWeight.bold, fontSize: 11, color: Colors.white70);
-    final details = Container(
-      padding: EdgeInsets.only(left: 5, right: 5, top: 8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          /*
-          Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: Extras().buildstarts(actor.popularity / 2, 5)),
-          SizedBox(height: 2.0),
-           */
-          Text(actor_title, overflow: TextOverflow.fade, style: textStyle),
-        ],
-      ),
-    );
-    final res = Container(
-      child: Column(
-        children: <Widget>[
-          Hero(tag: actor.idHero, child: posterCropped),
-          details
-        ],
-      ),
-    );
-    return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(context, 'actor', arguments: actor);
-      },
-      child: ZoomIn(
-        delay: Duration(microseconds: 100),
-        child: res,
-      ),
-    );
   }
 
   Widget _getData(BuildContext context) {
@@ -89,13 +50,13 @@ class PageViewActor extends StatelessWidget {
             );
           }
           return Container(
-            height: _screenSize.height * 0.313,
+            height: _screenSize.height * 0.20,
             child: PageView.builder(
               pageSnapping: false,
               controller: _pageController,
               itemCount: actors.length,
               itemBuilder: (BuildContext context, int index) =>
-                  _buildCard(context, actors[index]),
+                  _buildActorItem(context, actors[index]),
             ),
           );
         });
@@ -114,5 +75,46 @@ class PageViewActor extends StatelessWidget {
           decoration: boxStyle,
           child: _getData(context)),
     );
+  }
+
+  Widget _buildActorItem(BuildContext context, Actor actor) {
+    List colorsMale = [Colors.blueGrey];
+    List colorsFemale = [Colors.blueGrey];
+    Color avatarColor = (actor.gender == 0)
+        ? colorsFemale[Random().nextInt(colorsFemale.length)]
+        : colorsMale[Random().nextInt(colorsMale.length)];
+    final actorPhoto =
+        actor.profilePath != null ? actor.getPhotoImgSmall() : null;
+    Widget avatar = extras.buildAvatar(avatarColor, actor.name, actorPhoto, 40);
+    actor.idHero = 'BA_${actor.idHero}';
+    avatar = GestureDetector(
+      child: Hero(tag: actor.idHero, child: avatar),
+      onTap: () {
+        //Navigator.push(context, PageTransition(type: PageTransitionType.leftToRightWithFade, child: DetailScreen()));
+        Navigator.pushNamed(context, 'actor', arguments: actor);
+      },
+    );
+    avatar = Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          avatar,
+          SizedBox(height: 5),
+          Container(
+            width: 70,
+            child: Text(
+              actor.name,
+              style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white70),
+              overflow: TextOverflow.clip,
+            ),
+          )
+        ],
+      ),
+    );
+    avatar = FadeIn(child: avatar, duration: Duration(milliseconds: 600));
+    return avatar;
   }
 }

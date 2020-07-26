@@ -1,11 +1,13 @@
 import 'dart:math';
 
 import 'package:animate_do/animate_do.dart';
+import 'package:movies/common/extras.dart';
 import 'package:movies/src/models/actor_model.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/src/models/movie_model.dart';
 
 class ActorWidget extends StatelessWidget {
+  Extras extras = Extras();
   final List<Actor> cast;
   final Movie movie;
 
@@ -22,53 +24,14 @@ class ActorWidget extends StatelessWidget {
   }
 
   Widget _buildActorItem(BuildContext context, Actor actor) {
-    final styleShadow = BoxShadow(
-      color: Colors.black.withOpacity(0.9),
-      spreadRadius: 1,
-      blurRadius: 15,
-      offset: Offset(3, 3), // changes position of shadow
-    );
-
-    List colorsMale = [
-      Colors.redAccent,
-      Colors.greenAccent,
-      Colors.blueAccent,
-      Colors.teal,
-      Colors.brown
-    ];
-    List colorsFemale = [Colors.pink, Colors.yellow];
-    colorsMale = [Colors.blueGrey];
-    colorsFemale = [Colors.blueGrey];
+    List colorsMale = [Colors.blueGrey];
+    List colorsFemale = [Colors.blueGrey];
     Color avatarColor = (actor.gender == 0)
         ? colorsFemale[Random().nextInt(colorsFemale.length)]
         : colorsMale[Random().nextInt(colorsMale.length)];
-
-    Widget actorPhoto;
-    if (actor.profilePath == null) {
-      actorPhoto = Center(
-          child: Text(
-        actor.name.substring(0, 2).toUpperCase(),
-        style: TextStyle(fontWeight: FontWeight.bold),
-      ));
-    } else {
-      actorPhoto = CircleAvatar(
-        radius: 27,
-        backgroundImage: actor.getPhotoImgSmall(),
-      );
-    }
-
-    Widget avatar = CircleAvatar(
-      radius: 29,
-      backgroundColor: avatarColor,
-      child: actorPhoto,
-    );
-    avatar = Container(
-      decoration: BoxDecoration(
-        boxShadow: [styleShadow],
-        shape: BoxShape.circle,
-      ),
-      child: avatar,
-    );
+    final actorPhoto =
+        actor.profilePath != null ? actor.getPhotoImgSmall() : null;
+    Widget avatar = extras.buildAvatar(avatarColor, actor.name, actorPhoto, 29);
     actor.idHero = '${actor.idHero}_${movie.idHero}';
     avatar = GestureDetector(
       child: Hero(tag: actor.idHero, child: avatar),
