@@ -21,8 +21,11 @@ class PageViewSection extends StatefulWidget {
 }
 
 class _PageViewSectionState extends State<PageViewSection> {
+  Extras extras = Extras();
   Size _screenSize;
   PageController _pageController;
+  EdgeInsets paddingSections =
+      EdgeInsets.symmetric(vertical: 0, horizontal: 20);
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +44,7 @@ class _PageViewSectionState extends State<PageViewSection> {
   }
 
   Widget _buildCard(BuildContext context, Movie movie) {
-    final posterCropped = Extras()
+    final posterCropped = extras
         .buildPosterImg(movie.getPosterImgUrl(), 175.0, 110.0, corners: 5);
     String movie_title = movie.title.length > 28
         ? '${movie.title.substring(0, 28)}...'
@@ -55,7 +58,7 @@ class _PageViewSectionState extends State<PageViewSection> {
         children: <Widget>[
           Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: Extras().buildstarts(movie.voteAverage / 2, 5)),
+              children: extras.buildstarts(movie.voteAverage / 2, 5)),
           SizedBox(height: 2.0),
           Text(movie_title, overflow: TextOverflow.fade, style: textStyle),
         ],
@@ -119,25 +122,10 @@ class _PageViewSectionState extends State<PageViewSection> {
                 fontWeight: FontWeight.bold, color: Colors.white, fontSize: 16))
       ],
     );
-    return Padding(
-      padding: EdgeInsets.only(bottom: 1.0),
-      child: Container(
-        width: double.infinity,
-        decoration: boxStyle,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-                padding: EdgeInsets.only(left: 20.0, top: 15.0, bottom: 15.0),
-                child: headerSection),
-            Padding(
-              padding: EdgeInsets.only(left: 3, right: 3),
-              child: _getStreamData(context),
-            ),
-          ],
-        ),
-      ),
-    );
+    return extras.buildSection(
+        title: widget.titleSection,
+        child: _getStreamData(context),
+        paddingHeader: paddingSections);
   }
 
   @override

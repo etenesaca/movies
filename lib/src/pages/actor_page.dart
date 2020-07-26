@@ -56,7 +56,9 @@ class ActorPage extends StatelessWidget {
         if (!snapshot.hasData) {
           return LoadingData();
         }
+        final idHeroActor = actor.idHero;
         actor = snapshot.data;
+        actor.idHero = idHeroActor;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -209,7 +211,7 @@ class ActorPage extends StatelessWidget {
 
   Widget _buildMovieRelateds(BuildContext context, Actor actor) {
     final res =
-        PageViewMovieSection(futureMovies: movieApi.getActorMovies(actor.id));
+        PageViewMovieSection(futureMovies: movieApi.getActorMovies(actor));
     return extras.buildSection(
         title: 'Peliculas en las que aparece',
         child: res,

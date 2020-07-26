@@ -119,9 +119,11 @@ class MovieProvider {
   }
 
   // Obtener peliculas relacionadas a un actor
-  Future<List<Movie>> getActorMovies(int actorId) async {
-    return _getMoviesData('/person/$actorId/movie_credits',
-        callFrom: 'actor_movie', key: 'cast', language: '$_language,null');
+  Future<List<Movie>> getActorMovies(Actor actor) async {
+    return _getMoviesData('/person/${actor.id}/movie_credits',
+        callFrom: 'actor_movie_${actor.idHero}',
+        key: 'cast',
+        language: '$_language,null');
   }
 
   // Obtener los detalles de un actor
