@@ -100,6 +100,23 @@ class Extras {
     );
   }
 
+  Widget buildActorPopularity(double popularity) {
+    return Container(
+      child: Row(
+        children: <Widget>[
+          Icon(Icons.stars, color: Colors.orange, size: 15),
+          SizedBox(
+            width: 3,
+          ),
+          Text(
+            '$popularity',
+            style: TextStyle(color: Colors.orange, fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget buildTitleSection(String text) {
     final titleSection = TextStyle(
         fontWeight: FontWeight.bold, fontSize: 15.0, color: Colors.white);
@@ -114,8 +131,7 @@ class Extras {
       bool showBackground = true,
       String textBackground,
       Widget action,
-      EdgeInsets paddingHeader
-      }) {
+      EdgeInsets paddingHeader}) {
     if (paddingHeader == null) {
       paddingHeader = EdgeInsets.symmetric();
     }
@@ -140,17 +156,17 @@ class Extras {
     );
     final background = (showBackground)
         ? Padding(
-      padding: paddingHeader,
-      child: Container(
-            padding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
-            child: Text(textBackground,
-                style: TextStyle(
-                    color: Colors.white10,
-                    fontSize: 60,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'RussoOne')),
-          ),
-    )
+            padding: paddingHeader,
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+              child: Text(textBackground,
+                  style: TextStyle(
+                      color: Colors.white10,
+                      fontSize: 60,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'RussoOne')),
+            ),
+          )
         : Container();
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 6),
