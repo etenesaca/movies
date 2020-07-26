@@ -54,8 +54,9 @@ class NewPage extends StatelessWidget {
         height: imageHeight,
         width: double.infinity,
       );
+      movie.idHero = '${movie.idHero}_latest';
       return Hero(
-        tag: movie.id,
+        tag: movie.idHero,
         child: res,
       );
     }

@@ -84,7 +84,7 @@ class MovieProvider {
   // Obtener las peliculas similares
   Future<List<Movie>> getMovieSimilars(int movieId) async {
     return _getMoviesData('/movie/$movieId/similar',
-        callFrom: 'movie_related', language: '$_language,null');
+        callFrom: 'movie_similar', language: '$_language,null');
   }
 
   // Obtener una lista de video relacionado a una pelicula

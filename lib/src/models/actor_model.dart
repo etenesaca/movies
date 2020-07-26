@@ -23,6 +23,7 @@ class Actor {
   bool adult;
   String imdbId;
   dynamic homepage;
+  String idHero;
 
   int castId;
   String character;
@@ -35,6 +36,7 @@ class Actor {
     this.creditId,
     this.gender,
     this.id,
+    this.idHero,
     this.name,
     this.order,
     this.profilePath,
@@ -48,6 +50,7 @@ class Actor {
 
     gender = json['gender'];
     id = json['id'];
+    idHero = '${json['id']}';
     name = json['name'];
     profilePath = json['profile_path'];
     birthday = json['birthday'];

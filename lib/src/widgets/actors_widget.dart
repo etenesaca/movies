@@ -3,11 +3,13 @@ import 'dart:math';
 import 'package:animate_do/animate_do.dart';
 import 'package:movies/src/models/actor_model.dart';
 import 'package:flutter/material.dart';
+import 'package:movies/src/models/movie_model.dart';
 
 class ActorWidget extends StatelessWidget {
   final List<Actor> cast;
+  final Movie movie;
 
-  ActorWidget({List<Actor> this.cast});
+  ActorWidget({this.cast, this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -67,8 +69,9 @@ class ActorWidget extends StatelessWidget {
       ),
       child: avatar,
     );
+    actor.idHero = '${actor.idHero}_${movie.idHero}';
     avatar = GestureDetector(
-      child: Hero(tag: actor.id, child: avatar),
+      child: Hero(tag: actor.idHero, child: avatar),
       onTap: () {
         //Navigator.push(context, PageTransition(type: PageTransitionType.leftToRightWithFade, child: DetailScreen()));
         Navigator.pushNamed(context, 'actor', arguments: actor);
@@ -82,7 +85,9 @@ class ActorWidget extends StatelessWidget {
           Text(
             actor.name,
             style: TextStyle(
-                fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white70),
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+                color: Colors.white70),
             overflow: TextOverflow.clip,
           ),
           Text(

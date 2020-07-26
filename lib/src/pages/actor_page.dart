@@ -21,6 +21,7 @@ class ActorPage extends StatelessWidget {
     Actor actor = ModalRoute.of(context).settings.arguments;
     _screenSize = MediaQuery.of(context).size;
     mainColor = Extras().mainColor;
+    print('>>Abriendo ACTOR: ${actor.idHero}');
 
     return Scaffold(
       backgroundColor: mainColor,
@@ -227,7 +228,7 @@ class ActorPage extends StatelessWidget {
         width: double.infinity,
       );
       return Hero(
-        tag: actor.id,
+        tag: actor.idHero,
         child: res,
       );
     }

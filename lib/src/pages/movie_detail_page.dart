@@ -26,6 +26,7 @@ class MovieDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final Map<String, dynamic> args = ModalRoute.of(context).settings.arguments;
     final Movie movie = args['movie'];
+    print('>>Abriendo Pelicula: ${movie.idHero}');
 
     final page = Scaffold(
       body: Stack(
@@ -70,7 +71,8 @@ class MovieDetailPage extends StatelessWidget {
       floatingActionButton: ZoomIn(
         duration: Duration(milliseconds: 500),
         child: FloatingActionButton(
-            backgroundColor: Colors.teal,
+            heroTag: '${movie.idHero}_trailers',
+            backgroundColor: Colors.orangeAccent,
             child: Icon(Icons.play_arrow),
             onPressed: () {
               Navigator.pushNamed(context, 'video_list', arguments: movie);
@@ -242,7 +244,7 @@ class MovieDetailPage extends StatelessWidget {
           if (!snapshot.hasData) {
             return LoadingData();
           }
-          return ActorWidget(cast: snapshot.data);
+          return ActorWidget(cast: snapshot.data, movie: movie);
         });
     return extras.buildSection(title: 'Actores', child: actorItems);
   }
