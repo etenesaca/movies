@@ -58,7 +58,7 @@ class PageViewActor extends StatelessWidget {
               controller: _pageController,
               itemCount: actors.length,
               itemBuilder: (BuildContext context, int index) =>
-                  _buildActorItem(context, actors[index]),
+                  _buildActorItem(context, actors[index], index),
             ),
           );
         });
@@ -79,7 +79,7 @@ class PageViewActor extends StatelessWidget {
     );
   }
 
-  Widget _buildActorItem(BuildContext context, Actor actor) {
+  Widget _buildActorItem(BuildContext context, Actor actor, int index) {
     List colorsMale = [Colors.blueGrey];
     List colorsFemale = [Colors.blueGrey];
     Color avatarColor = (actor.gender == 0)
@@ -91,8 +91,43 @@ class PageViewActor extends StatelessWidget {
     print(avatarCardHeight);
     avatar = Container(
       height: 100,
-      decoration: BoxDecoration(color: Colors.red),
       child: avatar,
+    );
+
+    Widget order = Padding(
+      padding: EdgeInsets.only(top: 3),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          extras.buildAvatar(
+              Colors.white, '${index + 1}'.padLeft(2, '0'), null, 13),
+        ],
+      ),
+    );
+    Widget popularity = Padding(
+      padding: EdgeInsets.only(bottom: 2),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          extras.buildBoxTag('${actor.popularity}', Colors.deepOrange,
+              padding: EdgeInsets.symmetric(vertical: 1, horizontal: 2),
+              textSize: 10),
+        ],
+      ),
+    );
+    Widget actorInfo = SizedBox(
+      height: 100,
+      width: 80,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          order,
+          popularity,
+        ],
+      ),
+    );
+    avatar = Stack(
+      children: <Widget>[avatar, actorInfo],
     );
     actor.idHero = 'BA_${actor.idHero}';
     avatar = GestureDetector(

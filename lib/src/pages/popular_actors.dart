@@ -23,10 +23,7 @@ class PopularActorsPage extends StatelessWidget {
 
     return SingleChildScrollView(
       child: Column(
-        children: <Widget>[
-          buildPosterLastActor(),
-          buildBestActors()
-        ],
+        children: <Widget>[buildPosterLastActor(), buildBestActors()],
       ),
     );
   }
@@ -44,7 +41,8 @@ class PopularActorsPage extends StatelessWidget {
             );
           }
           final bestActors = snapshot.data;
-          return _buildPoster(context, bestActors[0]);
+          return _buildPoster(
+              context, bestActors[Random().nextInt(bestActors.length)]);
         });
   }
 

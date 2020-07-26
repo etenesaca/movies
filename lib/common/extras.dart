@@ -91,12 +91,17 @@ class Extras {
     );
   }
 
-  Widget buildBoxTag(String label, Color color) {
+  Widget buildBoxTag(String label, Color color,
+      {EdgeInsets padding, double textSize, Color textColor}) {
     final txtStyle = TextStyle(
-        fontWeight: FontWeight.bold, fontSize: 12.0, color: Colors.white);
+        fontWeight: FontWeight.bold,
+        fontSize: textSize != null ? textSize : 12.0,
+        color: textColor != null ? textColor : Colors.white);
     return Container(
       //margin: EdgeInsets.symmetric(horizontal: 3, vertical: 2),
-      padding: EdgeInsets.symmetric(vertical: 4, horizontal: 13),
+      padding: padding != null
+          ? padding
+          : EdgeInsets.symmetric(vertical: 4, horizontal: 13),
       decoration: BoxDecoration(
           borderRadius: new BorderRadius.circular(30.0), color: color),
       child: Text(label, style: txtStyle),
