@@ -40,11 +40,11 @@ class NewPage extends StatelessWidget {
             );
           }
           final movies = snapshot.data;
-          return _buildPoster(movies[Random().nextInt(movies.length)]);
+          return _buildPoster(context, movies[Random().nextInt(movies.length)]);
         });
   }
 
-  Widget _buildPoster(Movie movie) {
+  Widget _buildPoster(BuildContext context, Movie movie) {
     double imageHeight = _screenSize.height * 0.6;
     Widget _imagePoster() {
       Widget res = FadeInImage(
@@ -80,7 +80,7 @@ class NewPage extends StatelessWidget {
       );
     }
 
-    Widget _actorName() {
+    Widget _movieName(BuildContext context) {
       final textStyle = TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,
@@ -121,16 +121,26 @@ class NewPage extends StatelessWidget {
                         )
                       ],
                     ),
-                    onPressed: () {}),
+                    onPressed: () {
+                      Navigator.pushNamed(context, 'video_list',
+                          arguments: movie);
+                    }),
                 SizedBox(width: 25),
-                Column(
-                  children: <Widget>[
-                    Icon(Icons.info_outline, color: Colors.white),
-                    Text(
-                      'Información',
-                      style: TextStyle(color: Colors.white, fontSize: 10),
-                    )
-                  ],
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, 'movie_detail', arguments: {
+                      'movie': movie,
+                    });
+                  },
+                  child: Column(
+                    children: <Widget>[
+                      Icon(Icons.info_outline, color: Colors.white),
+                      Text(
+                        'Información',
+                        style: TextStyle(color: Colors.white, fontSize: 10),
+                      )
+                    ],
+                  ),
                 ),
               ],
             )
@@ -149,7 +159,7 @@ class NewPage extends StatelessWidget {
               ],
             ),
             _filter(),
-            _actorName(),
+            _movieName(context),
             //appBar,
           ],
         ),
