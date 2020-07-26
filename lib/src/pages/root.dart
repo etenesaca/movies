@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:movies/common/extras.dart';
 import 'package:movies/src/pages/home_page.dart';
 import 'package:movies/src/pages/new_page.dart';
+import 'package:movies/src/pages/popular_actors.dart';
 import 'package:movies/src/pages/search_page.dart';
 import 'package:movies/src/providers/global_provider.dart';
 import 'package:movies/src/apis/the_movie_db_api.dart';
@@ -14,6 +15,7 @@ class RootPage extends StatefulWidget {
 }
 
 class _RootPageState extends State<RootPage> with WidgetsBindingObserver {
+  Extras extras = Extras();
   String tabTitle = 'En cines';
   Color mainColor = Color.fromRGBO(24, 33, 46, 1.0);
   final moviesProvider = MovieProvider();
@@ -26,7 +28,7 @@ class _RootPageState extends State<RootPage> with WidgetsBindingObserver {
     if (_homeTab == null) {
       _homeTab = Container(
           child: Stack(
-        children: <Widget>[Extras().getBackgroundApp(), HomePage()],
+        children: <Widget>[extras.getBackgroundApp(), HomePage()],
       ));
     }
     return _homeTab;
@@ -37,7 +39,7 @@ class _RootPageState extends State<RootPage> with WidgetsBindingObserver {
     if (_searchTab == null) {
       _searchTab = Container(
           child: Stack(
-        children: <Widget>[Extras().getBackgroundApp(), SearchPage()],
+        children: <Widget>[extras.getBackgroundApp(), SearchPage()],
       ));
     }
     return _searchTab;
@@ -48,10 +50,21 @@ class _RootPageState extends State<RootPage> with WidgetsBindingObserver {
     if (_newsTab == null) {
       _newsTab = Container(
           child: Stack(
-        children: <Widget>[Extras().getBackgroundApp(), NewPage()],
+        children: <Widget>[extras.getBackgroundApp(), NewPage()],
       ));
     }
     return _newsTab;
+  }
+
+  Widget _actorsTab;
+  Widget getActorsTab() {
+    if (_actorsTab == null) {
+      _actorsTab = Container(
+          child: Stack(
+        children: <Widget>[extras.getBackgroundApp(), PopularActorsPage()],
+      ));
+    }
+    return _actorsTab;
   }
 
   Widget _configTab;
@@ -59,7 +72,7 @@ class _RootPageState extends State<RootPage> with WidgetsBindingObserver {
     if (_configTab == null) {
       _configTab = Container(
           child: Center(
-        child: Text('Buscar'),
+        child: Text('Configuración'),
       ));
     }
     return _configTab;
@@ -83,6 +96,7 @@ class _RootPageState extends State<RootPage> with WidgetsBindingObserver {
       getHomeTab(context),
       getSearchTab(context),
       getNewsTab(),
+      getActorsTab(),
       getConfigTab()
     ];
 
@@ -100,7 +114,8 @@ class _RootPageState extends State<RootPage> with WidgetsBindingObserver {
         backgroundColor: mainColor,
       ),
        */
-      //body: _children[_page],
+      //body: _children[_page]
+      backgroundColor: extras.mainColor,
       body: IndexedStack(
         children: _children,
         index: _page,
@@ -113,6 +128,7 @@ class _RootPageState extends State<RootPage> with WidgetsBindingObserver {
           Icon(Icons.home, size: 25, color: Colors.orangeAccent),
           Icon(Icons.search, size: 25, color: Colors.orangeAccent),
           Icon(Icons.fiber_new, size: 25, color: Colors.orangeAccent),
+          Icon(Icons.people, size: 25, color: Colors.orangeAccent),
           Icon(Icons.settings, size: 25, color: Colors.orangeAccent),
         ],
         color: mainColor,

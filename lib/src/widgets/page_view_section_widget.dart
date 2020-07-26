@@ -39,8 +39,10 @@ class _PageViewSectionState extends State<PageViewSection> {
         widget.sinkNextPage();
       }
     });
-
-    return _buildSection(context);
+    return extras.buildSection(
+        title: widget.titleSection,
+        child: _getStreamData(context),
+        paddingHeader: paddingSections);
   }
 
   Widget _buildCard(BuildContext context, Movie movie) {
@@ -107,25 +109,6 @@ class _PageViewSectionState extends State<PageViewSection> {
             ),
           );
         });
-  }
-
-  Widget _buildSection(BuildContext context) {
-    final radiusCorners = Radius.circular(25.0);
-    final boxStyle = BoxDecoration(
-        //color: Colors.white,
-        borderRadius:
-            BorderRadius.only(topRight: radiusCorners, topLeft: radiusCorners));
-    Widget headerSection = Row(
-      children: <Widget>[
-        Text(widget.titleSection,
-            style: TextStyle(
-                fontWeight: FontWeight.bold, color: Colors.white, fontSize: 16))
-      ],
-    );
-    return extras.buildSection(
-        title: widget.titleSection,
-        child: _getStreamData(context),
-        paddingHeader: paddingSections);
   }
 
   @override

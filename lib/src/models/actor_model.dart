@@ -50,7 +50,7 @@ class Actor {
 
     gender = json['gender'];
     id = json['id'];
-    idHero = '${json['id']}';
+    idHero = 'AC_${json['id']}';
     name = json['name'];
     profilePath = json['profile_path'];
     birthday = json['birthday'];

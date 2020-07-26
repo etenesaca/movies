@@ -81,20 +81,6 @@ class ActorPage extends StatelessWidget {
   }
 
   Widget _buildSec1(Actor actor) {
-    Widget popularity = Container(
-      child: Row(
-        children: <Widget>[
-          Icon(Icons.stars, color: Colors.orange, size: 15),
-          SizedBox(
-            width: 3,
-          ),
-          Text(
-            '${actor.popularity}',
-            style: TextStyle(color: Colors.orange, fontWeight: FontWeight.bold),
-          ),
-        ],
-      ),
-    );
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -108,7 +94,7 @@ class ActorPage extends StatelessWidget {
           ),
           ZoomIn(
             delay: Duration(microseconds: 100),
-            child: popularity,
+            child: extras.buildActorPopularity(actor.popularity),
           )
         ],
       ),

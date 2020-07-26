@@ -70,7 +70,7 @@ class Movie {
     video = json['video'];
     posterPath = json['poster_path'];
     id = json['id'];
-    idHero = '${json['id']}_$callFrom';
+    idHero = 'MV_${json['id']}_$callFrom';
     adult = json['adult'];
     backdropPath = json['backdrop_path'];
     originalLanguage = json['original_language'];

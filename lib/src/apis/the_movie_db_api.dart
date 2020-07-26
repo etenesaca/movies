@@ -133,4 +133,12 @@ class MovieProvider {
     final resJsonData = await _getHttpData(apiUrl, queryParameters);
     return Actor.fromJsonMap(resJsonData);
   }
+
+  // Obtener los actores de la pelicula
+  Future<List<Actor>> getPopularActors() async {
+    String apiUrl = '/person/popular';
+    Map<String, String> queryParameters = {};
+    final resJsonData = await _getHttpData(apiUrl, queryParameters);
+    return Cast.fromJsonMap(resJsonData['results']).items;
+  }
 }

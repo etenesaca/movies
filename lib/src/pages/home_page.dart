@@ -108,19 +108,6 @@ class _HomePageState extends State<HomePage> {
     return res;
   }
 
-  /*
-  Widget _buildUpcoming(BuildContext context) {
-    upcomingBloc = MovieUpcomingBloc();
-    final res = PageViewSection(
-      titleSection: 'Próximamente',
-      moviesStream: upcomingBloc.moviesStream,
-      sinkNextPage: upcomingBloc.getNextPage,
-      args: {},
-    );
-    return res;
-  }
-   */
-
   @override
   void dispose() {
     this.pupularBloc?.dispose();
