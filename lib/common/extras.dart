@@ -221,4 +221,13 @@ class Extras {
     );
     return avatar;
   }
+
+  double getViewportFraction(double widthScreen, double widthCard,
+      {double widthSeparator = 25}) {
+    double wCard = widthCard + widthSeparator;
+    double aux = (widthScreen / wCard);
+    double pxCU = widthScreen / aux;
+    double percent = (100 / widthScreen) * pxCU;
+    return percent / 100;
+  }
 }

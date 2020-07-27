@@ -26,11 +26,19 @@ class _PageViewSectionState extends State<PageViewSection> {
   PageController _pageController;
   EdgeInsets paddingSections =
       EdgeInsets.symmetric(vertical: 0, horizontal: 20);
+  double heightPageViewer;
+  double heightCard = 175.0;
+  double widthCard = 110.0;
 
   @override
   Widget build(BuildContext context) {
     _screenSize = MediaQuery.of(context).size;
-    _pageController = PageController(initialPage: 1, viewportFraction: 0.375);
+    //heightPageViewer = _screenSize.height * 0.313;
+    heightPageViewer = heightCard + 50;
+    _pageController = PageController(
+        initialPage: 1,
+        viewportFraction:
+            extras.getViewportFraction(_screenSize.width, widthCard));
 
     widget.sinkNextPage();
     _pageController.addListener(() {
@@ -46,8 +54,9 @@ class _PageViewSectionState extends State<PageViewSection> {
   }
 
   Widget _buildCard(BuildContext context, Movie movie) {
-    final posterCropped = extras
-        .buildPosterImg(movie.getPosterImgUrl(), 175.0, 110.0, corners: 5);
+    final posterCropped = extras.buildPosterImg(
+        movie.getPosterImgUrl(), heightCard, widthCard,
+        corners: 5);
     String movie_title = movie.title.length > 28
         ? '${movie.title.substring(0, 28)}...'
         : movie.title;
@@ -99,7 +108,7 @@ class _PageViewSectionState extends State<PageViewSection> {
           }
           final movies = snapshot.data;
           return Container(
-            height: _screenSize.height * 0.313,
+            height: heightPageViewer,
             child: PageView.builder(
               pageSnapping: false,
               controller: _pageController,

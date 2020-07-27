@@ -6,15 +6,23 @@ import 'package:movies/src/widgets/loading_data_widget.dart';
 
 class PageViewMovieSection extends StatelessWidget {
   final Future<List<Movie>> futureMovies;
+  Extras extras = Extras();
   Size _screenSize;
   PageController _pageController;
+  double heightPageViewer;
+  double heightCard = 175.0;
+  double widthCard = 110.0;
 
   PageViewMovieSection({@required this.futureMovies});
 
   @override
   Widget build(BuildContext context) {
     _screenSize = MediaQuery.of(context).size;
-    _pageController = PageController(initialPage: 1, viewportFraction: 0.375);
+    heightPageViewer = heightCard + 50;
+    _pageController = PageController(
+        initialPage: 1,
+        viewportFraction:
+            extras.getViewportFraction(_screenSize.width, widthCard));
     return _buildSection(context);
   }
 
@@ -89,7 +97,7 @@ class PageViewMovieSection extends StatelessWidget {
             );
           }
           return Container(
-            height: _screenSize.height * 0.313,
+            height: heightPageViewer,
             child: PageView.builder(
               pageSnapping: false,
               controller: _pageController,

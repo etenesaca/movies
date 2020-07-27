@@ -11,15 +11,21 @@ class PageViewActor extends StatelessWidget {
   Extras extras = Extras();
   Size _screenSize;
   PageController _pageController;
-  double avatarCardHeight;
+
+  double heightPageViewer;
+  double heightCard = 100;
+  double widthCard = 80;
 
   PageViewActor({@required this.futureActors});
 
   @override
   Widget build(BuildContext context) {
     _screenSize = MediaQuery.of(context).size;
-    _pageController = PageController(initialPage: 1, viewportFraction: 0.275);
-    avatarCardHeight = _screenSize.height * 0.20;
+    _pageController = PageController(
+        initialPage: 1,
+        viewportFraction:
+            extras.getViewportFraction(_screenSize.width, widthCard));
+    heightPageViewer = heightCard + 50;
     return _buildSection(context);
   }
 
@@ -52,7 +58,7 @@ class PageViewActor extends StatelessWidget {
             );
           }
           return Container(
-            height: avatarCardHeight,
+            height: heightPageViewer,
             child: PageView.builder(
               pageSnapping: false,
               controller: _pageController,
@@ -89,7 +95,7 @@ class PageViewActor extends StatelessWidget {
         actor.profilePath != null ? actor.getPhotoImgSmall() : null;
     Widget avatar = extras.buildAvatar(avatarColor, actor.name, actorPhoto, 40);
     avatar = Container(
-      height: 100,
+      height: heightCard,
       child: avatar,
     );
 
@@ -115,8 +121,8 @@ class PageViewActor extends StatelessWidget {
       ),
     );
     Widget actorInfo = SizedBox(
-      height: 100,
-      width: 80,
+      height: heightCard,
+      width: widthCard,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
@@ -142,7 +148,7 @@ class PageViewActor extends StatelessWidget {
         avatar,
         SizedBox(height: 5),
         SizedBox(
-          width: 80,
+          width: widthCard,
           child: Text(
             actor.name,
             textAlign: TextAlign.center,
