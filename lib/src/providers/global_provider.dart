@@ -14,7 +14,6 @@ class GlobalProvider with ChangeNotifier, DiagnosticableTreeMixin {
     loading = true;
     notifyListeners();
     _allMovieGenres = await _movieProvider.getGenreList();
-    print('Cargando generos.');
     loading = false;
     notifyListeners();
   }

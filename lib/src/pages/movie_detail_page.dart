@@ -26,7 +26,6 @@ class MovieDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final Map<String, dynamic> args = ModalRoute.of(context).settings.arguments;
     final Movie movie = args['movie'];
-    print('>>Abriendo Pelicula: ${movie.idHero}');
 
     final page = Scaffold(
       body: Stack(

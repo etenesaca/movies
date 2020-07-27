@@ -20,7 +20,6 @@ class MoviePopularBloc {
     if (_loadingData || _stremController.isClosed) return [];
     _loadingData = true;
     _page++;
-    print('Bloc - Loading $sectionName Movies: Page $_page');
     final res = await _movieProvider.getMoviesSection(sectionName, _page);
     _movies.addAll(res);
     movieSink(_movies);
@@ -50,7 +49,6 @@ class MovieTopRatedBloc {
     if (_loadingData || _stremController.isClosed) return [];
     _loadingData = true;
     _page++;
-    print('Bloc - Loading $sectionName Movies: Page $_page');
     final res = await _movieProvider.getMoviesSection(sectionName, _page);
     _movies.addAll(res);
     movieSink(_movies);
@@ -80,7 +78,6 @@ class MovieUpcomingBloc {
     if (_loadingData || _stremController.isClosed) return [];
     _loadingData = true;
     _page++;
-    print('Bloc - Loading $sectionName Movies: Page $_page');
     final res = await _movieProvider.getMoviesSection(sectionName, _page);
     _movies.addAll(res);
     movieSink(_movies);

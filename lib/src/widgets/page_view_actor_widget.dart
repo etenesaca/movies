@@ -88,7 +88,6 @@ class PageViewActor extends StatelessWidget {
     final actorPhoto =
         actor.profilePath != null ? actor.getPhotoImgSmall() : null;
     Widget avatar = extras.buildAvatar(avatarColor, actor.name, actorPhoto, 40);
-    print(avatarCardHeight);
     avatar = Container(
       height: 100,
       child: avatar,

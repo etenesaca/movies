@@ -41,8 +41,6 @@ class SearchMovieProvider with ChangeNotifier, DiagnosticableTreeMixin {
     if (_movies.isEmpty) {
       noHasResults = true;
     }
-    print('Buscando: $query - Resultados. (${movies.length})');
-
     loading = false;
     notifyListeners();
   }
