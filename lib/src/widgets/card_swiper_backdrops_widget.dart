@@ -9,7 +9,14 @@ import 'package:flutter_page_indicator/flutter_page_indicator.dart';
 class SwiperBackdrops extends StatelessWidget {
   List<Backdrop> images;
   Size _screenSize;
-  SwiperBackdrops({@required this.images});
+  double _cardCorners = 8.0;
+  final double heightCard;
+  final double widthCard;
+
+  SwiperBackdrops(
+      {@required this.images,
+      @required this.heightCard,
+      @required this.widthCard});
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +47,10 @@ class SwiperBackdrops extends StatelessWidget {
             });
       },
       itemCount: images.length,
-      itemWidth: itemWidth,
-      //viewportFraction: .67,
-      viewportFraction: .67,
+      itemWidth: heightCard,
+      itemHeight: widthCard,
+      viewportFraction:
+          Extras().getViewportFraction(_screenSize.width, widthCard),
       //scale: .75,
       indicatorLayout: PageIndicatorLayout.COLOR,
       pagination: _buiidPagination(),

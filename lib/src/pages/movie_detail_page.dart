@@ -212,17 +212,23 @@ class MovieDetailPage extends StatelessWidget {
   }
 
   _buildSectionGalery(BuildContext context, Movie movie) {
+    double heightCard = 150;
+    double widthCard = heightCard + heightCard * .40;
     final images = FutureBuilder(
         future: movieApi.getMovieImagesList(movie.id),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.hasData) {
-            return SwiperBackdrops(images: snapshot.data);
+            return SwiperBackdrops(
+              images: snapshot.data,
+              heightCard: heightCard,
+              widthCard: widthCard,
+            );
           } else {
             return LoadingData();
           }
         });
     final res = Container(
-      height: 150,
+      height: heightCard,
       child: images,
     );
     final showAllImages = Text(

@@ -8,25 +8,26 @@ class CardSwiper extends StatelessWidget {
   final Map<String, dynamic> args;
 
   Size _screenSize;
-  double _cardCorners = 10.0;
-  double _cardWidth;
-  double _cardHeight;
+  double _cardCorners = 8.0;
+  double heightCard;
+  double widthCard;
 
   CardSwiper({@required this.movies, @required this.args});
 
   @override
   Widget build(BuildContext context) {
     _screenSize = MediaQuery.of(context).size;
-    _cardWidth = _screenSize.width * 0.65;
-    _cardHeight = _screenSize.height * 0.45;
+    heightCard = _screenSize.height * 0.45;
+    widthCard = heightCard * 0.65;
     return Container(
       child: Swiper(
         //layout: SwiperLayout.STACK,
-        //itemHeight: _cardHeight,
         itemCount: movies.length,
-        itemWidth: _cardWidth,
-        viewportFraction: .6,
-        scale: .75,
+        itemWidth: heightCard,
+        itemHeight: widthCard,
+        viewportFraction:
+            Extras().getViewportFraction(_screenSize.width, widthCard, widthSeparator: 0),
+        scale: .65,
         itemBuilder: (BuildContext context, int index) {
           Movie movie = movies[index];
           return Stack(

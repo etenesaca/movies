@@ -174,11 +174,16 @@ class ActorPage extends StatelessWidget {
   }
 
   _buildSectionImages(BuildContext context, Actor actor) {
+    double heightCard = 150;
+    double widthCard = heightCard + heightCard * .40;
     final imagesCards = FutureBuilder(
         future: MovieProvider().getActorImagesList(actor.id),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.hasData) {
-            return SwiperBackdrops(images: snapshot.data);
+            return SwiperBackdrops(
+                images: snapshot.data,
+                heightCard: heightCard,
+                widthCard: widthCard);
           } else {
             return LoadingData();
           }
@@ -187,7 +192,7 @@ class ActorPage extends StatelessWidget {
     return extras.buildSection(
         title: '',
         child: Container(
-          height: 150,
+          height: heightCard,
           child: imagesCards,
         ),
         textBackground: actor.name,
