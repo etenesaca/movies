@@ -2,8 +2,54 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/common/extras.dart';
 import 'package:movies/src/models/image_model.dart';
+import 'package:photo_view/photo_view.dart';
 
 class MoviePosterPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    Extras extras = Extras();
+    Backdrop image = ModalRoute.of(context).settings.arguments;
+    Color mainColor = extras.mainColor;
+
+    final imgviewer = PhotoView(
+      imageProvider: image.getImgLarge(),
+      backgroundDecoration: BoxDecoration(color: mainColor),
+    );
+    Widget btnApplyWallpaper = FloatingActionButton(
+        heroTag: 'btnApplyWallpaper',
+        backgroundColor: Colors.redAccent,
+        child: Icon(Icons.image),
+        onPressed: () {});
+    Widget btnDownload = FloatingActionButton(
+        heroTag: 'btnDownload',
+        backgroundColor: Colors.teal,
+        child: Icon(Icons.cloud_download),
+        onPressed: () {});
+    return Scaffold(
+        appBar: AppBar(
+          backgroundColor: mainColor,
+          title: Text('Votos ${image.voteCount}'),
+        ),
+        backgroundColor: mainColor,
+        body: imgviewer,
+        floatingActionButton: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            ZoomIn(
+              child: btnApplyWallpaper,
+              duration: Duration(milliseconds: 500),
+            ),
+            SizedBox(
+              width: 5,
+            ),
+            ZoomIn(
+              child: btnDownload,
+              duration: Duration(milliseconds: 500),
+            )
+          ],
+        ));
+  }
+  /*
   @override
   Widget build(BuildContext context) {
     Size _screenSize = MediaQuery.of(context).size;
@@ -65,6 +111,31 @@ class MoviePosterPage extends StatelessWidget {
   }
 
   Widget _buildAppBar(Backdrop image, double height) {
+    final img = FadeInImage(
+      image: image.getImgLarge(),
+      placeholder: AssetImage('assets/img/loading.gif'),
+      fadeInDuration: Duration(milliseconds: 100),
+      fit: BoxFit.cover,
+    );
+    final imgviewer = PhotoView(
+      imageProvider: image.getImgLarge(),
+      backgroundDecoration: BoxDecoration(
+        color: Extras().main
+      ),
+    );
+    return SliverAppBar(
+      elevation: 2.0,
+      backgroundColor: Extras().mainColor,
+      expandedHeight: height,
+      floating: false,
+      pinned: true,
+      flexibleSpace: FlexibleSpaceBar(
+        centerTitle: true,
+        background: imgviewer,
+      ),
+    );
+
+
     return SliverAppBar(
       elevation: 2.0,
       backgroundColor: Extras().mainColor,
@@ -82,4 +153,5 @@ class MoviePosterPage extends StatelessWidget {
       ),
     );
   }
+ */
 }
