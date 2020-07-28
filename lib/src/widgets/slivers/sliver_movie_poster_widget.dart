@@ -7,6 +7,8 @@ class SliverMoviePoster extends SliverPersistentHeaderDelegate {
   final double expandedHeight;
   final Movie movie;
   Color mainColor = Color.fromRGBO(24, 33, 46, 1.0);
+  double heightPoster = 185.0 - (185.0 * 0.10);
+  double widthPoster = 120.0 - (120.0 * 0.10);
 
   SliverMoviePoster({@required this.expandedHeight, @required this.movie});
 
@@ -22,7 +24,8 @@ class SliverMoviePoster extends SliverPersistentHeaderDelegate {
         _buildAppBar(context, movie),
         Positioned(
           top: expandedHeight / 2 - shrinkOffset,
-          left: MediaQuery.of(context).size.width / 1.5,
+          //left: MediaQuery.of(context).size.width / 1.5,
+          left: MediaQuery.of(context).size.width - widthPoster - 15,
           child: Opacity(
             opacity: (1 - shrinkOffset / expandedHeight),
             child: _buildPoster(movie),
@@ -34,7 +37,7 @@ class SliverMoviePoster extends SliverPersistentHeaderDelegate {
 
   _buildPoster(Movie movie) {
     final posterCropped = Extras().buildPosterImg(
-        movie.getPosterImgUrl(), 185.0 - (185.0 * 0.10), 120.0 - (120.0 * 0.10),
+        movie.getPosterImgUrl(), heightPoster, widthPoster,
         corners: 5 + (5 * 0.20));
     return Container(
       decoration: BoxDecoration(
