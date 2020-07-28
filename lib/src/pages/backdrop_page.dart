@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,7 +8,30 @@ import 'package:movies/common/extras.dart';
 import 'package:movies/src/models/image_model.dart';
 import 'package:photo_view/photo_view.dart';
 
-class MoviePosterPage extends StatelessWidget {
+class MoviePosterPage extends StatefulWidget {
+  @override
+  _MoviePosterPageState createState() => _MoviePosterPageState();
+}
+
+class _MoviePosterPageState extends State<MoviePosterPage> {
+  int _progress = 0;
+  String _message = "";
+  String _path = "";
+  String _size = "";
+  String _mimeType = "";
+  File _imageFile;
+
+  @override
+  void initState() {
+    super.initState();
+
+    ImageDownloader.callback(onProgressUpdate: (String imageId, int progress) {
+      setState(() {
+        _progress = progress;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Extras extras = Extras();
@@ -26,7 +51,9 @@ class MoviePosterPage extends StatelessWidget {
         heroTag: 'btnDownload',
         backgroundColor: Colors.teal,
         child: Icon(Icons.cloud_download),
-        onPressed: () async {
+        onPressed: () {
+          _downloadImage(image.getLargePathUrl());
+          /*
           try {
             // Saved with this method.
             var imageId =
@@ -42,11 +69,14 @@ class MoviePosterPage extends StatelessWidget {
           } on PlatformException catch (error) {
             print(error);
           }
+           */
         });
     return Scaffold(
         appBar: AppBar(
           backgroundColor: mainColor,
-          title: Text('Votos ${image.voteCount}'),
+          title: Text((_progress == 0 || _progress == 100)
+              ? 'Votos ${image.voteCount}'
+              : 'Descargando: $_progress %'),
         ),
         backgroundColor: mainColor,
         body: imgviewer,
@@ -68,110 +98,82 @@ class MoviePosterPage extends StatelessWidget {
         ));
   }
 
-  /*
-          @override
-          Widget build(BuildContext context) {
-            Size _screenSize = MediaQuery.of(context).size;
-        
-            double imageHeight = _screenSize.height * 0.6;
-            Backdrop image = ModalRoute.of(context).settings.arguments;
-        
-            Widget btnApplyWallpaper = FloatingActionButton(
-                heroTag: 'btnApplyWallpaper',
-                backgroundColor: Colors.redAccent,
-                child: Icon(Icons.image),
-                onPressed: () {});
-            Widget btnDownload = FloatingActionButton(
-                heroTag: 'btnDownload',
-                backgroundColor: Colors.teal,
-                child: Icon(Icons.cloud_download),
-                onPressed: () {});
-            return Scaffold(
-              body: CustomScrollView(
-                slivers: <Widget>[
-                  _buildAppBar(image, imageHeight),
-                  SliverList(delegate: SliverChildListDelegate([]))
-                ],
-              ),
-              floatingActionButton: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  ZoomIn(
-                    child: btnApplyWallpaper,
-                    duration: Duration(milliseconds: 500),
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  ZoomIn(
-                    child: btnDownload,
-                    duration: Duration(milliseconds: 500),
-                  )
-                ],
-              ),
-              /* 
-        
-              ZoomIn(
-                child: buttonDownload,
-                duration: Duration(milliseconds: 500),
-              )
-        
-              floatingActionButton: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  FloatingActionButton(
-                      backgroundColor: Colors.redAccent,
-                      child: Icon(Icons.image),
-                      onPressed: () {}),
-                  SizedBox(width: 5),
-                  ,
-              */
-            );
-          }
-        
-          Widget _buildAppBar(Backdrop image, double height) {
-            final img = FadeInImage(
-              image: image.getImgLarge(),
-              placeholder: AssetImage('assets/img/loading.gif'),
-              fadeInDuration: Duration(milliseconds: 100),
-              fit: BoxFit.cover,
-            );
-            final imgviewer = PhotoView(
-              imageProvider: image.getImgLarge(),
-              backgroundDecoration: BoxDecoration(
-                color: Extras().main
-              ),
-            );
-            return SliverAppBar(
-              elevation: 2.0,
-              backgroundColor: Extras().mainColor,
-              expandedHeight: height,
-              floating: false,
-              pinned: true,
-              flexibleSpace: FlexibleSpaceBar(
-                centerTitle: true,
-                background: imgviewer,
-              ),
-            );
-        
-        
-            return SliverAppBar(
-              elevation: 2.0,
-              backgroundColor: Extras().mainColor,
-              expandedHeight: height,
-              floating: false,
-              pinned: true,
-              flexibleSpace: FlexibleSpaceBar(
-                centerTitle: true,
-                background: FadeInImage(
-                  image: image.getImgLarge(),
-                  placeholder: AssetImage('assets/img/loading.gif'),
-                  fadeInDuration: Duration(milliseconds: 100),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            );
-          }
-         */
+  Future<void> _downloadImage(String url,
+      {AndroidDestinationType destination,
+      bool whenError = false,
+      String outputMimeType}) async {
+    String fileName;
+    String path;
+    int size;
+    String mimeType;
+    try {
+      String imageId;
 
+      if (whenError) {
+        imageId = await ImageDownloader.downloadImage(url,
+                outputMimeType: outputMimeType)
+            .catchError((error) {
+          if (error is PlatformException) {
+            var path = "";
+            if (error.code == "404") {
+              print("Not Found Error.");
+            } else if (error.code == "unsupported_file") {
+              print("UnSupported FIle Error.");
+              path = error.details["unsupported_file_path"];
+            }
+            setState(() {
+              _message = error.toString();
+              _path = path;
+            });
+          }
+
+          print(error);
+        }).timeout(Duration(seconds: 10), onTimeout: () {
+          print("timeout");
+          return;
+        });
+      } else {
+        if (destination == null) {
+          imageId = await ImageDownloader.downloadImage(
+            url,
+            outputMimeType: outputMimeType,
+          );
+        } else {
+          imageId = await ImageDownloader.downloadImage(
+            url,
+            destination: destination,
+            outputMimeType: outputMimeType,
+          );
+        }
+      }
+
+      if (imageId == null) {
+        return;
+      }
+      fileName = await ImageDownloader.findName(imageId);
+      path = await ImageDownloader.findPath(imageId);
+      size = await ImageDownloader.findByteSize(imageId);
+      mimeType = await ImageDownloader.findMimeType(imageId);
+    } on PlatformException catch (error) {
+      setState(() {
+        _message = error.message;
+      });
+      return;
+    }
+
+    if (!mounted) return;
+
+    setState(() {
+      var location = Platform.isAndroid ? "Directory" : "Photo Library";
+      _message = 'Saved as "$fileName" in $location.\n';
+      _size = 'size:     $size';
+      _mimeType = 'mimeType: $mimeType';
+      _path = path;
+
+      if (!_mimeType.contains("video")) {
+        _imageFile = File(path);
+      }
+      return;
+    });
+  }
 }
