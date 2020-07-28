@@ -4,6 +4,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_downloader/image_downloader.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:movies/common/extras.dart';
 import 'package:movies/src/models/image_model.dart';
 import 'package:photo_view/photo_view.dart';
@@ -15,6 +16,7 @@ class MoviePosterPage extends StatefulWidget {
 
 class _MoviePosterPageState extends State<MoviePosterPage> {
   int _progress = 0;
+  bool downloading = false;
   String _message = "";
   String _path = "";
   String _size = "";
@@ -28,6 +30,7 @@ class _MoviePosterPageState extends State<MoviePosterPage> {
     ImageDownloader.callback(onProgressUpdate: (String imageId, int progress) {
       setState(() {
         _progress = progress;
+        downloading = (_progress == 0 || _progress == 100) ? false : true;
       });
     });
   }
@@ -71,31 +74,32 @@ class _MoviePosterPageState extends State<MoviePosterPage> {
           }
            */
         });
+    Widget floatingButtons = Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: <Widget>[
+        ZoomIn(
+          child: btnApplyWallpaper,
+          duration: Duration(milliseconds: 700),
+        ),
+        SizedBox(
+          width: 5,
+        ),
+        ZoomIn(
+          child: btnDownload,
+          duration: Duration(milliseconds: 700),
+        )
+      ],
+    );
     return Scaffold(
         appBar: AppBar(
           backgroundColor: mainColor,
-          title: Text((_progress == 0 || _progress == 100)
+          title: Text(!downloading
               ? 'Votos ${image.voteCount}'
               : 'Descargando: $_progress %'),
         ),
         backgroundColor: mainColor,
-        body: imgviewer,
-        floatingActionButton: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            ZoomIn(
-              child: btnApplyWallpaper,
-              duration: Duration(milliseconds: 700),
-            ),
-            SizedBox(
-              width: 5,
-            ),
-            ZoomIn(
-              child: btnDownload,
-              duration: Duration(milliseconds: 700),
-            )
-          ],
-        ));
+        body: ModalProgressHUD(child: imgviewer, inAsyncCall: downloading),
+        floatingActionButton: downloading ? Container() : floatingButtons);
   }
 
   Future<void> _downloadImage(String url,
