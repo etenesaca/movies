@@ -189,6 +189,17 @@ class ActorPage extends StatelessWidget {
           }
         });
 
+    final showAllImages = GestureDetector(
+      child: Text(
+        'Ver todo',
+        style: TextStyle(
+            color: Colors.orange, fontSize: 12, fontWeight: FontWeight.bold),
+      ),
+      onTap: () {
+        Navigator.pushNamed(context, 'galery',
+            arguments: movieApi.getActorImagesList(actor.id));
+      },
+    );
     return extras.buildSection(
         title: '',
         child: Container(
@@ -196,6 +207,7 @@ class ActorPage extends StatelessWidget {
           child: imagesCards,
         ),
         textBackground: actor.name,
+        action: showAllImages,
         paddingHeader: paddingSections);
   }
 

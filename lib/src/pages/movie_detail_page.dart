@@ -234,7 +234,7 @@ class MovieDetailPage extends StatelessWidget {
     final showAllImages = GestureDetector(
       child: Text(
         'Ver todo',
-        style: TextStyle(color: Colors.blueAccent, fontSize: 12),
+        style: TextStyle(color: Colors.orange, fontSize: 12, fontWeight: FontWeight.bold),
       ),
       onTap: () {
         Navigator.pushNamed(context, 'galery',
