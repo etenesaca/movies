@@ -231,21 +231,41 @@ class MovieDetailPage extends StatelessWidget {
       height: heightCard,
       child: images,
     );
-    final showAllImages = GestureDetector(
-      child: Text(
-        'Ver todo',
-        style: TextStyle(color: Colors.orange, fontSize: 12, fontWeight: FontWeight.bold),
-      ),
-      onTap: () {
-        Navigator.pushNamed(context, 'galery',
-            arguments: movieApi.getMovieImagesList(movie.id));
-      },
+    final showAllImages = Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: <Widget>[
+        Container(),
+        RaisedButton(
+          padding: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
+          shape: StadiumBorder(),
+          color: Colors.white10,
+          child: Row(
+            children: <Widget>[
+              Icon(
+                Icons.photo_library,
+                color: Colors.blueAccent,
+                size: 15,
+              ),
+              SizedBox(width: 5),
+              Text('Ver todo',
+                  style: TextStyle(
+                      color: Colors.blueAccent,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold))
+            ],
+          ),
+          onPressed: () {
+            Navigator.pushNamed(context, 'galery',
+                arguments: movieApi.getMovieImagesList(movie.id));
+          },
+        )
+      ],
     );
     return extras.buildSection(
         title: 'Galeria',
         child: res,
         action: showAllImages,
-        paddingHeader: paddingSections);
+        paddingHeader: EdgeInsets.only(left: 20, right: 5));
   }
 
   _buildSectionCast(BuildContext context, Movie movie) {

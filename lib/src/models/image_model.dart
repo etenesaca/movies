@@ -49,7 +49,7 @@ class Backdrop {
   String getSmallPathUrl() {
     final res = (filePath == null)
         ? 'https://www.digopaul.com/wp-content/uploads/related_images/2015/09/08/placeholder_2.jpg'
-        : 'https://image.tmdb.org/t/p/w200/$filePath';
+        : 'https://image.tmdb.org/t/p/w300/$filePath';
     return res;
   }
 

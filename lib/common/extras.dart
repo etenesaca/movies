@@ -272,7 +272,8 @@ class Extras {
     );
   }
 
-  Widget buildBackdropCard(Backdrop image, {EdgeInsets padding}) {
+  Widget buildBackdropCard(Backdrop image,
+      {EdgeInsets padding, bool smaillImage = false}) {
     if (padding == null) {
       padding = const EdgeInsets.symmetric();
     }
@@ -288,8 +289,10 @@ class Extras {
         ],
       ),
     );
+    final imagePath =
+        smaillImage ? image.getSmallPathUrl() : image.getPathUrl();
     final posterCropped = Extras().buildPosterImg(
-        image.getPathUrl(), double.infinity, double.infinity,
+        imagePath, double.infinity, double.infinity,
         corners: 5.0, assetImgName: 'toro.gif');
     return Padding(
       padding: padding,
