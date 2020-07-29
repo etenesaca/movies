@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_downloader/image_downloader.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:movies/common/extras.dart';
@@ -23,10 +24,13 @@ class _MoviePosterPageState extends State<MoviePosterPage> {
   String _mimeType = "";
   File _imageFile;
 
+  FToast fToast;
+
   @override
   void initState() {
     super.initState();
 
+    fToast = FToast(context);
     ImageDownloader.callback(onProgressUpdate: (String imageId, int progress) {
       setState(() {
         _progress = progress;
@@ -177,7 +181,35 @@ class _MoviePosterPageState extends State<MoviePosterPage> {
       if (!_mimeType.contains("video")) {
         _imageFile = File(path);
       }
+      print('>>>>>>>>Descargado');
+      _showToast();
       return;
     });
+  }
+
+  _showToast() {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.greenAccent,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Icons.check),
+          SizedBox(
+            width: 12.0,
+          ),
+          Text("Descarga completa"),
+        ],
+      ),
+    );
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: Duration(seconds: 2),
+    );
   }
 }
