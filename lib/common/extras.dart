@@ -1,7 +1,9 @@
 import 'dart:math';
 
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/src/models/actor_model.dart';
+import 'package:movies/src/models/image_model.dart';
 
 class Extras {
   int calculateAge(DateTime birthDate) {
@@ -229,5 +231,72 @@ class Extras {
     double pxCU = widthScreen / aux;
     double percent = (100 / widthScreen) * pxCU;
     return percent / 100;
+  }
+
+  int calCrossAxisItems(double widthScreen, double sizeCard) {
+    double wCard = sizeCard;
+    double numItems = (widthScreen / wCard);
+    return numItems.toInt();
+  }
+
+  Widget _buildImageVotes(Backdrop image) {
+    final color = Colors.white;
+    final shadows = BoxShadow(
+      color: Colors.black.withOpacity(0.9),
+      spreadRadius: 5,
+      blurRadius: 15,
+      offset: Offset(1, 6), // changes position of shadow
+    );
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 1, horizontal: 4),
+      decoration: BoxDecoration(
+          boxShadow: [shadows],
+          color: Colors.black87,
+          border: Border.all(color: Colors.black54, width: 1),
+          borderRadius: BorderRadius.circular(25)),
+      child: Row(
+        children: <Widget>[
+          Text(
+            '${image.voteCount}',
+            style: TextStyle(
+                color: color, fontWeight: FontWeight.bold, fontSize: 10),
+          ),
+          SizedBox(width: 2.0),
+          Icon(
+            Icons.thumb_up,
+            color: color,
+            size: 10.0,
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget buildBackdropCard(Backdrop image, {EdgeInsets padding}) {
+    if (padding == null) {
+      padding = const EdgeInsets.symmetric();
+    }
+    final votes = Container(
+      padding: EdgeInsetsDirectional.only(start: 5, bottom: 5),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          Row(
+            children: <Widget>[_buildImageVotes(image)],
+          )
+        ],
+      ),
+    );
+    final posterCropped = Extras().buildPosterImg(
+        image.getPathUrl(), double.infinity, double.infinity,
+        corners: 5.0, assetImgName: 'toro.gif');
+    return Padding(
+      padding: padding,
+      child: Stack(
+        fit: StackFit.expand,
+        children: <Widget>[posterCropped, votes],
+      ),
+    );
   }
 }

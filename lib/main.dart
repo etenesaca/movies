@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies/src/pages/actor_page.dart';
 import 'package:movies/src/pages/backdrop_page.dart';
+import 'package:movies/src/pages/galery_page.dart';
 import 'package:movies/src/pages/movie_videos.dart';
 import 'package:movies/src/providers/global_provider.dart';
 import 'package:movies/src/providers/search_provider.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
             'movie_detail': (BuildContext context) => MovieDetailPage(),
             'actor': (BuildContext context) => ActorPage(),
             'video_list': (BuildContext context) => VideoListPage(),
+            'movie_poster_child': (BuildContext context) => MoviePosterPage(),
           },
           onGenerateRoute: (settings) {
             switch (settings.name) {
@@ -46,6 +48,13 @@ class MyApp extends StatelessWidget {
               case 'movie_poster':
                 return PageTransition(
                     child: MoviePosterPage(),
+                    type: PageTransitionType.downToUp,
+                    settings: settings,
+                    duration: Duration(milliseconds: 300));
+                break;
+              case 'galery':
+                return PageTransition(
+                    child: GaleryPage(),
                     type: PageTransitionType.downToUp,
                     settings: settings,
                     duration: Duration(milliseconds: 300));

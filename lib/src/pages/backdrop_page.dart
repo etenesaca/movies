@@ -181,7 +181,6 @@ class _MoviePosterPageState extends State<MoviePosterPage> {
       if (!_mimeType.contains("video")) {
         _imageFile = File(path);
       }
-      print('>>>>>>>>Descargado');
       _showToast();
       return;
     });

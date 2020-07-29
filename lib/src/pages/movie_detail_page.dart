@@ -231,9 +231,15 @@ class MovieDetailPage extends StatelessWidget {
       height: heightCard,
       child: images,
     );
-    final showAllImages = Text(
-      'Ver todo',
-      style: TextStyle(color: Colors.blueAccent, fontSize: 12),
+    final showAllImages = GestureDetector(
+      child: Text(
+        'Ver todo',
+        style: TextStyle(color: Colors.blueAccent, fontSize: 12),
+      ),
+      onTap: () {
+        Navigator.pushNamed(context, 'galery',
+            arguments: movieApi.getMovieImagesList(movie.id));
+      },
     );
     return extras.buildSection(
         title: 'Galeria',
