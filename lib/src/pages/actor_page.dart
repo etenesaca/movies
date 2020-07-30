@@ -201,13 +201,13 @@ class ActorPage extends StatelessWidget {
             children: <Widget>[
               Icon(
                 Icons.photo_library,
-                color: Colors.blueAccent,
+                color: Colors.orangeAccent,
                 size: 15,
               ),
               SizedBox(width: 5),
               Text('Ver todo',
                   style: TextStyle(
-                      color: Colors.blueAccent,
+                      color: Colors.orangeAccent,
                       fontSize: 12,
                       fontWeight: FontWeight.bold))
             ],
@@ -227,7 +227,7 @@ class ActorPage extends StatelessWidget {
         ),
         textBackground: actor.name,
         action: showAllImages,
-        paddingHeader: EdgeInsets.only(left: 20, right: 5));
+        paddingHeader: EdgeInsets.only(left: 20, right: 5, top: 10));
   }
 
   Widget _buildMovieRelateds(BuildContext context, Actor actor) {

@@ -243,13 +243,13 @@ class MovieDetailPage extends StatelessWidget {
             children: <Widget>[
               Icon(
                 Icons.photo_library,
-                color: Colors.blueAccent,
+                color: Colors.orangeAccent,
                 size: 15,
               ),
               SizedBox(width: 5),
               Text('Ver todo',
                   style: TextStyle(
-                      color: Colors.blueAccent,
+                      color: Colors.orangeAccent,
                       fontSize: 12,
                       fontWeight: FontWeight.bold))
             ],
@@ -265,7 +265,7 @@ class MovieDetailPage extends StatelessWidget {
         title: 'Galeria',
         child: res,
         action: showAllImages,
-        paddingHeader: EdgeInsets.only(left: 20, right: 5));
+        paddingHeader: EdgeInsets.only(left: 20, right: 5, top: 10));
   }
 
   _buildSectionCast(BuildContext context, Movie movie) {
@@ -277,7 +277,10 @@ class MovieDetailPage extends StatelessWidget {
           }
           return ActorWidget(cast: snapshot.data, movie: movie);
         });
-    return extras.buildSection(title: 'Actores', child: actorItems);
+    return extras.buildSection(
+        title: 'Actores principales',
+        child: actorItems,
+        textBackground: 'Actores');
   }
 
   Widget _buildMovieRecommendeds(BuildContext context, Movie movie) {

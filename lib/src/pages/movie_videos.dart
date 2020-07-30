@@ -115,6 +115,8 @@ class VideoListPage extends StatelessWidget {
           children: <Widget>[
             VideoScreen(id: video.key),
             ListTile(
+              trailing: extras.buildBoxTag(video.lang, Colors.white,
+                  textColor: Colors.blueAccent),
               leading: avatar,
               title: Text(video.name,
                   style: TextStyle(

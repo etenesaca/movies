@@ -88,11 +88,20 @@ class MovieProvider {
   }
 
   // Obtener una lista de video relacionado a una pelicula
-  Future<List<Video>> getVideos(int movieId) async {
+  Future<List<Video>> getVideosByLanguage(int movieId, String language) async {
     String apiUrl = '/movie/$movieId/videos';
-    Map<String, String> queryParameters = {'language': 'en-US'};
+    Map<String, String> queryParameters = {'language': language};
     final resJsonData = await _getHttpData(apiUrl, queryParameters);
-    return Videos.fromJsonMap(resJsonData['results']).items;
+    return Videos.fromJsonMap(resJsonData['results'], language).items;
+  }
+
+  Future<List<Video>> getVideos(int movieId) async {
+    List<Video> res = [];
+    final langDef = await getVideosByLanguage(movieId, _language);
+    final langEN = await getVideosByLanguage(movieId, 'en-US');
+    res.addAll(langDef);
+    res.addAll(langEN);
+    return res;
   }
 
   // Obtener los detalles de una pelicula

@@ -154,6 +154,7 @@ class Extras {
     final header = Padding(
         padding: paddingHeader,
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[buildTitleSection(title), action],
         ));

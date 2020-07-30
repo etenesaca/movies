@@ -1,8 +1,8 @@
 class Videos {
   List<Video> items = List();
   Videos();
-  Videos.fromJsonMap(List<dynamic> jsonList) {
-    items.addAll(jsonList.map((e) => Video.fromJsonMap(e)));
+  Videos.fromJsonMap(List<dynamic> jsonList, String language) {
+    items.addAll(jsonList.map((e) => Video.fromJsonMap(e, language)));
   }
 }
 
@@ -15,6 +15,7 @@ class Video {
   String site;
   int size;
   String type;
+  String lang;
 
   Video({
     this.id,
@@ -25,9 +26,10 @@ class Video {
     this.site,
     this.size,
     this.type,
+    this.lang,
   });
 
-  Video.fromJsonMap(Map<String, dynamic> json) {
+  Video.fromJsonMap(Map<String, dynamic> json, String language) {
     id = json['id'];
     iso6391 = json['iso6391'];
     iso31661 = json['iso31661'];
@@ -36,5 +38,6 @@ class Video {
     site = json['site'];
     size = json['size'];
     type = json['type'];
+    lang = (language.toLowerCase().startsWith('es-')) ? 'Español' : language;
   }
 }

@@ -15,7 +15,11 @@ class ActorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final items = cast.map((e) => _buildActorItem(context, e)).toList();
+    List<Actor> filteredCast = [];
+    for (var i = 0; i < min(20, cast.length); i++) {
+      filteredCast.add(cast[i]);
+    }
+    final items = filteredCast.map((e) => _buildActorItem(context, e)).toList();
     return Wrap(
         alignment: WrapAlignment.center,
         spacing: 7.0,
