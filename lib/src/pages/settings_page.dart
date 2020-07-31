@@ -8,15 +8,20 @@ class SettingsPage extends StatelessWidget {
   Color colorItems;
   TextStyle colorTextSwitch;
   TextStyle textStyleItems;
+  TextStyle textStyleUser;
 
   @override
   Widget build(BuildContext context) {
     colorActions = Colors.teal;
     colorItems = Colors.white70;
-    colorTextSwitch = TextStyle(
-        color: Colors.white70, fontSize: 14);
+    colorTextSwitch = TextStyle(color: Colors.white70, fontSize: 14);
     textStyleItems = TextStyle(
         color: Colors.white, fontWeight: FontWeight.w700, fontSize: 14);
+    textStyleUser = TextStyle(
+        color: Colors.white,
+        fontWeight: FontWeight.w700,
+        fontSize: 16,
+        fontFamily: 'Cinzel');
     Widget menu = Container(
       child: SafeArea(
           child: SingleChildScrollView(
@@ -25,7 +30,9 @@ class SettingsPage extends StatelessWidget {
           children: <Widget>[
             userSection(),
             extras.buildSection(
-                title: '', child: menuOptions(), textBackground: 'Opciones'),
+                title: '',
+                child: menuOptions(context),
+                textBackground: 'Opciones'),
             menuMovies(),
             SizedBox(height: 30),
             _notifications(),
@@ -57,68 +64,71 @@ class SettingsPage extends StatelessWidget {
             NetworkImage(
                 'https://pymstatic.com/41016/conversions/como-ayudar-a-persona-celosa-thumb.jpg'),
             22),
-        title: Text('Juan Perez', style: textStyleItems),
+        title: Text('Juan Perez', style: textStyleUser),
         trailing: Icon(Icons.edit, color: Colors.white),
       ),
     );
   }
 
-  menuOptions() {
+  menuOptions(BuildContext context) {
+    return buildMenu(children: [
+      ListTile(
+        onTap: () => tapSelectLanguage(context),
+        leading: Icon(Icons.language, color: colorActions),
+        title: Text('Cambiar idioma', style: textStyleItems),
+        trailing: Icon(Icons.keyboard_arrow_right, color: colorItems),
+      ),
+      _buildDivider(),
+      ListTile(
+        onTap: () {},
+        leading: Icon(Icons.lock_outline, color: colorActions),
+        title: Text(
+          'Cambiar contraseña',
+          style: textStyleItems,
+        ),
+        trailing: Icon(Icons.keyboard_arrow_right, color: colorItems),
+      ),
+      _buildDivider(),
+      ListTile(
+        onTap: () {},
+        leading: Icon(Icons.info_outline, color: colorActions),
+        title: Text('Acerca de', style: textStyleItems),
+        //trailing: Icon(Icons.keyboard_arrow_right, color: colorItems),
+      ),
+      _buildDivider(),
+      ListTile(
+        onTap: () {},
+        leading: Icon(Icons.power_settings_new, color: colorActions),
+        title: Text('Cerrar sesión', style: textStyleItems),
+        //trailing: Icon(Icons.keyboard_arrow_right, color: colorItems),
+      ),
+    ]);
+  }
+
+  buildMenu({@required List<Widget> children}) {
     return Card(
       color: Color.fromRGBO(30, 144, 255, 0.25),
       elevation: 4.0,
-      margin: const EdgeInsets.fromLTRB(32, 8, 32, 16),
+      margin: const EdgeInsets.fromLTRB(25, 8, 25, 16),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Column(
-        children: <Widget>[
-          ListTile(
-            onTap: () {},
-            leading: Icon(Icons.lock_outline, color: colorActions),
-            title: Text(
-              'Cambiar contraseña',
-              style: textStyleItems,
-            ),
-            trailing: Icon(Icons.keyboard_arrow_right, color: colorItems),
-          ),
-          _buildDivider(),
-          ListTile(
-            onTap: () {},
-            leading: Icon(Icons.language, color: colorActions),
-            title: Text('Cambiar idioma', style: textStyleItems),
-            trailing: Icon(Icons.keyboard_arrow_right, color: colorItems),
-          ),
-          _buildDivider(),
-          ListTile(
-            onTap: () {},
-            leading: Icon(Icons.power_settings_new, color: colorActions),
-            title: Text('Cerrar sesión', style: textStyleItems),
-            //trailing: Icon(Icons.keyboard_arrow_right, color: colorItems),
-          )
-        ],
+        children: children,
       ),
     );
   }
 
   menuMovies() {
-    return Card(
-      color: Color.fromRGBO(30, 144, 255, 0.25),
-      elevation: 4.0,
-      margin: const EdgeInsets.fromLTRB(32, 8, 32, 16),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      child: Column(
-        children: <Widget>[
-          ListTile(
-            onTap: () {},
-            leading: Icon(Icons.list, color: colorActions),
-            title: Text(
-              'Mi lista',
-              style: textStyleItems,
-            ),
-            trailing: Icon(Icons.keyboard_arrow_right, color: colorItems),
-          ),
-        ],
+    return buildMenu(children: [
+      ListTile(
+        onTap: () {},
+        leading: Icon(Icons.list, color: colorActions),
+        title: Text(
+          'Mi lista',
+          style: textStyleItems,
+        ),
+        trailing: Icon(Icons.keyboard_arrow_right, color: colorItems),
       ),
-    );
+    ]);
   }
 
   _buildDivider() {
@@ -138,7 +148,7 @@ class SettingsPage extends StatelessWidget {
           child: Text(
             'Notificaciones',
             style: TextStyle(
-                fontSize: 20,
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
                 color: Colors.orangeAccent),
           ),
@@ -180,6 +190,52 @@ class SettingsPage extends StatelessWidget {
       child: IconButton(
           icon: Icon(FontAwesomeIcons.powerOff, color: Colors.white70),
           onPressed: () {}),
+    );
+  }
+
+  buildItemLanguage(String title, String countryCode) {
+    return DropdownMenuItem(
+        value: countryCode,
+        child: Row(
+          children: <Widget>[
+            Image.asset('assets/country_flags/$countryCode.png', width: 25),
+            SizedBox(width: 5),
+            Text(title)
+          ],
+        ));
+  }
+
+  tapSelectLanguage(BuildContext context) {
+    List<DropdownMenuItem<String>> appLanguages = [
+      buildItemLanguage('Español', 'es'),
+      buildItemLanguage('English', 'en'),
+    ];
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Cuadro de dialogo'),
+          content: FittedBox(
+            child: Column(
+              children: <Widget>[
+                Text('Idioma de la aplicación', style: TextStyle(fontSize: 12)),
+                DropdownButton(items: appLanguages, onChanged: (String val) {}),
+                Text('Idioma de las peliculas', style: TextStyle(fontSize: 12)),
+                DropdownButton(items: appLanguages, onChanged: (String val) {}),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('Cancelar')),
+            FlatButton(onPressed: () {}, child: Text('Guardar'))
+          ],
+        );
+      },
     );
   }
 }
