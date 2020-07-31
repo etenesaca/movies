@@ -5,6 +5,7 @@ import 'package:movies/src/pages/home_page.dart';
 import 'package:movies/src/pages/new_page.dart';
 import 'package:movies/src/pages/popular_actors.dart';
 import 'package:movies/src/pages/search_page.dart';
+import 'package:movies/src/pages/settings_page.dart';
 import 'package:movies/src/providers/global_provider.dart';
 import 'package:movies/src/apis/the_movie_db_api.dart';
 import 'package:provider/provider.dart';
@@ -71,8 +72,8 @@ class _RootPageState extends State<RootPage> with WidgetsBindingObserver {
   Widget getConfigTab() {
     if (_configTab == null) {
       _configTab = Container(
-          child: Center(
-        child: Text('Configuración'),
+          child: Stack(
+        children: <Widget>[extras.getBackgroundApp(), SettingsPage()],
       ));
     }
     return _configTab;
@@ -129,7 +130,7 @@ class _RootPageState extends State<RootPage> with WidgetsBindingObserver {
           Icon(Icons.search, size: 25, color: Colors.orangeAccent),
           Icon(Icons.fiber_new, size: 25, color: Colors.orangeAccent),
           Icon(Icons.people, size: 25, color: Colors.orangeAccent),
-          Icon(Icons.settings, size: 25, color: Colors.orangeAccent),
+          Icon(Icons.menu, size: 25, color: Colors.orangeAccent),
         ],
         color: mainColor,
         buttonBackgroundColor: mainColor,

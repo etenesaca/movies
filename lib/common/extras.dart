@@ -294,7 +294,7 @@ class Extras {
         smaillImage ? image.getSmallPathUrl() : image.getPathUrl();
     final posterCropped = Extras().buildPosterImg(
         imagePath, double.infinity, double.infinity,
-        corners: 5.0, assetImgName: 'toro.gif');
+        corners: 5.0, assetImgName: 'popcorn.gif');
     return Padding(
       padding: padding,
       child: Stack(
