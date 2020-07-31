@@ -12,8 +12,8 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     colorActions = Colors.teal;
     colorItems = Colors.white70;
-    textStyleItems =
-        TextStyle(color: Colors.white, fontWeight: FontWeight.w700);
+    textStyleItems = TextStyle(
+        color: Colors.white, fontWeight: FontWeight.w700, fontSize: 14);
     Widget menu = Container(
       child: SafeArea(
           child: SingleChildScrollView(
@@ -22,8 +22,8 @@ class SettingsPage extends StatelessWidget {
           children: <Widget>[
             userSection(),
             SizedBox(height: 15),
-            menuOptions(),
-            SizedBox(height: 5),
+            extras.buildSection(
+                title: '', child: menuOptions(), textBackground: 'Opciones'),
             menuMovies(),
             SizedBox(height: 30),
             _notifications(),
@@ -60,7 +60,7 @@ class SettingsPage extends StatelessWidget {
 
   menuOptions() {
     return Card(
-      color: Color.fromRGBO(30, 144, 255, 0.3),
+      color: Color.fromRGBO(30, 144, 255, 0.25),
       elevation: 4.0,
       margin: const EdgeInsets.fromLTRB(32, 8, 32, 16),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -89,7 +89,7 @@ class SettingsPage extends StatelessWidget {
 
   menuMovies() {
     return Card(
-      color: Color.fromRGBO(30, 144, 255, 0.3),
+      color: Color.fromRGBO(30, 144, 255, 0.25),
       elevation: 4.0,
       margin: const EdgeInsets.fromLTRB(32, 8, 32, 16),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
