@@ -6,12 +6,15 @@ class SettingsPage extends StatelessWidget {
   Extras extras = Extras();
   Color colorActions;
   Color colorItems;
+  TextStyle colorTextSwitch;
   TextStyle textStyleItems;
 
   @override
   Widget build(BuildContext context) {
     colorActions = Colors.teal;
     colorItems = Colors.white70;
+    colorTextSwitch = TextStyle(
+        color: Colors.white70, fontSize: 14);
     textStyleItems = TextStyle(
         color: Colors.white, fontWeight: FontWeight.w700, fontSize: 14);
     Widget menu = Container(
@@ -21,7 +24,6 @@ class SettingsPage extends StatelessWidget {
         child: Column(
           children: <Widget>[
             userSection(),
-            SizedBox(height: 15),
             extras.buildSection(
                 title: '', child: menuOptions(), textBackground: 'Opciones'),
             menuMovies(),
@@ -34,7 +36,10 @@ class SettingsPage extends StatelessWidget {
     );
     return Stack(
       fit: StackFit.expand,
-      children: <Widget>[menu, buildBackgroundLogout(), buildButtonLogout()],
+      children: <Widget>[
+        menu,
+        //buildBackgroundLogout(), buildButtonLogout()
+      ],
     );
   }
 
@@ -81,6 +86,13 @@ class SettingsPage extends StatelessWidget {
             leading: Icon(Icons.language, color: colorActions),
             title: Text('Cambiar idioma', style: textStyleItems),
             trailing: Icon(Icons.keyboard_arrow_right, color: colorItems),
+          ),
+          _buildDivider(),
+          ListTile(
+            onTap: () {},
+            leading: Icon(Icons.power_settings_new, color: colorActions),
+            title: Text('Cerrar sesión', style: textStyleItems),
+            //trailing: Icon(Icons.keyboard_arrow_right, color: colorItems),
           )
         ],
       ),
@@ -113,7 +125,7 @@ class SettingsPage extends StatelessWidget {
     return Container(
       height: 1.0,
       margin: EdgeInsets.symmetric(horizontal: 8),
-      color: Colors.grey.shade600,
+      color: Colors.grey.shade700,
       width: double.infinity,
     );
   }
@@ -135,14 +147,14 @@ class SettingsPage extends StatelessWidget {
             contentPadding: EdgeInsets.all(0),
             activeColor: colorActions,
             value: true,
-            title: Text('Recibir notificaciones', style: textStyleItems),
+            title: Text('Recibir notificaciones', style: colorTextSwitch),
             onChanged: (bool value) {}),
         SwitchListTile(
             contentPadding: EdgeInsets.all(0),
             activeColor: colorActions,
             inactiveThumbColor: Colors.grey.shade800,
             value: false,
-            title: Text('Nuevas peliculas', style: textStyleItems),
+            title: Text('Nuevas peliculas', style: colorTextSwitch),
             onChanged: (bool value) {})
       ],
     );
