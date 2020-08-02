@@ -96,14 +96,31 @@ class MovieProvider {
 
   Future<List<Video>> getVideos(int movieId) async {
     List<Video> res = [];
-    final defLanguage = await AppSettings().getLangMovies();
+    String defLanguage = await AppSettings().getLangMovies();
+    // Add Spanish Latam Video
+    String esLatLanguage = 'es-MX';
+    if (defLanguage.startsWith('es-') &&
+        defLanguage != 'es-ES' &&
+        defLanguage != esLatLanguage) {
+      final esLat = await getVideosByLanguage(movieId, esLatLanguage);
+      res.addAll(esLat);
+    }
+    // Add Video un Language user preferences
     final langDef = await getVideosByLanguage(movieId, defLanguage);
     res.addAll(langDef);
+    // Add Original Videos
     if (defLanguage != _oriLanguaje) {
       final oriLang = await getVideosByLanguage(movieId, _oriLanguaje);
       res.addAll(oriLang);
     }
-    return res;
+    // Delete duplicate videos
+    List<Video> resFiltered = [];
+    res.forEach((newVideo) {
+      if (resFiltered.where((e) => e.id == newVideo.id).isEmpty) {
+        resFiltered.add(newVideo);
+      }
+    });
+    return resFiltered;
   }
 
   // Obtener los detalles de una pelicula
