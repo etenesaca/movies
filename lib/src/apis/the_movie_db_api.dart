@@ -88,10 +88,14 @@ class MovieProvider {
   }
 
   // Obtener una lista de video relacionado a una pelicula
-  Future<List<Video>> getVideosByLanguage(int movieId, String language) async {
+  Future<List<Video>> getVideosByLanguage(int movieId, String language,
+      {String labelLanguage}) async {
     String apiUrl = '/movie/$movieId/videos';
     final resJsonData = await _getHttpData(apiUrl, {'language': language});
-    return Videos.fromJsonMap(resJsonData['results'], language).items;
+    if (labelLanguage != null) {
+      labelLanguage = language;
+    }
+    return Videos.fromJsonMap(resJsonData['results'], labelLanguage).items;
   }
 
   Future<List<Video>> getVideos(int movieId) async {
@@ -102,7 +106,8 @@ class MovieProvider {
     if (defLanguage.startsWith('es-') &&
         defLanguage != 'es-ES' &&
         defLanguage != esLatLanguage) {
-      final esLat = await getVideosByLanguage(movieId, esLatLanguage);
+      final esLat = await getVideosByLanguage(movieId, esLatLanguage,
+          labelLanguage: 'ES-Latino');
       res.addAll(esLat);
     }
     // Add Video un Language user preferences

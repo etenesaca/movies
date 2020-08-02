@@ -38,6 +38,7 @@ class Video {
     site = json['site'];
     size = json['size'];
     type = json['type'];
-    lang = (language.toLowerCase().startsWith('es-')) ? 'Español' : language;
+    //lang = (language.toLowerCase().startsWith('es-')) ? 'Español' : language;
+    lang = language;
   }
 }
