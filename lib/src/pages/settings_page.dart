@@ -490,24 +490,32 @@ class _SettingsPageState extends State<SettingsPage> {
                         }
                         setState(() {});
                       }),
-                  Text('Aplicación', style: textStyle),
-                  DropdownButton(
-                      isExpanded: true,
-                      value: _langApp,
-                      items: appLanguages,
-                      onChanged: (String val) {
-                        _langApp = val;
-                        setState(() {});
-                      }),
-                  Text('Peliculas', style: textStyle),
-                  DropdownButton(
-                      isExpanded: true,
-                      value: _langMovies,
-                      items: appLocales,
-                      onChanged: (String val) {
-                        _langMovies = val;
-                        setState(() {});
-                      }),
+                  !_defLanguages
+                      ? Text('Aplicación', style: textStyle)
+                      : Container(),
+                  !_defLanguages
+                      ? DropdownButton(
+                          isExpanded: true,
+                          value: _langApp,
+                          items: appLanguages,
+                          onChanged: (String val) {
+                            _langApp = val;
+                            setState(() {});
+                          })
+                      : Container(),
+                  !_defLanguages
+                      ? Text('Peliculas', style: textStyle)
+                      : Container(),
+                  !_defLanguages
+                      ? DropdownButton(
+                          isExpanded: true,
+                          value: _langMovies,
+                          items: appLocales,
+                          onChanged: (String val) {
+                            _langMovies = val;
+                            setState(() {});
+                          })
+                      : Container(),
                 ],
               ),
               actions: <Widget>[
