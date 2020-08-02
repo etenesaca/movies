@@ -43,6 +43,7 @@ dependencies:
   fluttertoast: ^7.0.1+1
   font_awesome_flutter: ^8.8.1
   shared_preferences: ^0.5.8
+  flutter_phoenix: ^0.1.0
   
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:movies/src/pages/actor_page.dart';
 import 'package:movies/src/pages/backdrop_page.dart';
 import 'package:movies/src/pages/galery_page.dart';
@@ -11,7 +12,9 @@ import 'package:movies/src/pages/root.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(Phoenix(
+      child: MyApp(),
+    ));
 
 class MyApp extends StatelessWidget {
   @override

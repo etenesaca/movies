@@ -1,7 +1,8 @@
-import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:movies/common/app_settings.dart';
 import 'package:movies/common/extras.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -506,6 +507,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       setLangMovies(_langMovies);
                       showToast('Guardado');
                       Navigator.pop(context);
+                      Phoenix.rebirth(context);
                     },
                     child: Text('Guardar'))
               ],
@@ -559,32 +561,5 @@ class _SettingsPageState extends State<SettingsPage> {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString('langMovies', langMovies);
     setState(() {});
-  }
-}
-
-class AppSettings {
-  List<String> appLanguages = ['es', 'en'];
-
-  getLangApp() async {
-    final prefs = await SharedPreferences.getInstance();
-    String sysLang = Platform.localeName.split('_')[0];
-
-    String res = prefs.getString('langApp') ?? '';
-    if (res.isEmpty) {
-      res = appLanguages.contains(sysLang) ? sysLang : 'en';
-    }
-    return res;
-  }
-
-  getLangMovies() async {
-    final prefs = await SharedPreferences.getInstance();
-    String sysLang = Platform.localeName.split('_')[0];
-    String sysCountry = Platform.localeName.split('_')[1];
-
-    String res = prefs.getString('langMovies') ?? '';
-    if (res.isEmpty) {
-      res = '$sysLang-$sysCountry';
-    }
-    return res;
   }
 }

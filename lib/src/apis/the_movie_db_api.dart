@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:movies/common/app_settings.dart';
 import 'package:movies/src/models/actor_model.dart';
 import 'package:movies/src/models/gender_model.dart';
 import 'package:movies/src/models/image_model.dart';
@@ -10,12 +11,13 @@ import 'package:movies/src/models/video_model.dart';
 class MovieProvider {
   String _apikey = '0c87c373e9ddc6969a2751ea710b2b0c';
   String _url = 'api.themoviedb.org';
-  String _language = 'es-ES';
+  String _language;
 
   Future<dynamic> _getHttpData(
       String apiUrl, Map<String, String> queryParameters) async {
     queryParameters['api_key'] = _apikey;
     if (!queryParameters.keys.contains('language')) {
+      _language = await AppSettings().getLangMovies();
       queryParameters['language'] = _language;
     }
     apiUrl = '3$apiUrl';
@@ -98,9 +100,12 @@ class MovieProvider {
   Future<List<Video>> getVideos(int movieId) async {
     List<Video> res = [];
     final langDef = await getVideosByLanguage(movieId, _language);
-    final langEN = await getVideosByLanguage(movieId, 'en-US');
     res.addAll(langDef);
-    res.addAll(langEN);
+    final defLanguage = await AppSettings().getLangMovies();
+    if (defLanguage != 'en-US') {
+      final langEN = await getVideosByLanguage(movieId, 'en-US');
+      res.addAll(langEN);
+    }
     return res;
   }
 
