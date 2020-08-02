@@ -1,7 +1,9 @@
 import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:movies/common/extras.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsPage extends StatefulWidget {
   SettingsPage({Key key}) : super(key: key);
@@ -222,7 +224,7 @@ class _SettingsPageState extends State<SettingsPage> {
     'zh-TW',
     'zu-ZA'
   ];
-  List<String> appLanguages = ['es', 'en'];
+
   String _langApp;
   String _langMovies;
 
@@ -232,6 +234,13 @@ class _SettingsPageState extends State<SettingsPage> {
   TextStyle colorTextSwitch;
   TextStyle textStyleItems;
   TextStyle textStyleUser;
+
+  @override
+  void initState() {
+    super.initState();
+    fToast = FToast(context);
+    loadSettings();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -246,13 +255,6 @@ class _SettingsPageState extends State<SettingsPage> {
         fontSize: 16,
         fontFamily: 'Cinzel');
 
-    //Locale myLocale = Localizations.localeOf(context);
-    String sysLang = Platform.localeName.split('_')[0];
-    String sysCountry = Platform.localeName.split('_')[1];
-    if (appLanguages.contains(sysLang)) {
-      _langApp = sysLang;
-    }
-    _langMovies = '$sysLang-$sysCountry';
     Widget menu = Container(
       child: SafeArea(
           child: SingleChildScrollView(
@@ -498,12 +500,91 @@ class _SettingsPageState extends State<SettingsPage> {
                       Navigator.pop(context);
                     },
                     child: Text('Cancelar')),
-                FlatButton(onPressed: () {}, child: Text('Guardar'))
+                FlatButton(
+                    onPressed: () {
+                      setLangApp(_langApp);
+                      setLangMovies(_langMovies);
+                      showToast('Guardado');
+                      Navigator.pop(context);
+                    },
+                    child: Text('Guardar'))
               ],
             );
           },
         );
       },
     );
+  }
+
+  FToast fToast;
+  showToast(String text) {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.greenAccent,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Icons.check),
+          SizedBox(
+            width: 12.0,
+          ),
+          Text(text),
+        ],
+      ),
+    );
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: Duration(seconds: 2),
+    );
+  }
+
+  loadSettings() async {
+    final settings = AppSettings();
+    _langMovies = await settings.getLangMovies();
+    _langApp = await settings.getLangApp();
+    setState(() {});
+  }
+
+  void setLangApp(String langApp) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('langApp', langApp);
+  }
+
+  void setLangMovies(String langMovies) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('langMovies', langMovies);
+    setState(() {});
+  }
+}
+
+class AppSettings {
+  List<String> appLanguages = ['es', 'en'];
+
+  getLangApp() async {
+    final prefs = await SharedPreferences.getInstance();
+    String sysLang = Platform.localeName.split('_')[0];
+
+    String res = prefs.getString('langApp') ?? '';
+    if (res.isEmpty) {
+      res = appLanguages.contains(sysLang) ? sysLang : 'en';
+    }
+    return res;
+  }
+
+  getLangMovies() async {
+    final prefs = await SharedPreferences.getInstance();
+    String sysLang = Platform.localeName.split('_')[0];
+    String sysCountry = Platform.localeName.split('_')[1];
+
+    String res = prefs.getString('langMovies') ?? '';
+    if (res.isEmpty) {
+      res = '$sysLang-$sysCountry';
+    }
+    return res;
   }
 }
