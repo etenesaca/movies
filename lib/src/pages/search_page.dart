@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:movies/common/extras.dart';
-import 'package:movies/src/models/gender_model.dart';
 import 'package:movies/src/providers/search_provider.dart';
 import 'package:movies/src/models/movie_model.dart';
 import 'package:movies/src/widgets/loading_data_widget.dart';

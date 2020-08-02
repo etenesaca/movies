@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:movies/common/extras.dart';
 
-class SettingsPage extends StatelessWidget {
+class SettingsPage extends StatefulWidget {
+  SettingsPage({Key key}) : super(key: key);
+  @override
+  _SettingsPageState createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
   Extras extras = Extras();
   Color colorActions;
   Color colorItems;
@@ -194,46 +200,67 @@ class SettingsPage extends StatelessWidget {
   }
 
   buildItemLanguage(String title, String countryCode) {
+    final textStyle = TextStyle(fontSize: 14);
     return DropdownMenuItem(
         value: countryCode,
         child: Row(
           children: <Widget>[
             Image.asset('assets/country_flags/$countryCode.png', width: 25),
             SizedBox(width: 5),
-            Text(title)
+            Text(title, style: textStyle)
           ],
         ));
   }
+
+  String _langApp;
+  String _langMovies;
 
   tapSelectLanguage(BuildContext context) {
     List<DropdownMenuItem<String>> appLanguages = [
       buildItemLanguage('Español', 'es'),
       buildItemLanguage('English', 'en'),
     ];
+    final textStyle = TextStyle(fontSize: 14, fontWeight: FontWeight.bold);
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) {
-        return AlertDialog(
-          title: Text('Cuadro de dialogo'),
-          content: FittedBox(
-            child: Column(
-              children: <Widget>[
-                Text('Idioma de la aplicación', style: TextStyle(fontSize: 12)),
-                DropdownButton(items: appLanguages, onChanged: (String val) {}),
-                Text('Idioma de las peliculas', style: TextStyle(fontSize: 12)),
-                DropdownButton(items: appLanguages, onChanged: (String val) {}),
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, setState) {
+            return AlertDialog(
+              title: Text('Idiomas'),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text('Aplicación', style: textStyle),
+                  DropdownButton(
+                      value: _langApp,
+                      items: appLanguages,
+                      onChanged: (String val) {
+                        _langApp = val;
+                        setState(() {});
+                      }),
+                  Text('Peliculas', style: textStyle),
+                  DropdownButton(
+                      value: _langMovies,
+                      items: appLanguages,
+                      onChanged: (String val) {
+                        _langMovies = val;
+                        setState(() {});
+                      }),
+                ],
+              ),
+              actions: <Widget>[
+                FlatButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text('Cancelar')),
+                FlatButton(onPressed: () {}, child: Text('Guardar'))
               ],
-            ),
-          ),
-          actions: <Widget>[
-            FlatButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text('Cancelar')),
-            FlatButton(onPressed: () {}, child: Text('Guardar'))
-          ],
+            );
+          },
         );
       },
     );
