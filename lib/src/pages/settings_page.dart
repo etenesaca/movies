@@ -225,6 +225,10 @@ class _SettingsPageState extends State<SettingsPage> {
     'zh-TW',
     'zu-ZA'
   ];
+  Map<String, String> appLanguagesMap = {
+    'es': 'Español',
+    'en': 'English',
+  };
 
   String _langApp;
   String _langMovies;
@@ -428,49 +432,60 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  DropdownMenuItem<String> buildItemLanguage(String title, String countryCode) {
+  Widget buildItemAppLang(String countryCode, String title) {
     final textStyle = TextStyle(fontSize: 13);
+    return Row(
+      children: <Widget>[
+        Image.asset('assets/country_flags/$countryCode.png', width: 25),
+        SizedBox(width: 5),
+        Text(title, style: textStyle)
+      ],
+    );
+  }
+
+  DropdownMenuItem<String> buildMenuItemLanguage(
+      String countryCode, String title) {
     return DropdownMenuItem<String>(
-        value: countryCode,
-        child: Row(
-          children: <Widget>[
-            Image.asset('assets/country_flags/$countryCode.png', width: 25),
-            SizedBox(width: 5),
-            Text(title, style: textStyle)
-          ],
-        ));
+        value: countryCode, child: buildItemAppLang(countryCode, title));
+  }
+
+  Widget buildItemMovieLang(String locale) {
+    final textStyle = TextStyle(fontSize: 13);
+    return Row(
+      children: <Widget>[
+        Icon(Icons.language, color: Colors.grey, size: 25),
+        SizedBox(width: 5),
+        Text(locale, style: textStyle)
+      ],
+    );
   }
 
   DropdownMenuItem<String> buildItemLocale(String locale) {
-    final textStyle = TextStyle(fontSize: 13);
     return DropdownMenuItem<String>(
-        value: locale,
-        child: Row(
-          children: <Widget>[
-            Icon(Icons.language, color: Colors.grey, size: 25),
-            SizedBox(width: 5),
-            Text(locale, style: textStyle)
-          ],
-        ));
+        value: locale, child: buildItemMovieLang(locale));
   }
 
   tapSelectLanguage(BuildContext context) {
-    List<DropdownMenuItem<String>> appLanguages = [
-      buildItemLanguage('Español', 'es'),
-      buildItemLanguage('English', 'en'),
-    ];
+    List<DropdownMenuItem<String>> appLanguages = [];
+    appLanguagesMap.forEach((k, v) {
+      appLanguages.add(buildMenuItemLanguage(k, v));
+    });
 
     List<DropdownMenuItem<String>> appLocales =
         localeList.map((e) => buildItemLocale(e)).toList();
 
     final textStyle = TextStyle(fontSize: 14, fontWeight: FontWeight.bold);
+    final btnTextStyle = TextStyle(fontWeight: FontWeight.bold);
     showDialog(
       context: context,
-      barrierDismissible: false,
+      //barrierDismissible: false,
       builder: (BuildContext context) {
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
             return AlertDialog(
+              elevation: 15,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
               title: Text('Idiomas'),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -490,9 +505,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         }
                         setState(() {});
                       }),
-                  !_defLanguages
-                      ? Text('Aplicación', style: textStyle)
-                      : Container(),
+                  Text('Aplicación', style: textStyle),
                   !_defLanguages
                       ? DropdownButton(
                           isExpanded: true,
@@ -502,10 +515,11 @@ class _SettingsPageState extends State<SettingsPage> {
                             _langApp = val;
                             setState(() {});
                           })
-                      : Container(),
-                  !_defLanguages
-                      ? Text('Peliculas', style: textStyle)
-                      : Container(),
+                      : Padding(
+                          padding: EdgeInsets.symmetric(vertical: 10),
+                          child: buildItemAppLang(
+                              _langApp, appLanguagesMap[_langApp])),
+                  Text('Peliculas', style: textStyle),
                   !_defLanguages
                       ? DropdownButton(
                           isExpanded: true,
@@ -515,7 +529,9 @@ class _SettingsPageState extends State<SettingsPage> {
                             _langMovies = val;
                             setState(() {});
                           })
-                      : Container(),
+                      : Padding(
+                          padding: EdgeInsets.symmetric(vertical: 10),
+                          child: buildItemMovieLang(_langMovies)),
                 ],
               ),
               actions: <Widget>[
@@ -523,7 +539,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: Text('Cancelar')),
+                    child: Text('Cancelar', style: btnTextStyle)),
                 FlatButton(
                     onPressed: () {
                       setLangApp(_langApp);
@@ -533,7 +549,10 @@ class _SettingsPageState extends State<SettingsPage> {
                       Navigator.pop(context);
                       Phoenix.rebirth(context);
                     },
-                    child: Text('Guardar'))
+                    child: Text(
+                      'Guardar',
+                      style: btnTextStyle,
+                    ))
               ],
             );
           },
