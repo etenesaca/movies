@@ -59,24 +59,19 @@ class MovieProvider {
   }
 
   Future<List<MovieGenre>> getGenreList() async {
-    Map<String, String> queryParameters = {};
-    final resJsonData =
-        await _getHttpData('/genre/movie/list', queryParameters);
+    final resJsonData = await _getHttpData('/genre/movie/list', {});
     return MovieGenres.fromJsonMap(resJsonData['genres']).items;
   }
 
   Future<List<Backdrop>> getMovieImagesList(int movieId) async {
-    Map<String, String> queryParameters = {'addLanguage': 'null'};
-    final resJsonData =
-        await _getHttpData('/movie/$movieId/images', queryParameters);
+    final resJsonData = await _getHttpData('/movie/$movieId/images', {});
     return Backdrops.fromJsonMap(resJsonData['backdrops']).items;
   }
 
   // Obtener los actores de la pelicula
   Future<List<Actor>> getMovieCast(int movieId) async {
     String apiUrl = '/movie/$movieId/credits';
-    Map<String, String> queryParameters = {};
-    final resJsonData = await _getHttpData(apiUrl, queryParameters);
+    final resJsonData = await _getHttpData(apiUrl, {});
     return Cast.fromJsonMap(resJsonData['cast']).items;
   }
 
@@ -95,8 +90,7 @@ class MovieProvider {
   // Obtener una lista de video relacionado a una pelicula
   Future<List<Video>> getVideosByLanguage(int movieId, String language) async {
     String apiUrl = '/movie/$movieId/videos';
-    Map<String, String> queryParameters = {'language': language};
-    final resJsonData = await _getHttpData(apiUrl, queryParameters);
+    final resJsonData = await _getHttpData(apiUrl, {'language': language});
     return Videos.fromJsonMap(resJsonData['results'], language).items;
   }
 
@@ -115,23 +109,20 @@ class MovieProvider {
   // Obtener los detalles de una pelicula
   Future<Movie> getMovieDetail(int movieId) async {
     String apiUrl = '/movie/$movieId';
-    Map<String, String> queryParameters = {'language': _oriLanguaje};
-    final resJsonData = await _getHttpData(apiUrl, queryParameters);
+    final resJsonData = await _getHttpData(apiUrl, {'language': _oriLanguaje});
     return Movie.fromJsonMap(resJsonData, 'movie_detail');
   }
 
   Future<Movie> getLastMovie() async {
     String apiUrl = '/movie/latest';
-    Map<String, String> queryParameters = {};
-    final resJsonData = await _getHttpData(apiUrl, queryParameters);
+    final resJsonData = await _getHttpData(apiUrl, {});
     return Movie.fromJsonMap(resJsonData, 'new_movie');
   }
 
   // Portadas de un actor
   Future<List<Backdrop>> getActorImagesList(int actorId) async {
-    Map<String, String> queryParameters = {'addLanguage': 'null'};
     final resJsonData =
-        await _getHttpData('/person/$actorId/images', queryParameters);
+        await _getHttpData('/person/$actorId/images', {'addLanguage': 'null'});
     return Backdrops.fromJsonMap(resJsonData['profiles']).items;
   }
 
@@ -146,16 +137,14 @@ class MovieProvider {
   // Obtener los detalles de un actor
   Future<Actor> getActorDetail(int actorId) async {
     String apiUrl = '/person/$actorId';
-    Map<String, String> queryParameters = {'language': _oriLanguaje};
-    final resJsonData = await _getHttpData(apiUrl, queryParameters);
+    final resJsonData = await _getHttpData(apiUrl, {'language': _oriLanguaje});
     return Actor.fromJsonMap(resJsonData);
   }
 
   // Obtener los actores de la pelicula
   Future<List<Actor>> getPopularActors() async {
     String apiUrl = '/person/popular';
-    Map<String, String> queryParameters = {};
-    final resJsonData = await _getHttpData(apiUrl, queryParameters);
+    final resJsonData = await _getHttpData(apiUrl, {});
     return Cast.fromJsonMap(resJsonData['results']).items;
   }
 }
