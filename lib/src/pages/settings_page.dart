@@ -9,13 +9,6 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  Extras extras = Extras();
-  Color colorActions;
-  Color colorItems;
-  TextStyle colorTextSwitch;
-  TextStyle textStyleItems;
-  TextStyle textStyleUser;
-
   List<String> localeList = [
     'af-ZA',
     'am-ET',
@@ -228,6 +221,17 @@ class _SettingsPageState extends State<SettingsPage> {
     'zh-TW',
     'zu-ZA'
   ];
+  List<String> appLanguages = ['es', 'en'];
+  String _langApp;
+  String _langMovies;
+
+  Extras extras = Extras();
+  Color colorActions;
+  Color colorItems;
+  TextStyle colorTextSwitch;
+  TextStyle textStyleItems;
+  TextStyle textStyleUser;
+
   @override
   Widget build(BuildContext context) {
     colorActions = Colors.teal;
@@ -240,6 +244,12 @@ class _SettingsPageState extends State<SettingsPage> {
         fontWeight: FontWeight.w700,
         fontSize: 16,
         fontFamily: 'Cinzel');
+
+    Locale myLocale = Localizations.localeOf(context);
+    if (appLanguages.contains(myLocale.languageCode)) {
+      _langApp = myLocale.languageCode;
+    }
+    _langMovies = '${myLocale.languageCode}-${myLocale.countryCode}';
     Widget menu = Container(
       child: SafeArea(
           child: SingleChildScrollView(
@@ -436,9 +446,6 @@ class _SettingsPageState extends State<SettingsPage> {
           ],
         ));
   }
-
-  String _langApp;
-  String _langMovies;
 
   tapSelectLanguage(BuildContext context) {
     List<DropdownMenuItem<String>> appLanguages = [
