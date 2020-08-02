@@ -19,14 +19,7 @@ class VideoListPage extends StatelessWidget {
         backgroundColor: extras.mainColor,
       ),
       body: Stack(
-        children: <Widget>[
-          getBackground(),
-          SingleChildScrollView(
-            child: Column(
-              children: <Widget>[getVideoList(movie)],
-            ),
-          )
-        ],
+        children: <Widget>[getBackground(), getListviewVideo(movie)],
       ),
     );
   }
@@ -39,28 +32,29 @@ class VideoListPage extends StatelessWidget {
     );
   }
 
-  Widget getVideoList(Movie movie) {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-      child: FutureBuilder(
-          future: MovieProvider().getVideos(movie.id),
-          builder: (BuildContext context, AsyncSnapshot<List<Video>> snapshot) {
-            if (!snapshot.hasData) {
-              return LoadingData();
-            }
-            //
-            final ytVideos =
-                snapshot.data.where((e) => e.site.toLowerCase() == 'youtube');
-            if (ytVideos.isEmpty) {
-              return Center(
-                child: _buildNoHasResult(),
-              );
-            }
-            return Column(
-              children: ytVideos.map((e) => getVideoCard(e, movie)).toList(),
+  Widget getListviewVideo(Movie movie) {
+    return FutureBuilder(
+        future: MovieProvider().getVideos(movie.id),
+        builder: (BuildContext context, AsyncSnapshot<List<Video>> snapshot) {
+          if (!snapshot.hasData) {
+            return LoadingData();
+          }
+          //
+          final ytVideos = snapshot.data
+              .where((e) => e.site.toLowerCase() == 'youtube')
+              .toList();
+          if (ytVideos.isEmpty) {
+            return Center(
+              child: _buildNoHasResult(),
             );
-          }),
-    );
+          }
+          return ListView.builder(
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+              itemCount: ytVideos.length,
+              itemBuilder: (context, index) {
+                return getVideoCard(ytVideos[index], movie);
+              });
+        });
   }
 
   Widget _buildNoHasResult() {
@@ -107,27 +101,24 @@ class VideoListPage extends StatelessWidget {
       ),
       child: avatar,
     );
-    return ZoomIn(
-      duration: Duration(milliseconds: 500),
-      child: Card(
-        color: Color.fromRGBO(57, 79, 111, 1.0),
-        child: Column(
-          children: <Widget>[
-            VideoScreen(id: video.key),
-            ListTile(
-              trailing: extras.buildBoxTag(video.lang, Colors.white,
-                  textColor: Colors.blueAccent),
-              leading: avatar,
-              title: Text(video.name,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12)),
-              subtitle: Text(video.type,
-                  style: TextStyle(color: Colors.white60, fontSize: 11)),
-            )
-          ],
-        ),
+    return Card(
+      color: Color.fromRGBO(57, 79, 111, 1.0),
+      child: Column(
+        children: <Widget>[
+          VideoScreen(id: video.key),
+          ListTile(
+            trailing: extras.buildBoxTag(video.lang, Colors.white,
+                textColor: Colors.blueAccent),
+            leading: avatar,
+            title: Text(video.name,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12)),
+            subtitle: Text(video.type,
+                style: TextStyle(color: Colors.white60, fontSize: 11)),
+          )
+        ],
       ),
     );
   }
