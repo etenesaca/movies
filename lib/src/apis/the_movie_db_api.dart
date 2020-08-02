@@ -92,7 +92,7 @@ class MovieProvider {
       {String labelLanguage}) async {
     String apiUrl = '/movie/$movieId/videos';
     final resJsonData = await _getHttpData(apiUrl, {'language': language});
-    if (labelLanguage != null) {
+    if (labelLanguage == null) {
       labelLanguage = language;
     }
     return Videos.fromJsonMap(resJsonData['results'], labelLanguage).items;
@@ -103,12 +103,21 @@ class MovieProvider {
     String defLanguage = await AppSettings().getLangMovies();
     // Add Spanish Latam Video
     String esLatLanguage = 'es-MX';
-    if (defLanguage.startsWith('es-') &&
-        defLanguage != 'es-ES' &&
-        defLanguage != esLatLanguage) {
+    String esSpainLanguage = 'es-ES';
+    bool checkAddLatam = defLanguage.startsWith('es-') &&
+        defLanguage != esSpainLanguage &&
+        defLanguage != esLatLanguage;
+
+    if (checkAddLatam) {
       final esLat = await getVideosByLanguage(movieId, esLatLanguage,
           labelLanguage: 'ES-Latino');
       res.addAll(esLat);
+    }
+    // Add Es-Spain Video
+    if (res.isEmpty && checkAddLatam) {
+      final esSpain = await getVideosByLanguage(movieId, esSpainLanguage,
+          labelLanguage: 'Español');
+      res.addAll(esSpain);
     }
     // Add Video un Language user preferences
     final langDef = await getVideosByLanguage(movieId, defLanguage);
