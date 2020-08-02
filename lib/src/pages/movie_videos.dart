@@ -101,24 +101,27 @@ class VideoListPage extends StatelessWidget {
       ),
       child: avatar,
     );
-    return Card(
-      color: Color.fromRGBO(57, 79, 111, 1.0),
-      child: Column(
-        children: <Widget>[
-          VideoScreen(id: video.key),
-          ListTile(
-            trailing: extras.buildBoxTag(video.lang, Colors.white,
-                textColor: Colors.blueAccent),
-            leading: avatar,
-            title: Text(video.name,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12)),
-            subtitle: Text(video.type,
-                style: TextStyle(color: Colors.white60, fontSize: 11)),
-          )
-        ],
+    return ZoomIn(
+      duration: Duration(milliseconds: 500),
+      child: Card(
+        color: Color.fromRGBO(57, 79, 111, 1.0),
+        child: Column(
+          children: <Widget>[
+            VideoScreen(id: video.key),
+            ListTile(
+              trailing: extras.buildBoxTag(video.lang, Colors.white,
+                  textColor: Colors.blueAccent),
+              leading: avatar,
+              title: Text(video.name,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12)),
+              subtitle: Text(video.type,
+                  style: TextStyle(color: Colors.white60, fontSize: 11)),
+            )
+          ],
+        ),
       ),
     );
   }
