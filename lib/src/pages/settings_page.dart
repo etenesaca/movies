@@ -228,6 +228,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   String _langApp;
   String _langMovies;
+  bool _defLanguages;
 
   Extras extras = Extras();
   Color colorActions;
@@ -475,6 +476,20 @@ class _SettingsPageState extends State<SettingsPage> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  SwitchListTile(
+                      contentPadding: EdgeInsets.all(0),
+                      activeColor: colorActions,
+                      value: _defLanguages,
+                      title: Text('Idioma del dispositivo',
+                          style: TextStyle(fontSize: 14)),
+                      onChanged: (bool value) {
+                        _defLanguages = value;
+                        if (value) {
+                          _langApp = AppSettings().getDefaultLangApp();
+                          _langMovies = AppSettings().getDefaultLangMovies();
+                        }
+                        setState(() {});
+                      }),
                   Text('Aplicación', style: textStyle),
                   DropdownButton(
                       isExpanded: true,
@@ -506,6 +521,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       setLangApp(_langApp);
                       setLangMovies(_langMovies);
                       showToast('Guardado');
+                      setUseDevideLanguage(_defLanguages);
                       Navigator.pop(context);
                       Phoenix.rebirth(context);
                     },
@@ -549,6 +565,7 @@ class _SettingsPageState extends State<SettingsPage> {
     final settings = AppSettings();
     _langMovies = await settings.getLangMovies();
     _langApp = await settings.getLangApp();
+    _defLanguages = await settings.getUseDevideLanguage();
     setState(() {});
   }
 
@@ -561,5 +578,10 @@ class _SettingsPageState extends State<SettingsPage> {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString('langMovies', langMovies);
     setState(() {});
+  }
+
+  void setUseDevideLanguage(bool useDevideLanguage) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool('useDevideLanguage', useDevideLanguage);
   }
 }
