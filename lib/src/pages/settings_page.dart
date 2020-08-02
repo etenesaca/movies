@@ -1,3 +1,4 @@
+import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:movies/common/extras.dart';
@@ -245,11 +246,13 @@ class _SettingsPageState extends State<SettingsPage> {
         fontSize: 16,
         fontFamily: 'Cinzel');
 
-    Locale myLocale = Localizations.localeOf(context);
-    if (appLanguages.contains(myLocale.languageCode)) {
-      _langApp = myLocale.languageCode;
+    //Locale myLocale = Localizations.localeOf(context);
+    String sysLang = Platform.localeName.split('_')[0];
+    String sysCountry = Platform.localeName.split('_')[1];
+    if (appLanguages.contains(sysLang)) {
+      _langApp = sysLang;
     }
-    _langMovies = '${myLocale.languageCode}-${myLocale.countryCode}';
+    _langMovies = '$sysLang-$sysCountry';
     Widget menu = Container(
       child: SafeArea(
           child: SingleChildScrollView(
