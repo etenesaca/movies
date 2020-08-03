@@ -3,8 +3,9 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class VideoScreen extends StatefulWidget {
   final String id;
+  final bool autoPlay;
 
-  VideoScreen({this.id});
+  VideoScreen({this.id, this.autoPlay = false});
 
   @override
   _VideoScreenState createState() => _VideoScreenState();
@@ -20,7 +21,7 @@ class _VideoScreenState extends State<VideoScreen> {
       initialVideoId: widget.id,
       flags: YoutubePlayerFlags(
         mute: false,
-        autoPlay: false,
+        autoPlay: widget.autoPlay,
       ),
     );
   }

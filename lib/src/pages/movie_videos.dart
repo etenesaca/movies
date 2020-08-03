@@ -52,7 +52,7 @@ class VideoListPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
               itemCount: ytVideos.length,
               itemBuilder: (context, index) {
-                return getVideoCard(ytVideos[index], movie);
+                return getVideoCard(context, ytVideos[index], movie);
               });
         });
   }
@@ -76,7 +76,53 @@ class VideoListPage extends StatelessWidget {
     );
   }
 
-  Widget getVideoCard(Video video, Movie movie) {
+  openVideoViewer(BuildContext context, Video video) {
+    return showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return Hero(
+          tag: 'ytvideo_${video.id}',
+          child: AlertDialog(
+              contentPadding: EdgeInsets.all(0),
+              insetPadding: EdgeInsets.all(5),
+              elevation: 15,
+              content: VideoScreen(id: video.key, autoPlay: true)),
+        );
+      },
+    );
+  }
+
+  Widget buildThumbnail(BuildContext context, Video video) {
+    final res = LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+      final boxHeight = constraints.maxWidth * 0.5625;
+      final boxWidth = constraints.maxWidth;
+      final thumbnait = extras.buildPosterImg(
+          'https://img.youtube.com/vi/${video.key}/0.jpg', boxHeight, boxWidth,
+          corners: 0, fit: BoxFit.fitWidth);
+      return Stack(
+        alignment: Alignment.center,
+        children: <Widget>[
+          thumbnait,
+          Icon(
+            Icons.play_circle_outline,
+            color: Colors.white,
+            size: boxHeight * 0.30,
+          )
+        ],
+      );
+    });
+    return GestureDetector(
+      child: res,
+      onTap: () {
+        Hero(
+            tag: 'ytvideo_${video.id}', child: openVideoViewer(context, video));
+      },
+    );
+  }
+
+  Widget getVideoCard(BuildContext context, Video video, Movie movie) {
     final styleShadow = BoxShadow(
       color: Colors.black.withOpacity(0.9),
       spreadRadius: 1,
@@ -107,7 +153,8 @@ class VideoListPage extends StatelessWidget {
         color: Color.fromRGBO(57, 79, 111, 1.0),
         child: Column(
           children: <Widget>[
-            VideoScreen(id: video.key),
+            //VideoScreen(id: video.key),
+            buildThumbnail(context, video),
             ListTile(
               trailing: extras.buildBoxTag(video.lang, Colors.white,
                   textColor: Colors.blueAccent),
