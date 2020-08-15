@@ -152,7 +152,7 @@ class PopularActorsPage extends StatelessWidget {
   Widget buildBestActors() {
     final res = PageViewActor(futureActors: movieApi.getPopularActors());
     return extras.buildSection(
-        title: 'Mejor calificados',
+        title: 'Más populares',
         child: res,
         textBackground: 'Actores',
         paddingHeader: paddingSections);

@@ -66,7 +66,7 @@ class Movie {
 
   Movie.fromJsonMap(Map<String, dynamic> json, String callFrom) {
     voteCount = json['vote_count'];
-    popularity = json['popularity'] / 1;
+    popularity = json['popularity'] != null ? json['popularity'] / 1 : 0;
     video = json['video'];
     posterPath = json['poster_path'];
     id = json['id'];

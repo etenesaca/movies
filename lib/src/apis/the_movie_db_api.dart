@@ -90,6 +90,7 @@ class MovieProvider {
   // Obtener una lista de video relacionado a una pelicula
   Future<List<Video>> getVideosByLanguage(int movieId, String language,
       {String labelLanguage}) async {
+    print('$language --- $labelLanguage');
     String apiUrl = '/movie/$movieId/videos';
     final resJsonData = await _getHttpData(apiUrl, {'language': language});
     if (labelLanguage == null) {
@@ -104,7 +105,7 @@ class MovieProvider {
     // Add Spanish Latam Video
     String esLatLanguage = 'es-MX';
     String esSpainLanguage = 'es-ES';
-    bool checkAddLatam = defLanguage.startsWith('es-') &&
+    bool checkAddLatam = defLanguage.startsWith('es') &&
         defLanguage != esSpainLanguage &&
         defLanguage != esLatLanguage;
 
@@ -115,8 +116,8 @@ class MovieProvider {
     }
     // Add Es-Spain Video
     if (res.isEmpty && checkAddLatam) {
-      final esSpain = await getVideosByLanguage(movieId, esSpainLanguage,
-          labelLanguage: 'Español');
+      final esSpain =
+          await getVideosByLanguage(movieId, 'es', labelLanguage: 'Español');
       res.addAll(esSpain);
     }
     // Add Video un Language user preferences

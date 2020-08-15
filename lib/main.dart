@@ -4,6 +4,7 @@ import 'package:movies/src/pages/actor_page.dart';
 import 'package:movies/src/pages/backdrop_page.dart';
 import 'package:movies/src/pages/galery_page.dart';
 import 'package:movies/src/pages/movie_videos.dart';
+import 'package:movies/src/pages/play_trailer_page.dart';
 import 'package:movies/src/providers/global_provider.dart';
 import 'package:movies/src/providers/search_provider.dart';
 import 'package:movies/src/pages/home_page.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
             'movie_detail': (BuildContext context) => MovieDetailPage(),
             'actor': (BuildContext context) => ActorPage(),
             'video_list': (BuildContext context) => VideoListPage(),
+            'play_trailer': (BuildContext context) => PlayTrailerPage(),
             'movie_poster_child': (BuildContext context) => MoviePosterPage(),
           },
           onGenerateRoute: (settings) {

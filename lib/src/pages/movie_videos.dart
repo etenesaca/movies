@@ -15,7 +15,7 @@ class VideoListPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Videos'),
+        title: Text('Trailers'),
         backgroundColor: extras.mainColor,
       ),
       body: Stack(
@@ -77,6 +77,7 @@ class VideoListPage extends StatelessWidget {
   }
 
   openVideoViewer(BuildContext context, Video video) {
+    Navigator.pushNamed(context, 'play_trailer', arguments: video);
     return showDialog(
       context: context,
       barrierDismissible: true,
@@ -91,6 +92,8 @@ class VideoListPage extends StatelessWidget {
         );
       },
     );
+    /* 
+    */
   }
 
   Widget buildThumbnail(BuildContext context, Video video) {
@@ -114,10 +117,9 @@ class VideoListPage extends StatelessWidget {
       );
     });
     return GestureDetector(
-      child: res,
+      child: Hero(tag: 'ytvideo_${video.id}', child: res),
       onTap: () {
-        Hero(
-            tag: 'ytvideo_${video.id}', child: openVideoViewer(context, video));
+        openVideoViewer(context, video);
       },
     );
   }

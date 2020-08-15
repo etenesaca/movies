@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:icon_shadow/icon_shadow.dart';
 import 'package:movies/common/extras.dart';
@@ -22,6 +23,7 @@ class SliverMoviePoster extends SliverPersistentHeaderDelegate {
         _buildBackGround(context, movie),
         _buildBackGroundOpacity(context),
         _buildAppBar(context, movie),
+        _buildTrailerButton(context, shrinkOffset),
         Positioned(
           top: expandedHeight / 2 - shrinkOffset,
           //left: MediaQuery.of(context).size.width / 1.5,
@@ -32,6 +34,25 @@ class SliverMoviePoster extends SliverPersistentHeaderDelegate {
           ),
         ),
       ],
+    );
+  }
+
+  _buildTrailerButton(BuildContext context, double shrinkOffset) {
+    return GestureDetector(
+      child: Opacity(
+        opacity: (1 - shrinkOffset / expandedHeight),
+        child: ZoomIn(
+          duration: Duration(milliseconds: 400),
+          child: Icon(
+            Icons.play_circle_outline,
+            color: Colors.white70,
+            size: 60,
+          ),
+        ),
+      ),
+      onTap: () {
+        Navigator.pushNamed(context, 'video_list', arguments: movie);
+      },
     );
   }
 

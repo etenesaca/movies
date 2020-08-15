@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:animate_do/animate_do.dart';
+import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/common/extras.dart';
 import 'package:movies/src/models/actor_model.dart';
@@ -66,16 +67,6 @@ class MovieDetailPage extends StatelessWidget {
             ],
           )
         ],
-      ),
-      floatingActionButton: ZoomIn(
-        duration: Duration(milliseconds: 500),
-        child: FloatingActionButton(
-            heroTag: '${movie.idHero}_trailers',
-            backgroundColor: Colors.orangeAccent,
-            child: Icon(Icons.play_arrow),
-            onPressed: () {
-              Navigator.pushNamed(context, 'video_list', arguments: movie);
-            }),
       ),
     );
     return page;
@@ -161,6 +152,7 @@ class MovieDetailPage extends StatelessWidget {
   }
 
   _buildSectionDescription(BuildContext context, Movie movie) {
+    final textStyle = TextStyle(color: Colors.white70);
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 6),
       child: Column(
@@ -168,11 +160,13 @@ class MovieDetailPage extends StatelessWidget {
         children: <Widget>[
           extras.buildTitleSection('Sinopsis'),
           SizedBox(height: 5),
-          Text(
-            movie.overview,
-            textAlign: TextAlign.justify,
-            style: TextStyle(color: Colors.white70),
-          )
+          ExpandableText(movie.overview,
+              expandText: 'Ver más',
+              collapseText: 'Ver menos',
+              textAlign: TextAlign.justify,
+              linkColor: Colors.redAccent,
+              maxLines: 6,
+              style: textStyle),
         ],
       ),
     );
@@ -262,7 +256,7 @@ class MovieDetailPage extends StatelessWidget {
       ],
     );
     return extras.buildSection(
-        title: 'Galeria',
+        title: 'Wallpapers',
         child: res,
         action: showAllImages,
         paddingHeader: EdgeInsets.only(left: 20, right: 5, top: 10));
