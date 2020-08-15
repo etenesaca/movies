@@ -117,7 +117,7 @@ class NewPage extends StatelessWidget {
                       children: <Widget>[
                         Icon(Icons.play_arrow),
                         Text(
-                          'Reproducir',
+                          'Trailer',
                           style: TextStyle(fontWeight: FontWeight.bold),
                         )
                       ],

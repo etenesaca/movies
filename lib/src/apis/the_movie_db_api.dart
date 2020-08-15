@@ -105,7 +105,7 @@ class MovieProvider {
     // Add Spanish Latam Video
     String esLatLanguage = 'es-MX';
     String esSpainLanguage = 'es-ES';
-    bool checkAddLatam = defLanguage.startsWith('es') &&
+    bool checkAddLatam = defLanguage.startsWith('es-') &&
         defLanguage != esSpainLanguage &&
         defLanguage != esLatLanguage;
 

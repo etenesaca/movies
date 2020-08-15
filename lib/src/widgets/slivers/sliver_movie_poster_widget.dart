@@ -23,7 +23,7 @@ class SliverMoviePoster extends SliverPersistentHeaderDelegate {
         _buildBackGround(context, movie),
         _buildBackGroundOpacity(context),
         _buildAppBar(context, movie),
-        _buildTrailerButton(context, shrinkOffset),
+        //_buildTrailerButton(context, shrinkOffset),
         Positioned(
           top: expandedHeight / 2 - shrinkOffset,
           //left: MediaQuery.of(context).size.width / 1.5,
@@ -42,10 +42,10 @@ class SliverMoviePoster extends SliverPersistentHeaderDelegate {
       child: Opacity(
         opacity: (1 - shrinkOffset / expandedHeight),
         child: ZoomIn(
-          duration: Duration(milliseconds: 400),
+          duration: Duration(milliseconds: 700),
           child: Icon(
             Icons.play_circle_outline,
-            color: Colors.white70,
+            color: Colors.white,
             size: 60,
           ),
         ),

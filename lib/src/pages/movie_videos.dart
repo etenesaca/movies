@@ -78,6 +78,7 @@ class VideoListPage extends StatelessWidget {
 
   openVideoViewer(BuildContext context, Video video) {
     Navigator.pushNamed(context, 'play_trailer', arguments: video);
+    /*
     return showDialog(
       context: context,
       barrierDismissible: true,
@@ -92,7 +93,6 @@ class VideoListPage extends StatelessWidget {
         );
       },
     );
-    /* 
     */
   }
 
@@ -111,7 +111,7 @@ class VideoListPage extends StatelessWidget {
           Icon(
             Icons.play_circle_outline,
             color: Colors.white,
-            size: boxHeight * 0.30,
+            size: boxHeight * 0.35,
           )
         ],
       );

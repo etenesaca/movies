@@ -21,7 +21,7 @@ class MovieDetailPage extends StatelessWidget {
   final extras = Extras();
 
   EdgeInsets paddingSections =
-      EdgeInsets.symmetric(vertical: 0, horizontal: 20);
+      EdgeInsets.symmetric(vertical: 1, horizontal: 20);
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +49,7 @@ class MovieDetailPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       setPaddingsection(_buildSectionRating(context, movie)),
+                      setPaddingsection(_buildMovieActions(context, movie)),
                       setPaddingsection(_buildSectionGenres(context, movie,
                           context.watch<GlobalProvider>().allMovieGenres)),
                       setPaddingsection(
@@ -70,6 +71,65 @@ class MovieDetailPage extends StatelessWidget {
       ),
     );
     return page;
+  }
+
+  _buildMovieActions(BuildContext context, Movie movie) {
+    final durationAnimation = Duration(milliseconds: 500);
+    final res = Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        ZoomIn(
+          duration: durationAnimation,
+          child: Column(
+            children: <Widget>[
+              Icon(Icons.add, color: Colors.white),
+              Text(
+                'Mi Lista',
+                style: TextStyle(color: Colors.white, fontSize: 10),
+              )
+            ],
+          ),
+        ),
+        SizedBox(width: 25),
+        ZoomIn(
+          duration: durationAnimation,
+          child: RaisedButton(
+              child: Row(
+                children: <Widget>[
+                  Icon(Icons.play_arrow),
+                  Text(
+                    'Trailer',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  )
+                ],
+              ),
+              onPressed: () {
+                Navigator.pushNamed(context, 'video_list', arguments: movie);
+              }),
+        ),
+        SizedBox(width: 25),
+        GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, 'movie_detail', arguments: {
+              'movie': movie,
+            });
+          },
+          child: ZoomIn(
+            duration: durationAnimation,
+            child: Column(
+              children: <Widget>[
+                Icon(Icons.thumbs_up_down, color: Colors.white),
+                Text(
+                  'Calificar',
+                  style: TextStyle(color: Colors.white, fontSize: 10),
+                )
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+    return res;
   }
 
   _buildSliverPoster(Movie movie) {
