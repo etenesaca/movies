@@ -19,7 +19,7 @@ class MovieProvider {
     if (!queryParameters.keys.contains('language')) {
       queryParameters['language'] = await AppSettings().getLangMovies();
     }
-    if (!queryParameters.keys.contains('addLanguage')) {
+    if (queryParameters.keys.contains('addLanguage')) {
       queryParameters['language'] =
           '${queryParameters['language']},${queryParameters['addLanguage']}';
     }
@@ -90,7 +90,6 @@ class MovieProvider {
   // Obtener una lista de video relacionado a una pelicula
   Future<List<Video>> getVideosByLanguage(int movieId, String language,
       {String labelLanguage}) async {
-    print('$language --- $labelLanguage');
     String apiUrl = '/movie/$movieId/videos';
     final resJsonData = await _getHttpData(apiUrl, {'language': language});
     if (labelLanguage == null) {
@@ -124,18 +123,20 @@ class MovieProvider {
     final langDef = await getVideosByLanguage(movieId, defLanguage);
     res.addAll(langDef);
     // Add Original Videos
-    if (defLanguage != _oriLanguaje) {
+    if (res.isEmpty && defLanguage != _oriLanguaje) {
       final oriLang = await getVideosByLanguage(movieId, _oriLanguaje);
       res.addAll(oriLang);
     }
     // Delete duplicate videos
     List<Video> resFiltered = [];
+    List<String> resIds = [];
     res.forEach((newVideo) {
-      if (resFiltered.where((e) => e.id == newVideo.id).isEmpty) {
+      if (!resIds.contains(newVideo.key)) {
+        resIds.add(newVideo.key);
         resFiltered.add(newVideo);
       }
     });
-    return resFiltered;
+    return res;
   }
 
   // Obtener los detalles de una pelicula
