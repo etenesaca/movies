@@ -22,6 +22,7 @@ class MovieProvider {
     if (queryParameters.keys.contains('addLanguage')) {
       queryParameters['language'] =
           '${queryParameters['language']},${queryParameters['addLanguage']}';
+      queryParameters.remove('addLanguage');
     }
     apiUrl = '3$apiUrl';
     final url = Uri.https(_url, apiUrl, queryParameters);
@@ -64,7 +65,8 @@ class MovieProvider {
   }
 
   Future<List<Backdrop>> getMovieImagesList(int movieId) async {
-    final resJsonData = await _getHttpData('/movie/$movieId/images', {});
+    final resJsonData =
+        await _getHttpData('/movie/$movieId/images', {'addLanguage': 'null'});
     return Backdrops.fromJsonMap(resJsonData['backdrops']).items;
   }
 
@@ -136,7 +138,7 @@ class MovieProvider {
         resFiltered.add(newVideo);
       }
     });
-    return res;
+    return resFiltered;
   }
 
   // Obtener los detalles de una pelicula
