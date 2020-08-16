@@ -2,6 +2,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:movies/common/extras.dart';
+import 'package:movies/generated/l10n.dart';
 import 'package:movies/src/pages/home_page.dart';
 import 'package:movies/src/pages/new_page.dart';
 import 'package:movies/src/pages/popular_actors.dart';
@@ -18,7 +19,6 @@ class RootPage extends StatefulWidget {
 
 class _RootPageState extends State<RootPage> with WidgetsBindingObserver {
   Extras extras = Extras();
-  String tabTitle = 'En cines';
   Color mainColor = Color.fromRGBO(24, 33, 46, 1.0);
   final moviesProvider = MovieProvider();
 
@@ -102,6 +102,7 @@ class _RootPageState extends State<RootPage> with WidgetsBindingObserver {
       getConfigTab()
     ];
 
+    String tabTitle = S.of(context).nowPlaying;
     Widget textTitle = Text(
       tabTitle,
       style: TextStyle(fontFamily: 'RussoOne', fontWeight: FontWeight.normal),

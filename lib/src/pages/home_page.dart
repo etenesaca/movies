@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:movies/generated/l10n.dart';
 import 'package:movies/src/bloc/movie_section_bloc.dart';
 import 'package:movies/src/models/movie_model.dart';
 import 'package:movies/src/apis/the_movie_db_api.dart';
@@ -28,7 +29,7 @@ class _HomePageState extends State<HomePage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('En Cines',
+            Text(S.of(context).nowPlaying,
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.normal,

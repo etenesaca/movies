@@ -1,0 +1,21 @@
+{
+    "@@x-loco-version": "1.0.24 20200814-1",
+    "@@locale": "es",
+    "@@last_modified": "2020-08-16T13:06:36-0500",
+    "@@author": "Edgar Tenesaca",
+    "nowPlaying": "En  cines",
+    "@nowPlaying": {
+        "type": "text",
+        "source_text": "Now playing"
+    },
+    "section_popular": "Populares",
+    "@section_popular": {
+        "type": "text",
+        "source_text": "Populars"
+    },
+    "section_top_rated": "Mejor calificadas",
+    "@section_top_rated": {
+        "type": "text",
+        "source_text": "Top rated"
+    }
+}

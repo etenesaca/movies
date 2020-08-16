@@ -11,6 +11,8 @@ import 'package:movies/src/pages/home_page.dart';
 import 'package:movies/src/pages/movie_detail_page.dart';
 import 'package:movies/src/pages/root.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:movies/generated/l10n.dart';
 import 'package:provider/provider.dart';
 
 void main() => runApp(Phoenix(
@@ -30,6 +32,13 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Peliculas',
+          localizationsDelegates: [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+            S.delegate
+          ],
+          supportedLocales: S.delegate.supportedLocales,
           routes: {
             '/': (BuildContext context) => RootPage(),
             'home': (BuildContext context) => HomePage(),

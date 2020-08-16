@@ -1,0 +1,18 @@
+{
+    "@@x-loco-version": "1.0.24 20200814-1",
+    "@@locale": "en",
+    "@@last_modified": "2020-08-16T13:06:36-0500",
+    "@@author": "Edgar Tenesaca",
+    "nowPlaying": "Now playing",
+    "@nowPlaying": {
+        "type": "text"
+    },
+    "section_popular": "Populars",
+    "@section_popular": {
+        "type": "text"
+    },
+    "section_top_rated": "Top rated",
+    "@section_top_rated": {
+        "type": "text"
+    }
+}
