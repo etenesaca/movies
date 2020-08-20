@@ -2,7 +2,9 @@ import 'dart:math';
 
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:movies/generated/l10n.dart';
 import 'package:movies/src/models/actor_model.dart';
 import 'package:movies/src/models/image_model.dart';
 
@@ -174,7 +176,7 @@ class Extras {
             child: Container(
               padding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
               child: Text(textBackground,
-                  textAlign: TextAlign.start,                  
+                  textAlign: TextAlign.start,
                   style: TextStyle(
                       color: Colors.white10,
                       fontSize: 60,
@@ -306,5 +308,14 @@ class Extras {
         children: <Widget>[posterCropped, votes],
       ),
     );
+  }
+
+  String getLocaleName(BuildContext context, Locale locale) {
+    if (locale == null) {
+      return S.of(context).systemLanguage;
+    } else {
+      final localeString = LocaleNames.of(context).nameOf(locale.toString());
+      return localeString[0].toUpperCase() + localeString.substring(1);
+    }
   }
 }

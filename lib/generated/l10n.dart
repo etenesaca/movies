@@ -62,6 +62,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Language`
+  String get language {
+    return Intl.message(
+      'Language',
+      name: 'language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `System language`
+  String get systemLanguage {
+    return Intl.message(
+      'System language',
+      name: 'systemLanguage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Movies language`
+  String get moviesLanguage {
+    return Intl.message(
+      'Movies language',
+      name: 'moviesLanguage',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -71,6 +101,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
       Locale.fromSubtags(languageCode: 'es'),
+      Locale.fromSubtags(languageCode: 'es', countryCode: 'EC'),
     ];
   }
 

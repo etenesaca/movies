@@ -1,5 +1,5 @@
 // DO NOT EDIT. This is code generated via package:intl/generate_localized.dart
-// This is a library that provides messages for a es locale. All the
+// This is a library that provides messages for a es_EC locale. All the
 // messages from the main program should be duplicated here with the same
 // function name.
 
@@ -17,15 +17,10 @@ final messages = new MessageLookup();
 typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 
 class MessageLookup extends MessageLookupByLibrary {
-  String get localeName => 'es';
+  String get localeName => 'es_EC';
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
-    "language" : MessageLookupByLibrary.simpleMessage("Idioma"),
-    "moviesLanguage" : MessageLookupByLibrary.simpleMessage("Idioma de las peliculas"),
-    "nowPlaying" : MessageLookupByLibrary.simpleMessage("En  cines"),
-    "section_popular" : MessageLookupByLibrary.simpleMessage("Populares"),
-    "section_top_rated" : MessageLookupByLibrary.simpleMessage("Mejor calificadas"),
-    "systemLanguage" : MessageLookupByLibrary.simpleMessage("Idioma del sistema")
+
   };
 }

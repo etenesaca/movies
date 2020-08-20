@@ -29,6 +29,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.4.2"
+  bloc:
+    dependency: transitive
+    description:
+      name: bloc
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -106,6 +113,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.3"
+  equatable:
+    dependency: "direct main"
+    description:
+      name: equatable
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.3"
   expandable_text:
     dependency: "direct main"
     description:
@@ -132,6 +146,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_bloc:
+    dependency: "direct main"
+    description:
+      name: flutter_bloc
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.2.0"
   flutter_cache_manager:
     dependency: transitive
     description:
@@ -158,6 +179,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_localized_locales:
+    dependency: "direct main"
+    description:
+      name: flutter_localized_locales
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.1"
   flutter_page_indicator:
     dependency: transitive
     description:
@@ -377,7 +405,7 @@ packages:
       name: rxdart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.24.1"
+    version: "0.23.1"
   shared_preferences:
     dependency: "direct main"
     description:

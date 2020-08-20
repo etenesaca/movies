@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:movies/blocs/preferences_bloc.dart';
 import 'package:movies/common/app_settings.dart';
 import 'package:movies/common/extras.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsPage extends StatefulWidget {
   SettingsPage({Key key}) : super(key: key);
@@ -13,223 +14,6 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  List<String> localeList = [
-    'af-ZA',
-    'am-ET',
-    'ar-AE',
-    'ar-BH',
-    'ar-DZ',
-    'ar-EG',
-    'ar-IQ',
-    'ar-JO',
-    'ar-KW',
-    'ar-LB',
-    'ar-LY',
-    'ar-MA',
-    'arn-CL',
-    'ar-OM',
-    'ar-QA',
-    'ar-SA',
-    'ar-SY',
-    'ar-TN',
-    'ar-YE',
-    'as-IN',
-    'az-Cyrl-AZ',
-    'az-Latn-AZ',
-    'ba-RU',
-    'be-BY',
-    'bg-BG',
-    'bn-BD',
-    'bn-IN',
-    'bo-CN',
-    'br-FR',
-    'bs-Cyrl-BA',
-    'bs-Latn-BA',
-    'ca-ES',
-    'co-FR',
-    'cs-CZ',
-    'cy-GB',
-    'da-DK',
-    'de-AT',
-    'de-CH',
-    'de-DE',
-    'de-LI',
-    'de-LU',
-    'dsb-DE',
-    'dv-MV',
-    'el-GR',
-    'en-029',
-    'en-AU',
-    'en-BZ',
-    'en-CA',
-    'en-GB',
-    'en-IE',
-    'en-IN',
-    'en-JM',
-    'en-MY',
-    'en-NZ',
-    'en-PH',
-    'en-SG',
-    'en-TT',
-    'en-US',
-    'en-ZA',
-    'en-ZW',
-    'es-AR',
-    'es-BO',
-    'es-CL',
-    'es-CO',
-    'es-CR',
-    'es-DO',
-    'es-EC',
-    'es-ES',
-    'es-GT',
-    'es-HN',
-    'es-MX',
-    'es-NI',
-    'es-PA',
-    'es-PE',
-    'es-PR',
-    'es-PY',
-    'es-SV',
-    'es-US',
-    'es-UY',
-    'es-VE',
-    'et-EE',
-    'eu-ES',
-    'fa-IR',
-    'fi-FI',
-    'fil-PH',
-    'fo-FO',
-    'fr-BE',
-    'fr-CA',
-    'fr-CH',
-    'fr-FR',
-    'fr-LU',
-    'fr-MC',
-    'fy-NL',
-    'ga-IE',
-    'gd-GB',
-    'gl-ES',
-    'gsw-FR',
-    'gu-IN',
-    'ha-Latn-NG',
-    'he-IL',
-    'hi-IN',
-    'hr-BA',
-    'hr-HR',
-    'hsb-DE',
-    'hu-HU',
-    'hy-AM',
-    'id-ID',
-    'ig-NG',
-    'ii-CN',
-    'is-IS',
-    'it-CH',
-    'it-IT',
-    'iu-Cans-CA',
-    'iu-Latn-CA',
-    'ja-JP',
-    'ka-GE',
-    'kk-KZ',
-    'kl-GL',
-    'km-KH',
-    'kn-IN',
-    'kok-IN',
-    'ko-KR',
-    'ky-KG',
-    'lb-LU',
-    'lo-LA',
-    'lt-LT',
-    'lv-LV',
-    'mi-NZ',
-    'mk-MK',
-    'ml-IN',
-    'mn-MN',
-    'mn-Mong-CN',
-    'moh-CA',
-    'mr-IN',
-    'ms-BN',
-    'ms-MY',
-    'mt-MT',
-    'nb-NO',
-    'ne-NP',
-    'nl-BE',
-    'nl-NL',
-    'nn-NO',
-    'nso-ZA',
-    'oc-FR',
-    'or-IN',
-    'pa-IN',
-    'pl-PL',
-    'prs-AF',
-    'ps-AF',
-    'pt-BR',
-    'pt-PT',
-    'qut-GT',
-    'quz-BO',
-    'quz-EC',
-    'quz-PE',
-    'rm-CH',
-    'ro-RO',
-    'ru-RU',
-    'rw-RW',
-    'sah-RU',
-    'sa-IN',
-    'se-FI',
-    'se-NO',
-    'se-SE',
-    'si-LK',
-    'sk-SK',
-    'sl-SI',
-    'sma-NO',
-    'sma-SE',
-    'smj-NO',
-    'smj-SE',
-    'smn-FI',
-    'sms-FI',
-    'sq-AL',
-    'sr-Cyrl-BA',
-    'sr-Cyrl-CS',
-    'sr-Cyrl-ME',
-    'sr-Cyrl-RS',
-    'sr-Latn-BA',
-    'sr-Latn-CS',
-    'sr-Latn-ME',
-    'sr-Latn-RS',
-    'sv-FI',
-    'sv-SE',
-    'sw-KE',
-    'syr-SY',
-    'ta-IN',
-    'te-IN',
-    'tg-Cyrl-TJ',
-    'th-TH',
-    'tk-TM',
-    'tn-ZA',
-    'tr-TR',
-    'tt-RU',
-    'tzm-Latn-DZ',
-    'ug-CN',
-    'uk-UA',
-    'ur-PK',
-    'uz-Cyrl-UZ',
-    'uz-Latn-UZ',
-    'vi-VN',
-    'wo-SN',
-    'xh-ZA',
-    'yo-NG',
-    'zh-CN',
-    'zh-HK',
-    'zh-MO',
-    'zh-SG',
-    'zh-TW',
-    'zu-ZA'
-  ];
-  Map<String, String> appLanguagesMap = {
-    'es': 'Español',
-    'en': 'English',
-  };
-
   String _langApp;
   String _langMovies;
   bool _defLanguages;
@@ -239,6 +23,7 @@ class _SettingsPageState extends State<SettingsPage> {
   Color colorItems;
   TextStyle colorTextSwitch;
   TextStyle textStyleItems;
+  TextStyle textStyleLanguage;
   TextStyle textStyleUser;
 
   @override
@@ -255,6 +40,8 @@ class _SettingsPageState extends State<SettingsPage> {
     colorTextSwitch = TextStyle(color: Colors.white70, fontSize: 14);
     textStyleItems = TextStyle(
         color: Colors.white, fontWeight: FontWeight.w700, fontSize: 14);
+    textStyleLanguage = TextStyle(
+        color: Colors.white60, fontWeight: FontWeight.w600, fontSize: 11);
     textStyleUser = TextStyle(
         color: Colors.white,
         fontWeight: FontWeight.w700,
@@ -280,13 +67,14 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
       )),
     );
-    return Stack(
+    final resPage = Stack(
       fit: StackFit.expand,
       children: <Widget>[
         menu,
         //buildBackgroundLogout(), buildButtonLogout()
       ],
     );
+    return resPage;
   }
 
   userSection() {
@@ -309,12 +97,21 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
+  String getCurrentLang(BuildContext context) {
+    final cLang = context.bloc<PreferencesBloc>().state.locale;
+    return AppSettings().getLocaleName(context, cLang);
+  }
+
   menuOptions(BuildContext context) {
     return buildMenu(children: [
       ListTile(
         onTap: () => tapSelectLanguage(context),
         leading: Icon(Icons.language, color: colorActions),
         title: Text('Cambiar idioma', style: textStyleItems),
+        subtitle: Text(
+          getCurrentLang(context),
+          style: textStyleLanguage,
+        ),
         trailing: Icon(Icons.keyboard_arrow_right, color: colorItems),
       ),
       _buildDivider(),
@@ -434,9 +231,11 @@ class _SettingsPageState extends State<SettingsPage> {
 
   Widget buildItemAppLang(String countryCode, String title) {
     final textStyle = TextStyle(fontSize: 13);
+    final Locale locale = AppSettings().string2Locale(countryCode);
     return Row(
       children: <Widget>[
-        Image.asset('assets/country_flags/$countryCode.png', width: 25),
+        Image.asset('assets/country_flags/${locale.languageCode}.png',
+            width: 25),
         SizedBox(width: 5),
         Text(title, style: textStyle)
       ],
@@ -467,15 +266,18 @@ class _SettingsPageState extends State<SettingsPage> {
 
   tapSelectLanguage(BuildContext context) {
     List<DropdownMenuItem<String>> appLanguages = [];
-    appLanguagesMap.forEach((k, v) {
-      appLanguages.add(buildMenuItemLanguage(k, v));
+    final appSettings = AppSettings();
+    appSettings.getLanguagesAvailable().forEach((l) {
+      appLanguages.add(buildMenuItemLanguage(
+          appSettings.locale2String(l), appSettings.getLocaleName(context, l)));
     });
 
     List<DropdownMenuItem<String>> appLocales =
-        localeList.map((e) => buildItemLocale(e)).toList();
+        appSettings.allLocales.map((e) => buildItemLocale(e)).toList();
 
     final textStyle = TextStyle(fontSize: 14, fontWeight: FontWeight.bold);
     final btnTextStyle = TextStyle(fontWeight: FontWeight.bold);
+    final preferencesBloc = context.bloc<PreferencesBloc>();
     showDialog(
       context: context,
       //barrierDismissible: false,
@@ -500,8 +302,9 @@ class _SettingsPageState extends State<SettingsPage> {
                       onChanged: (bool value) {
                         _defLanguages = value;
                         if (value) {
-                          _langApp = AppSettings().getDefaultLangApp();
-                          _langMovies = AppSettings().getDefaultLangMovies();
+                          _langApp = appSettings.getLanguageDefaultAppStr();
+                          _langMovies =
+                              appSettings.getLanguageDefaultMoviesStr();
                         }
                         setState(() {});
                       }),
@@ -517,8 +320,8 @@ class _SettingsPageState extends State<SettingsPage> {
                           })
                       : Padding(
                           padding: EdgeInsets.symmetric(vertical: 10),
-                          child: buildItemAppLang(
-                              _langApp, appLanguagesMap[_langApp])),
+                          child: buildItemAppLang(_langApp,
+                              appSettings.getLocaleStrName(context, _langApp))),
                   Text('Peliculas', style: textStyle),
                   !_defLanguages
                       ? DropdownButton(
@@ -542,12 +345,16 @@ class _SettingsPageState extends State<SettingsPage> {
                     child: Text('Cancelar', style: btnTextStyle)),
                 FlatButton(
                     onPressed: () {
-                      setLangApp(_langApp);
+                      preferencesBloc.add(
+                          ChangeLocale(appSettings.string2Locale(_langApp)));
+                      print('Idioma cambiado');
+                      print(preferencesBloc.state.locale.toString());
+                      print('-------------------');
                       setLangMovies(_langMovies);
                       showToast('Guardado');
-                      setUseDevideLanguage(_defLanguages);
+                      setUseDeviceLanguage(_defLanguages);
                       Navigator.pop(context);
-                      Phoenix.rebirth(context);
+                      //Phoenix.rebirth(context);
                     },
                     child: Text(
                       'Guardar',
@@ -592,23 +399,17 @@ class _SettingsPageState extends State<SettingsPage> {
     final settings = AppSettings();
     _langMovies = await settings.getLangMovies();
     _langApp = await settings.getLangApp();
-    _defLanguages = await settings.getUseDevideLanguage();
+    _defLanguages = await settings.getUseDeviceLanguage();
     setState(() {});
-  }
-
-  void setLangApp(String langApp) async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setString('langApp', langApp);
   }
 
   void setLangMovies(String langMovies) async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setString('langMovies', langMovies);
+    await AppSettings().setLangMovies(langMovies);
     setState(() {});
   }
 
-  void setUseDevideLanguage(bool useDevideLanguage) async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setBool('useDevideLanguage', useDevideLanguage);
+  void setUseDeviceLanguage(bool useDeviceLanguage) async {
+    await AppSettings().setUseDeviceLanguage(useDeviceLanguage);
+    setState(() {});
   }
 }

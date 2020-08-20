@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:movies/blocs/preferences_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_localized_locales/flutter_localized_locales.dart';
+import 'package:movies/repositories/preferences_repository_impl.dart';
 import 'package:movies/src/pages/actor_page.dart';
 import 'package:movies/src/pages/backdrop_page.dart';
 import 'package:movies/src/pages/galery_page.dart';
@@ -11,13 +16,25 @@ import 'package:movies/src/pages/home_page.dart';
 import 'package:movies/src/pages/movie_detail_page.dart';
 import 'package:movies/src/pages/root.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:movies/generated/l10n.dart';
 import 'package:provider/provider.dart';
 
-void main() => runApp(Phoenix(
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final preferencesRepository = PreferencesRepositoryImpl();
+  final preferencesBloc = PreferencesBloc(
+    preferencesRepository: preferencesRepository,
+    initialLocale: await preferencesRepository.locale,
+  );
+
+  runApp(
+    BlocProvider(
+      create: (context) => preferencesBloc,
       child: MyApp(),
-    ));
+      //child: Phoenix(child: MyApp(),)
+    ),
+  );
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -29,28 +46,38 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider<GlobalProvider>(
               create: (_) => GlobalProvider()),
         ],
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Peliculas',
-          localizationsDelegates: [
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-            S.delegate
-          ],
-          supportedLocales: S.delegate.supportedLocales,
-          routes: {
-            '/': (BuildContext context) => RootPage(),
-            'home': (BuildContext context) => HomePage(),
-            'movie_detail': (BuildContext context) => MovieDetailPage(),
-            'actor': (BuildContext context) => ActorPage(),
-            'video_list': (BuildContext context) => VideoListPage(),
-            'play_trailer': (BuildContext context) => PlayTrailerPage(),
-            'movie_poster_child': (BuildContext context) => MoviePosterPage(),
+        child: BlocBuilder<PreferencesBloc, PreferencesState>(
+          builder: (BuildContext context, state) {
+            return buildMaterialApp(state);
           },
-          onGenerateRoute: (settings) {
-            switch (settings.name) {
-              /* 
+        ));
+  }
+
+  buildMaterialApp(PreferencesState state) {
+    return MaterialApp(
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        S.delegate,
+        LocaleNamesLocalizationsDelegate(),
+      ],
+      supportedLocales: S.delegate.supportedLocales,
+      locale: state.locale,
+      debugShowCheckedModeBanner: false,
+      title: 'Peliculas',
+      routes: {
+        '/': (BuildContext context) => RootPage(),
+        'home': (BuildContext context) => HomePage(),
+        'movie_detail': (BuildContext context) => MovieDetailPage(),
+        'actor': (BuildContext context) => ActorPage(),
+        'video_list': (BuildContext context) => VideoListPage(),
+        'play_trailer': (BuildContext context) => PlayTrailerPage(),
+        'movie_poster_child': (BuildContext context) => MoviePosterPage(),
+      },
+      onGenerateRoute: (settings) {
+        switch (settings.name) {
+          /* 
               case 'actor':
                 return PageTransition(
                     child: ActorPage(),
@@ -59,26 +86,26 @@ class MyApp extends StatelessWidget {
                     duration: Duration(milliseconds: 300));
                 break;
               */
-              case 'movie_poster':
-                return PageTransition(
-                    child: MoviePosterPage(),
-                    type: PageTransitionType.downToUp,
-                    settings: settings,
-                    duration: Duration(milliseconds: 300));
-                break;
-              case 'galery':
-                return PageTransition(
-                    child: GaleryPage(),
-                    type: PageTransitionType.downToUp,
-                    settings: settings,
-                    duration: Duration(milliseconds: 300));
-                break;
-              default:
-                return null;
-            }
-          },
-          theme: ThemeData(fontFamily: 'Quicksand'),
-          initialRoute: '/',
-        ));
+          case 'movie_poster':
+            return PageTransition(
+                child: MoviePosterPage(),
+                type: PageTransitionType.downToUp,
+                settings: settings,
+                duration: Duration(milliseconds: 300));
+            break;
+          case 'galery':
+            return PageTransition(
+                child: GaleryPage(),
+                type: PageTransitionType.downToUp,
+                settings: settings,
+                duration: Duration(milliseconds: 300));
+            break;
+          default:
+            return null;
+        }
+      },
+      theme: ThemeData(fontFamily: 'Quicksand'),
+      initialRoute: '/',
+    );
   }
 }
