@@ -48,7 +48,7 @@ class _RootPageState extends State<RootPage> with WidgetsBindingObserver {
   }
 
   Widget _newsTab;
-  Widget getNewsTab() {
+  Widget getNewsTab(BuildContext context) {
     if (_newsTab == null) {
       _newsTab = Container(
           child: Stack(
@@ -59,7 +59,7 @@ class _RootPageState extends State<RootPage> with WidgetsBindingObserver {
   }
 
   Widget _actorsTab;
-  Widget getActorsTab() {
+  Widget getActorsTab(BuildContext context) {
     if (_actorsTab == null) {
       _actorsTab = Container(
           child: Stack(
@@ -70,7 +70,7 @@ class _RootPageState extends State<RootPage> with WidgetsBindingObserver {
   }
 
   Widget _configTab;
-  Widget getConfigTab() {
+  Widget getConfigTab(BuildContext context) {
     if (_configTab == null) {
       _configTab = Container(
           child: Stack(
@@ -97,9 +97,9 @@ class _RootPageState extends State<RootPage> with WidgetsBindingObserver {
     final List<Widget> _children = [
       getHomeTab(context),
       getSearchTab(context),
-      getNewsTab(),
-      getActorsTab(),
-      getConfigTab()
+      getNewsTab(context),
+      getActorsTab(context),
+      getConfigTab(context)
     ];
 
     String tabTitle = S.of(context).nowPlaying;

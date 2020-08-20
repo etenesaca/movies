@@ -48,8 +48,8 @@ dependencies:
   # Preferences manage
   flutter_localized_locales: ^1.1.1
   shared_preferences: ^0.5.8
-  #flutter_bloc: ^6.0.1
-  flutter_bloc: ^3.2.0
+  flutter_bloc: ^6.0.1
+  # flutter_bloc: ^3.2.0
   equatable: ^1.2.3
 
   

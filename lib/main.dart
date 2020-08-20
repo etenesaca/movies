@@ -48,12 +48,12 @@ class MyApp extends StatelessWidget {
         ],
         child: BlocBuilder<PreferencesBloc, PreferencesState>(
           builder: (BuildContext context, state) {
-            return buildMaterialApp(state);
+            return buildMaterialApp(context, state);
           },
         ));
   }
 
-  buildMaterialApp(PreferencesState state) {
+  buildMaterialApp(BuildContext context, PreferencesState state) {
     return MaterialApp(
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
@@ -75,6 +75,7 @@ class MyApp extends StatelessWidget {
         'play_trailer': (BuildContext context) => PlayTrailerPage(),
         'movie_poster_child': (BuildContext context) => MoviePosterPage(),
       },
+      initialRoute: '/',
       onGenerateRoute: (settings) {
         switch (settings.name) {
           /* 
@@ -105,7 +106,6 @@ class MyApp extends StatelessWidget {
         }
       },
       theme: ThemeData(fontFamily: 'Quicksand'),
-      initialRoute: '/',
     );
   }
 }

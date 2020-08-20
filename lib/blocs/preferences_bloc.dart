@@ -1,9 +1,9 @@
+import 'dart:async';
 import 'dart:ui';
 import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies/repositories/preferences_repository.dart';
-
 
 abstract class PreferencesEvent extends Equatable {}
 
@@ -34,10 +34,11 @@ class PreferencesBloc extends Bloc<PreferencesEvent, PreferencesState> {
     @required Locale initialLocale,
   })  : assert(preferencesRepository != null),
         _preferencesRepository = preferencesRepository,
-        _initialState = PreferencesState(locale: initialLocale);
+        _initialState = PreferencesState(locale: initialLocale),
+        super(null);
 
   @override
-  PreferencesState get initialState => _initialState;
+  PreferencesState get state => _initialState;
 
   @override
   Stream<PreferencesState> mapEventToState(

@@ -97,9 +97,13 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  String getCurrentLang(BuildContext context) {
-    final cLang = context.bloc<PreferencesBloc>().state.locale;
-    return AppSettings().getLocaleName(context, cLang);
+  Widget getCurrentLang(BuildContext context) {
+    return BlocBuilder<PreferencesBloc, PreferencesState>(builder: (_, state) {
+      return Text(
+        AppSettings().getLocaleName(context, state.locale),
+        style: textStyleLanguage,
+      );
+    });
   }
 
   menuOptions(BuildContext context) {
@@ -108,10 +112,7 @@ class _SettingsPageState extends State<SettingsPage> {
         onTap: () => tapSelectLanguage(context),
         leading: Icon(Icons.language, color: colorActions),
         title: Text('Cambiar idioma', style: textStyleItems),
-        subtitle: Text(
-          getCurrentLang(context),
-          style: textStyleLanguage,
-        ),
+        subtitle: getCurrentLang(context),
         trailing: Icon(Icons.keyboard_arrow_right, color: colorItems),
       ),
       _buildDivider(),
