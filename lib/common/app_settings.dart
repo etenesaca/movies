@@ -67,6 +67,10 @@ class AppSettings {
     List<Locale> languagesAvailable = getLanguagesAvailable();
     List<String> strLanguageAvailable =
         languagesAvailable.map((l) => locale2String(l)).toList();
+
+    if (!strLanguageAvailable.contains(locale2String(sysLang))) {
+      sysLang = string2Locale(sysLang.languageCode);
+    }
     return (strLanguageAvailable.contains(locale2String(sysLang)))
         ? sysLang
         : languagesAvailable[0];

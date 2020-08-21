@@ -252,14 +252,18 @@ class _SettingsPageState extends State<SettingsPage> {
     try {
       localeStr = AppSettings().getLocaleStrName(context, localeStr);
     } catch (e) {
-      print('Local translate error. ${localeStr}');
+      print('Local translate error. $localeStr');
     }
     final textStyle = TextStyle(fontSize: 13);
     return Row(
       children: <Widget>[
         Icon(Icons.language, color: Colors.grey, size: 25),
         SizedBox(width: 5),
-        Text(localeStr, style: textStyle)
+        Text(
+          localeStr,
+          style: textStyle,
+          overflow: TextOverflow.ellipsis,
+        )
       ],
     );
   }
