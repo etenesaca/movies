@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/common/extras.dart';
+import 'package:movies/generated/l10n.dart';
 import 'package:movies/src/models/image_model.dart';
 import 'package:movies/src/widgets/loader_widget.dart';
 
@@ -17,7 +18,7 @@ class GaleryPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: extras.mainColor,
       appBar: AppBar(
-        title: Text('Galeria'),
+        title: Text(S.of(context).galery),
         backgroundColor: Colors.transparent,
       ),
       body: buildGridView(),

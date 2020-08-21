@@ -1,7 +1,7 @@
 {
     "@@x-loco-version": "1.0.24 20200814-1",
     "@@locale": "es",
-    "@@last_modified": "2020-08-16T18:59:02-0500",
+    "@@last_modified": "2020-08-21T13:52:12-0500",
     "@@author": "Edgar Tenesaca",
     "nowPlaying": "En  cines",
     "@nowPlaying": {
@@ -32,5 +32,85 @@
     "@moviesLanguage": {
         "type": "text",
         "source_text": "Movies language"
+    },
+    "profile": "Pefíl",
+    "@profile": {
+        "type": "text",
+        "source_text": "Profile"
+    },
+    "galery": "Galeria",
+    "@galery": {
+        "type": "text",
+        "source_text": "Galery"
+    },
+    "show_all": "Ver todo",
+    "@show_all": {
+        "type": "text",
+        "source_text": "Show all"
+    },
+    "trailers": "Trailers",
+    "@trailers": {
+        "type": "text",
+        "source_text": "Trailers"
+    },
+    "search": "Buscar",
+    "@search": {
+        "type": "text",
+        "source_text": "Search"
+    },
+    "change_language": "Cambiar idioma",
+    "@change_language": {
+        "type": "text",
+        "source_text": "Change language"
+    },
+    "change_password": "Cambiar contraseña",
+    "@change_password": {
+        "type": "text",
+        "source_text": "Change password"
+    },
+    "about_app": "Acerca de",
+    "@about_app": {
+        "type": "text",
+        "source_text": "About"
+    },
+    "logout": "Cerrar sesión",
+    "@logout": {
+        "type": "text",
+        "source_text": "Logout"
+    },
+    "new_movies": "Nuevas peliculas",
+    "@new_movies": {
+        "type": "text",
+        "source_text": "New movies"
+    },
+    "notifications_active": "Recibir notificaciones",
+    "@notifications_active": {
+        "type": "text",
+        "source_text": "Revice notifications"
+    },
+    "application": "Aplicación",
+    "@application": {
+        "type": "text",
+        "source_text": "Application"
+    },
+    "movies": "Peliculas",
+    "@movies": {
+        "type": "text",
+        "source_text": "Movies"
+    },
+    "cancel": "Cancelar",
+    "@cancel": {
+        "type": "text",
+        "source_text": "Cancel"
+    },
+    "no_images_available": "No hay imagenes disponibles",
+    "@no_images_available": {
+        "type": "text",
+        "source_text": "No images available"
+    },
+    "saved": "Guardado",
+    "@saved": {
+        "type": "text",
+        "source_text": "Saved"
     }
 }

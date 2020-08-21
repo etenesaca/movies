@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:movies/blocs/preferences_bloc.dart';
 import 'package:movies/common/app_settings.dart';
 import 'package:movies/common/extras.dart';
+import 'package:movies/generated/l10n.dart';
 
 class SettingsPage extends StatefulWidget {
   SettingsPage({Key key}) : super(key: key);
@@ -110,7 +111,7 @@ class _SettingsPageState extends State<SettingsPage> {
       ListTile(
         onTap: () => tapSelectLanguage(context),
         leading: Icon(Icons.language, color: colorActions),
-        title: Text('Cambiar idioma', style: textStyleItems),
+        title: Text(S.of(context).change_language, style: textStyleItems),
         subtitle: getCurrentLang(context),
         trailing: Icon(Icons.keyboard_arrow_right, color: colorItems),
       ),
@@ -119,7 +120,7 @@ class _SettingsPageState extends State<SettingsPage> {
         onTap: () {},
         leading: Icon(Icons.lock_outline, color: colorActions),
         title: Text(
-          'Cambiar contraseña',
+          S.of(context).change_password,
           style: textStyleItems,
         ),
         trailing: Icon(Icons.keyboard_arrow_right, color: colorItems),
@@ -128,14 +129,14 @@ class _SettingsPageState extends State<SettingsPage> {
       ListTile(
         onTap: () {},
         leading: Icon(Icons.info_outline, color: colorActions),
-        title: Text('Acerca de', style: textStyleItems),
+        title: Text(S.of(context).about_app, style: textStyleItems),
         //trailing: Icon(Icons.keyboard_arrow_right, color: colorItems),
       ),
       _buildDivider(),
       ListTile(
         onTap: () {},
         leading: Icon(Icons.power_settings_new, color: colorActions),
-        title: Text('Cerrar sesión', style: textStyleItems),
+        title: Text(S.of(context).logout, style: textStyleItems),
         //trailing: Icon(Icons.keyboard_arrow_right, color: colorItems),
       ),
     ]);
@@ -193,14 +194,15 @@ class _SettingsPageState extends State<SettingsPage> {
             contentPadding: EdgeInsets.all(0),
             activeColor: colorActions,
             value: true,
-            title: Text('Recibir notificaciones', style: colorTextSwitch),
+            title: Text(S.of(context).notifications_active,
+                style: colorTextSwitch),
             onChanged: (bool value) {}),
         SwitchListTile(
             contentPadding: EdgeInsets.all(0),
             activeColor: colorActions,
             inactiveThumbColor: Colors.grey.shade800,
             value: false,
-            title: Text('Nuevas peliculas', style: colorTextSwitch),
+            title: Text(S.of(context).new_movies, style: colorTextSwitch),
             onChanged: (bool value) {})
       ],
     );
@@ -298,7 +300,7 @@ class _SettingsPageState extends State<SettingsPage> {
               elevation: 15,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
-              title: Text('Idiomas'),
+              title: Text(S.of(context).language),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -307,7 +309,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       contentPadding: EdgeInsets.all(0),
                       activeColor: colorActions,
                       value: _defLanguages,
-                      title: Text('Idioma del dispositivo',
+                      title: Text(S.of(context).systemLanguage,
                           style: TextStyle(fontSize: 14)),
                       onChanged: (bool value) {
                         _defLanguages = value;
@@ -318,7 +320,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         }
                         setState(() {});
                       }),
-                  Text('Aplicación', style: textStyle),
+                  Text(S.of(context).application, style: textStyle),
                   !_defLanguages
                       ? DropdownButton(
                           isExpanded: true,
@@ -332,7 +334,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           padding: EdgeInsets.symmetric(vertical: 10),
                           child: buildItemAppLang(_langApp,
                               appSettings.getLocaleStrName(context, _langApp))),
-                  Text('Peliculas', style: textStyle),
+                  Text(S.of(context).movies, style: textStyle),
                   !_defLanguages
                       ? DropdownButton(
                           isExpanded: true,
@@ -352,14 +354,14 @@ class _SettingsPageState extends State<SettingsPage> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: Text('Cancelar', style: btnTextStyle)),
+                    child: Text(S.of(context).cancel, style: btnTextStyle)),
                 FlatButton(
                     onPressed: () {
                       preferencesBloc.add(ChangeLocale(
                           locale: _langApp,
                           localeMovies: _langMovies,
                           useSysLanguage: _defLanguages));
-                      showToast('Guardado');
+                      showToast(S.of(context).saved);
                       Navigator.pop(context);
                       //Phoenix.rebirth(context);
                     },

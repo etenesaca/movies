@@ -21,11 +21,27 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "about_app" : MessageLookupByLibrary.simpleMessage("Acerca de"),
+    "application" : MessageLookupByLibrary.simpleMessage("Aplicación"),
+    "cancel" : MessageLookupByLibrary.simpleMessage("Cancelar"),
+    "change_language" : MessageLookupByLibrary.simpleMessage("Cambiar idioma"),
+    "change_password" : MessageLookupByLibrary.simpleMessage("Cambiar contraseña"),
+    "galery" : MessageLookupByLibrary.simpleMessage("Galeria"),
     "language" : MessageLookupByLibrary.simpleMessage("Idioma"),
+    "logout" : MessageLookupByLibrary.simpleMessage("Cerrar sesión"),
+    "movies" : MessageLookupByLibrary.simpleMessage("Peliculas"),
     "moviesLanguage" : MessageLookupByLibrary.simpleMessage("Idioma de las peliculas"),
+    "new_movies" : MessageLookupByLibrary.simpleMessage("Nuevas peliculas"),
+    "no_images_available" : MessageLookupByLibrary.simpleMessage("No hay imagenes disponibles"),
+    "notifications_active" : MessageLookupByLibrary.simpleMessage("Recibir notificaciones"),
     "nowPlaying" : MessageLookupByLibrary.simpleMessage("En  cines"),
+    "profile" : MessageLookupByLibrary.simpleMessage("Pefíl"),
+    "saved" : MessageLookupByLibrary.simpleMessage("Guardado"),
+    "search" : MessageLookupByLibrary.simpleMessage("Buscar"),
     "section_popular" : MessageLookupByLibrary.simpleMessage("Populares"),
     "section_top_rated" : MessageLookupByLibrary.simpleMessage("Mejor calificadas"),
-    "systemLanguage" : MessageLookupByLibrary.simpleMessage("Idioma del sistema")
+    "show_all" : MessageLookupByLibrary.simpleMessage("Ver todo"),
+    "systemLanguage" : MessageLookupByLibrary.simpleMessage("Idioma del sistema"),
+    "trailers" : MessageLookupByLibrary.simpleMessage("Trailers")
   };
 }

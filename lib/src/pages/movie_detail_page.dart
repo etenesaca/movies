@@ -4,6 +4,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/common/extras.dart';
+import 'package:movies/generated/l10n.dart';
 import 'package:movies/src/models/actor_model.dart';
 import 'package:movies/src/models/gender_model.dart';
 import 'package:movies/src/models/movie_model.dart';
@@ -301,7 +302,7 @@ class MovieDetailPage extends StatelessWidget {
                 size: 15,
               ),
               SizedBox(width: 5),
-              Text('Ver todo',
+              Text(S.of(context).show_all,
                   style: TextStyle(
                       color: Colors.orangeAccent,
                       fontSize: 12,

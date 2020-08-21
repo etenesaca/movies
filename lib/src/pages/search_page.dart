@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies/common/extras.dart';
+import 'package:movies/generated/l10n.dart';
 import 'package:movies/src/providers/search_provider.dart';
 import 'package:movies/src/models/movie_model.dart';
 import 'package:movies/src/widgets/loading_data_widget.dart';
@@ -42,7 +43,7 @@ class SearchPage extends StatelessWidget {
       children: <Widget>[
         Padding(
             padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-            child: Text('Buscar',
+            child: Text(S.of(context).search,
                 style: TextStyle(
                     color: Colors.white70,
                     fontWeight: FontWeight.normal,

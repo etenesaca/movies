@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/common/extras.dart';
+import 'package:movies/generated/l10n.dart';
 import 'package:movies/src/models/actor_model.dart';
 import 'package:movies/src/apis/the_movie_db_api.dart';
 import 'package:movies/src/widgets/card_swiper_backdrops_widget.dart';
@@ -29,7 +30,7 @@ class ActorPage extends StatelessWidget {
           extras.getBackgroundApp(),
           CustomScrollView(
             slivers: <Widget>[
-              _buildAppBar(actor),
+              _buildAppBar(context, actor),
               SliverList(
                 delegate: SliverChildListDelegate([
                   Column(
@@ -205,7 +206,7 @@ class ActorPage extends StatelessWidget {
                 size: 15,
               ),
               SizedBox(width: 5),
-              Text('Ver todo',
+              Text(S.of(context).show_all,
                   style: TextStyle(
                       color: Colors.orangeAccent,
                       fontSize: 12,
@@ -240,7 +241,7 @@ class ActorPage extends StatelessWidget {
         paddingHeader: paddingSections);
   }
 
-  Widget _buildAppBar(Actor actor) {
+  Widget _buildAppBar(BuildContext context, Actor actor) {
     double imageHeight = _screenSize.height * 0.6;
     Widget _imagePoster() {
       Widget res = FadeInImage(
@@ -320,7 +321,7 @@ class ActorPage extends StatelessWidget {
       expandedHeight: imageHeight,
       floating: false,
       pinned: true,
-      title: Text('Perfil'),
+      title: Text(S.of(context).profile),
       centerTitle: false,
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: true,

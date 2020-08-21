@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/common/extras.dart';
+import 'package:movies/generated/l10n.dart';
 import 'package:movies/src/models/movie_model.dart';
 import 'package:movies/src/models/video_model.dart';
 import 'package:movies/src/apis/the_movie_db_api.dart';
@@ -15,7 +16,7 @@ class VideoListPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Trailers'),
+        title: Text(S.of(context).trailers),
         backgroundColor: extras.mainColor,
       ),
       body: Stack(

@@ -1,7 +1,7 @@
 {
     "@@x-loco-version": "1.0.24 20200814-1",
     "@@locale": "en",
-    "@@last_modified": "2020-08-16T18:59:02-0500",
+    "@@last_modified": "2020-08-21T13:52:12-0500",
     "@@author": "Edgar Tenesaca",
     "nowPlaying": "Now playing",
     "@nowPlaying": {
@@ -25,6 +25,70 @@
     },
     "moviesLanguage": "Movies language",
     "@moviesLanguage": {
+        "type": "text"
+    },
+    "profile": "Profile",
+    "@profile": {
+        "type": "text"
+    },
+    "galery": "Galery",
+    "@galery": {
+        "type": "text"
+    },
+    "show_all": "Show all",
+    "@show_all": {
+        "type": "text"
+    },
+    "trailers": "Trailers",
+    "@trailers": {
+        "type": "text"
+    },
+    "search": "Search",
+    "@search": {
+        "type": "text"
+    },
+    "change_language": "Change language",
+    "@change_language": {
+        "type": "text"
+    },
+    "change_password": "Change password",
+    "@change_password": {
+        "type": "text"
+    },
+    "about_app": "About",
+    "@about_app": {
+        "type": "text"
+    },
+    "logout": "Logout",
+    "@logout": {
+        "type": "text"
+    },
+    "new_movies": "New movies",
+    "@new_movies": {
+        "type": "text"
+    },
+    "notifications_active": "Revice notifications",
+    "@notifications_active": {
+        "type": "text"
+    },
+    "application": "Application",
+    "@application": {
+        "type": "text"
+    },
+    "movies": "Movies",
+    "@movies": {
+        "type": "text"
+    },
+    "cancel": "Cancel",
+    "@cancel": {
+        "type": "text"
+    },
+    "no_images_available": "No images available",
+    "@no_images_available": {
+        "type": "text"
+    },
+    "saved": "Saved",
+    "@saved": {
         "type": "text"
     }
 }
