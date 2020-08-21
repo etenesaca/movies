@@ -183,7 +183,7 @@ class _SettingsPageState extends State<SettingsPage> {
         Align(
           alignment: Alignment.bottomLeft,
           child: Text(
-            'Notificaciones',
+            S.of(context).notifications,
             style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,

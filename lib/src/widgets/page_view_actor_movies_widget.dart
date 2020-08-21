@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/common/extras.dart';
+import 'package:movies/generated/l10n.dart';
 import 'package:movies/src/models/movie_model.dart';
 import 'package:movies/src/widgets/loading_data_widget.dart';
 
@@ -89,7 +90,7 @@ class PageViewMovieSection extends StatelessWidget {
                   Icon(Icons.movie, color: Colors.white),
                   SizedBox(width: 5),
                   Text(
-                    'No hay peliculas.',
+                    S.of(context).no_has_movies,
                     style: TextStyle(color: Colors.white),
                   )
                 ],

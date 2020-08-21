@@ -193,10 +193,10 @@ class S {
     );
   }
 
-  /// `Revice notifications`
+  /// `Receive notifications`
   String get notifications_active {
     return Intl.message(
-      'Revice notifications',
+      'Receive notifications',
       name: 'notifications_active',
       desc: '',
       args: [],
@@ -318,6 +318,216 @@ class S {
     return Intl.message(
       'Top rated',
       name: 'top_rated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search a movie`
+  String get search_a_movie {
+    return Intl.message(
+      'Search a movie',
+      name: 'search_a_movie',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We don't have this movie for now.`
+  String get dont_have_this_movie {
+    return Intl.message(
+      'We don\'t have this movie for now.',
+      name: 'dont_have_this_movie',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Try looking for another movie`
+  String get try_search_other_movie {
+    return Intl.message(
+      'Try looking for another movie',
+      name: 'try_search_other_movie',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Coming soon`
+  String get coming {
+    return Intl.message(
+      'Coming soon',
+      name: 'coming',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Information`
+  String get info {
+    return Intl.message(
+      'Information',
+      name: 'info',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Trailer`
+  String get trailer {
+    return Intl.message(
+      'Trailer',
+      name: 'trailer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Rating`
+  String get rating {
+    return Intl.message(
+      'Rating',
+      name: 'rating',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Rate`
+  String get rate {
+    return Intl.message(
+      'Rate',
+      name: 'rate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Genres`
+  String get genres {
+    return Intl.message(
+      'Genres',
+      name: 'genres',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Release date`
+  String get release_date {
+    return Intl.message(
+      'Release date',
+      name: 'release_date',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Votes`
+  String get votes {
+    return Intl.message(
+      'Votes',
+      name: 'votes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Principal actors`
+  String get principal_actors {
+    return Intl.message(
+      'Principal actors',
+      name: 'principal_actors',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Similars`
+  String get similars {
+    return Intl.message(
+      'Similars',
+      name: 'similars',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Synopsis`
+  String get synopsis {
+    return Intl.message(
+      'Synopsis',
+      name: 'synopsis',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Notifications`
+  String get notifications {
+    return Intl.message(
+      'Notifications',
+      name: 'notifications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Date of birth`
+  String get date_of_birth {
+    return Intl.message(
+      'Date of birth',
+      name: 'date_of_birth',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Movies in which appears`
+  String get actor_related_movies {
+    return Intl.message(
+      'Movies in which appears',
+      name: 'actor_related_movies',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Biography`
+  String get biography {
+    return Intl.message(
+      'Biography',
+      name: 'biography',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `There are no trailers for this movie`
+  String get no_has_videos {
+    return Intl.message(
+      'There are no trailers for this movie',
+      name: 'no_has_videos',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Suggested`
+  String get suggested {
+    return Intl.message(
+      'Suggested',
+      name: 'suggested',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No movies`
+  String get no_has_movies {
+    return Intl.message(
+      'No movies',
+      name: 'no_has_movies',
       desc: '',
       args: [],
     );

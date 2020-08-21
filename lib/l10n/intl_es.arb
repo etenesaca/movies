@@ -1,7 +1,7 @@
 {
     "@@x-loco-version": "1.0.24 20200814-1",
     "@@locale": "es",
-    "@@last_modified": "2020-08-21T15:32:33-0500",
+    "@@last_modified": "2020-08-21T17:32:34-0500",
     "@@author": "Edgar Tenesaca",
     "nowPlaying": "En  cines",
     "@nowPlaying": {
@@ -86,7 +86,7 @@
     "notifications_active": "Recibir notificaciones",
     "@notifications_active": {
         "type": "text",
-        "source_text": "Revice notifications"
+        "source_text": "Receive notifications"
     },
     "application": "Aplicación",
     "@application": {
@@ -147,5 +147,110 @@
     "@top_rated": {
         "type": "text",
         "source_text": "Top rated"
+    },
+    "search_a_movie": "Busca una película",
+    "@search_a_movie": {
+        "type": "text",
+        "source_text": "Search a movie"
+    },
+    "dont_have_this_movie": "No tenemos esta película por ahora.",
+    "@dont_have_this_movie": {
+        "type": "text",
+        "source_text": "We don't have this movie for now."
+    },
+    "try_search_other_movie": "Intenta busca otra peli",
+    "@try_search_other_movie": {
+        "type": "text",
+        "source_text": "Try looking for another movie"
+    },
+    "coming": "Próximamente",
+    "@coming": {
+        "type": "text",
+        "source_text": "Coming soon"
+    },
+    "info": "Información",
+    "@info": {
+        "type": "text",
+        "source_text": "Information"
+    },
+    "trailer": "Trailer",
+    "@trailer": {
+        "type": "text",
+        "source_text": "Trailer"
+    },
+    "rating": "Valoración",
+    "@rating": {
+        "type": "text",
+        "source_text": "Rating"
+    },
+    "rate": "Calificar",
+    "@rate": {
+        "type": "text",
+        "source_text": "Rate"
+    },
+    "genres": "Géneros",
+    "@genres": {
+        "type": "text",
+        "source_text": "Genres"
+    },
+    "release_date": "Fecha de estreno",
+    "@release_date": {
+        "type": "text",
+        "source_text": "Release date"
+    },
+    "votes": "Votos",
+    "@votes": {
+        "type": "text",
+        "source_text": "Votes"
+    },
+    "principal_actors": "Actores principales",
+    "@principal_actors": {
+        "type": "text",
+        "source_text": "Principal actors"
+    },
+    "similars": "Similares",
+    "@similars": {
+        "type": "text",
+        "source_text": "Similars"
+    },
+    "synopsis": "Sinopsis",
+    "@synopsis": {
+        "type": "text",
+        "source_text": "Synopsis"
+    },
+    "notifications": "Notificaciones",
+    "@notifications": {
+        "type": "text",
+        "source_text": "Notifications"
+    },
+    "date_of_birth": "Fecha de nacimiento",
+    "@date_of_birth": {
+        "type": "text",
+        "source_text": "Date of birth"
+    },
+    "actor_related_movies": "Películas en las que aparece",
+    "@actor_related_movies": {
+        "type": "text",
+        "source_text": "Movies in which appears"
+    },
+    "biography": "Biografia",
+    "@biography": {
+        "type": "text",
+        "source_text": "Biography"
+    },
+    "no_has_videos": "No hay trailers de ésta película",
+    "@no_has_videos": {
+        "type": "text",
+        "source_text": "There are no trailers for this movie"
+    },
+    "suggested": "Sugeridas",
+    "@suggested": {
+        "type": "text",
+        "source_text": "Suggested"
+    },
+    "no_has_movies": "No hay películas",
+    "@no_has_movies": {
+        "type": "text",
+        "source_text": "No movies"
     }
 }

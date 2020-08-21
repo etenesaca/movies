@@ -118,7 +118,7 @@ class PopularActorsPage extends StatelessWidget {
                     children: <Widget>[
                       Icon(Icons.info_outline, color: Colors.white),
                       Text(
-                        'Información',
+                        S.of(context).info,
                         style: TextStyle(color: Colors.white, fontSize: 10),
                       )
                     ],

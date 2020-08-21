@@ -1,7 +1,7 @@
 {
     "@@x-loco-version": "1.0.24 20200814-1",
     "@@locale": "en",
-    "@@last_modified": "2020-08-21T15:32:33-0500",
+    "@@last_modified": "2020-08-21T17:32:34-0500",
     "@@author": "Edgar Tenesaca",
     "nowPlaying": "Now playing",
     "@nowPlaying": {
@@ -67,7 +67,7 @@
     "@new_movies": {
         "type": "text"
     },
-    "notifications_active": "Revice notifications",
+    "notifications_active": "Receive notifications",
     "@notifications_active": {
         "type": "text"
     },
@@ -117,6 +117,90 @@
     },
     "top_rated": "Top rated",
     "@top_rated": {
+        "type": "text"
+    },
+    "search_a_movie": "Search a movie",
+    "@search_a_movie": {
+        "type": "text"
+    },
+    "dont_have_this_movie": "We don't have this movie for now.",
+    "@dont_have_this_movie": {
+        "type": "text"
+    },
+    "try_search_other_movie": "Try looking for another movie",
+    "@try_search_other_movie": {
+        "type": "text"
+    },
+    "coming": "Coming soon",
+    "@coming": {
+        "type": "text"
+    },
+    "info": "Information",
+    "@info": {
+        "type": "text"
+    },
+    "trailer": "Trailer",
+    "@trailer": {
+        "type": "text"
+    },
+    "rating": "Rating",
+    "@rating": {
+        "type": "text"
+    },
+    "rate": "Rate",
+    "@rate": {
+        "type": "text"
+    },
+    "genres": "Genres",
+    "@genres": {
+        "type": "text"
+    },
+    "release_date": "Release date",
+    "@release_date": {
+        "type": "text"
+    },
+    "votes": "Votes",
+    "@votes": {
+        "type": "text"
+    },
+    "principal_actors": "Principal actors",
+    "@principal_actors": {
+        "type": "text"
+    },
+    "similars": "Similars",
+    "@similars": {
+        "type": "text"
+    },
+    "synopsis": "Synopsis",
+    "@synopsis": {
+        "type": "text"
+    },
+    "notifications": "Notifications",
+    "@notifications": {
+        "type": "text"
+    },
+    "date_of_birth": "Date of birth",
+    "@date_of_birth": {
+        "type": "text"
+    },
+    "actor_related_movies": "Movies in which appears",
+    "@actor_related_movies": {
+        "type": "text"
+    },
+    "biography": "Biography",
+    "@biography": {
+        "type": "text"
+    },
+    "no_has_videos": "There are no trailers for this movie",
+    "@no_has_videos": {
+        "type": "text"
+    },
+    "suggested": "Suggested",
+    "@suggested": {
+        "type": "text"
+    },
+    "no_has_movies": "No movies",
+    "@no_has_movies": {
         "type": "text"
     }
 }

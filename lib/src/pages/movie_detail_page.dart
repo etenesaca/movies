@@ -99,7 +99,7 @@ class MovieDetailPage extends StatelessWidget {
                 children: <Widget>[
                   Icon(Icons.play_arrow),
                   Text(
-                    'Trailer',
+                    S.of(context).trailer,
                     style: TextStyle(fontWeight: FontWeight.bold),
                   )
                 ],
@@ -121,7 +121,7 @@ class MovieDetailPage extends StatelessWidget {
               children: <Widget>[
                 Icon(Icons.thumbs_up_down, color: Colors.white),
                 Text(
-                  'Calificar',
+                  S.of(context).rate,
                   style: TextStyle(color: Colors.white, fontSize: 10),
                 )
               ],
@@ -146,7 +146,8 @@ class MovieDetailPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          extras.buildTitleSection('Valoración ${movie.voteAverage}'),
+          extras.buildTitleSection(
+              '${S.of(context).rating} ${movie.voteAverage}'),
           SizedBox(height: 3),
           Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -202,7 +203,7 @@ class MovieDetailPage extends StatelessWidget {
     //final boxes = genres.map((e) => ChipTag(color: Colors.redAccent, label: e.name)).toList();
 
     return extras.buildSection(
-        title: 'Géneros',
+        title: S.of(context).genres,
         action: buildMovieRuntime(movie),
         child: Wrap(spacing: 6.0, runSpacing: 6.0, children: boxes),
         showBackground: false);
@@ -242,7 +243,7 @@ class MovieDetailPage extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                extras.buildTitleSection('Fecha de estreno'),
+                extras.buildTitleSection(S.of(context).release_date),
                 Text(
                   movie.releaseDate,
                   textAlign: TextAlign.justify,
@@ -254,7 +255,7 @@ class MovieDetailPage extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
-                extras.buildTitleSection('Votos'),
+                extras.buildTitleSection(S.of(context).votes),
                 Text(
                   '${movie.voteCount}',
                   style: TextStyle(
@@ -333,22 +334,22 @@ class MovieDetailPage extends StatelessWidget {
           return ActorWidget(cast: snapshot.data, movie: movie);
         });
     return extras.buildSection(
-        title: 'Actores principales',
+        title: S.of(context).principal_actors,
         child: actorItems,
-        textBackground: 'Actores');
+        textBackground: S.of(context).actors.toLowerCase());
   }
 
   Widget _buildMovieRecommendeds(BuildContext context, Movie movie) {
     final res = PageViewMovieSection(
         futureMovies: movieApi.getMovieRecommendeds(movie.id));
     return extras.buildSection(
-        title: 'Sugeridas', child: res, paddingHeader: paddingSections);
+        title: S.of(context).suggested, child: res, paddingHeader: paddingSections);
   }
 
   Widget _buildMovieSimilars(BuildContext context, Movie movie) {
     final res =
         PageViewMovieSection(futureMovies: movieApi.getMovieSimilars(movie.id));
     return extras.buildSection(
-        title: 'Similares', child: res, paddingHeader: paddingSections);
+        title: S.of(context).similars, child: res, paddingHeader: paddingSections);
   }
 }

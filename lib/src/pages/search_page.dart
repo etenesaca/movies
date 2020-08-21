@@ -18,7 +18,7 @@ class SearchPage extends StatelessWidget {
         color: Colors.white,
       ),
       decoration: InputDecoration(
-        hintText: 'Busca una pelicula...',
+        hintText: S.of(context).search_a_movie,
         hintStyle: TextStyle(color: Colors.white38),
         suffixIcon: IconButton(
             icon: Icon(
@@ -66,7 +66,7 @@ class SearchPage extends StatelessWidget {
 
   Widget _buildResults(BuildContext context, List<Movie> movies) {
     if (context.watch<SearchMovieProvider>().noHasResults) {
-      return _buildNoHasResult();
+      return _buildNoHasResult(context);
     }
     Widget res = ListView.builder(
         itemCount: movies.length,
@@ -76,7 +76,7 @@ class SearchPage extends StatelessWidget {
     return res;
   }
 
-  Widget _buildNoHasResult() {
+  Widget _buildNoHasResult(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 20),
       child: Column(
@@ -87,7 +87,7 @@ class SearchPage extends StatelessWidget {
                 color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
           ),
           Text(
-            'Intenta buscar otra peli.',
+            S.of(context).try_search_other_movie,
             style: TextStyle(color: Colors.white60, fontSize: 12),
           )
         ],

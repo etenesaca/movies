@@ -66,11 +66,11 @@ class ActorPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 8),
               child: _buildSec1(actor),
             ),
-            setPaddingsection(_buildBith(actor)),
+            setPaddingsection(_buildBith(context, actor)),
             _buildSectionImages(context, actor),
             _buildMovieRelateds(context, actor),
             (actor.biography != '')
-                ? _buildBiography(actor)
+                ? _buildBiography(context, actor)
                 : SizedBox(
                     height: 20,
                   ),
@@ -109,12 +109,12 @@ class ActorPage extends StatelessWidget {
         child: Text(text, style: titleSection));
   }
 
-  Widget _buildBiography(Actor actor) {
+  Widget _buildBiography(BuildContext context, Actor actor) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
       child: Column(
         children: <Widget>[
-          _geTitleSection('Biografía'),
+          _geTitleSection(S.of(context).biography),
           SizedBox(height: 10),
           Text(
             actor.biography,
@@ -126,7 +126,7 @@ class ActorPage extends StatelessWidget {
     );
   }
 
-  _buildBith(Actor actor) {
+  _buildBith(BuildContext context, Actor actor) {
     int age = 0;
     if (actor.deathday == null && actor.birthday != null) {
       try {
@@ -141,7 +141,7 @@ class ActorPage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              _geTitleSection('Fecha de nacimiento'),
+              _geTitleSection(S.of(context).date_of_birth),
               (age > 0)
                   ? Text(
                       '$age años',

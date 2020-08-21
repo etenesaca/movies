@@ -23,12 +23,15 @@ class NewPage extends StatelessWidget {
 
     return SingleChildScrollView(
       child: Column(
-        children: <Widget>[buildPosterlastMovie(), _buildMovieUpcoming()],
+        children: <Widget>[
+          buildPosterlastMovie(context),
+          _buildMovieUpcoming(context)
+        ],
       ),
     );
   }
 
-  Widget buildPosterlastMovie() {
+  Widget buildPosterlastMovie(BuildContext context) {
     return FutureBuilder(
         future: movieApi.getMoviesSection('upcoming', 1),
         builder: (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
@@ -118,7 +121,7 @@ class NewPage extends StatelessWidget {
                       children: <Widget>[
                         Icon(Icons.play_arrow),
                         Text(
-                          'Trailer',
+                          S.of(context).trailer,
                           style: TextStyle(fontWeight: FontWeight.bold),
                         )
                       ],
@@ -138,7 +141,7 @@ class NewPage extends StatelessWidget {
                     children: <Widget>[
                       Icon(Icons.info_outline, color: Colors.white),
                       Text(
-                        'Información',
+                        S.of(context).info,
                         style: TextStyle(color: Colors.white, fontSize: 10),
                       )
                     ],
@@ -170,11 +173,11 @@ class NewPage extends StatelessWidget {
     return poster;
   }
 
-  Widget _buildMovieUpcoming() {
+  Widget _buildMovieUpcoming(BuildContext context) {
     final res = PageViewMovieSection(
         futureMovies: movieApi.getMoviesSection('upcoming', 1));
     return extras.buildSection(
-        title: 'Próximamente',
+        title: S.of(context).coming,
         child: res,
         textBackground: 'movies',
         paddingHeader: paddingSections);

@@ -90,7 +90,7 @@ class _HomePageState extends State<HomePage> {
   Widget _buildPopulars(BuildContext context) {
     MoviePopularBloc pupularBloc = MoviePopularBloc();
     final res = PageViewSection(
-      titleSection: 'Populares',
+      titleSection: S.of(context).populars,
       moviesStream: pupularBloc.moviesStream,
       sinkNextPage: pupularBloc.getNextPage,
       args: {},
@@ -101,7 +101,7 @@ class _HomePageState extends State<HomePage> {
   Widget _buildTopRated(BuildContext context) {
     topRatedBloc = MovieTopRatedBloc();
     final res = PageViewSection(
-      titleSection: 'Mejor calificadas',
+      titleSection: S.of(context).top_rated,
       moviesStream: topRatedBloc.moviesStream,
       sinkNextPage: topRatedBloc.getNextPage,
       args: {},

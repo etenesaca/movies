@@ -46,7 +46,7 @@ class VideoListPage extends StatelessWidget {
               .toList();
           if (ytVideos.isEmpty) {
             return Center(
-              child: _buildNoHasResult(),
+              child: _buildNoHasResult(context),
             );
           }
           return ListView.builder(
@@ -58,18 +58,18 @@ class VideoListPage extends StatelessWidget {
         });
   }
 
-  Widget _buildNoHasResult() {
+  Widget _buildNoHasResult(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 20),
       child: Column(
         children: <Widget>[
           Text(
-            'No hay video de esta pelicula.',
+            S.of(context).no_has_videos,
             style: TextStyle(
                 color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
           ),
           Text(
-            'Intenta buscar otra peli.',
+            S.of(context).try_search_other_movie,
             style: TextStyle(color: Colors.white60, fontSize: 12),
           )
         ],
