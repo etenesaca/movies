@@ -44,7 +44,7 @@ dependencies:
   fluttertoast: ^7.0.1+1
   font_awesome_flutter: ^8.8.1
   expandable_text: ^0.1.0
-  flutter_phoenix: ^0.1.0
+  #flutter_phoenix: ^0.1.0
   # Preferences manage
   flutter_localized_locales: ^1.1.1
   shared_preferences: ^0.5.8

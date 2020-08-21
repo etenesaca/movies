@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:movies/blocs/preferences_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
@@ -61,7 +60,7 @@ class MyApp extends StatelessWidget {
         LocaleNamesLocalizationsDelegate(),
       ],
       supportedLocales: S.delegate.supportedLocales,
-      //locale: state.locale,
+      locale: state.locale,
       debugShowCheckedModeBanner: false,
       title: 'Peliculas',
       routes: {
