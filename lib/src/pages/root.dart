@@ -12,6 +12,9 @@ import 'package:movies/src/providers/global_provider.dart';
 import 'package:movies/src/apis/the_movie_db_api.dart';
 import 'package:provider/provider.dart';
 
+import 'package:movies/blocs/preferences_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 class RootPage extends StatefulWidget {
   @override
   _RootPageState createState() => _RootPageState();
@@ -108,7 +111,7 @@ class _RootPageState extends State<RootPage> with WidgetsBindingObserver {
       style: TextStyle(fontFamily: 'RussoOne', fontWeight: FontWeight.normal),
     );
 
-    return Scaffold(
+    final res = Scaffold(
       /*
       appBar: AppBar(
         title: textTitle,
@@ -147,5 +150,8 @@ class _RootPageState extends State<RootPage> with WidgetsBindingObserver {
       ),
       drawer: DrawerHeader(child: Container()),
     );
+    return BlocBuilder<PreferencesBloc, PreferencesState>(builder: (_, state) {
+      return res;
+    });
   }
 }

@@ -9,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AppSettings {
   String _langAppKey = 'langApp';
   String _langMoviesKey = 'langMovies';
-  String _useDeviceLanguageKey = 'useDeviceLanguage';
+  String _useSysLanguageKey = 'useSysLanguage';
 
   String getLocaleStrName(BuildContext context, String localeStr) {
     return Extras().getLocaleName(context, string2Locale(localeStr));
@@ -78,8 +78,8 @@ class AppSettings {
   Future<Locale> getLocaleApp() async {
     final prefs = await SharedPreferences.getInstance();
     String res = prefs.getString(_langAppKey) ?? '';
-    bool useDeviceLanguage = await getUseDeviceLanguage();
-    Locale resLocal = (useDeviceLanguage || res.isEmpty)
+    bool useSysLanguage = await getUseSysLanguage();
+    Locale resLocal = (useSysLanguage || res.isEmpty)
         ? getLanguageDefaultApp()
         : string2Locale(res);
     return resLocal;
@@ -90,19 +90,24 @@ class AppSettings {
     return locale2String(locale);
   }
 
-  Future<String> getLangMovies() async {
+  Future<Locale> getLocaleMoviesApp() async {
     final prefs = await SharedPreferences.getInstance();
     String res = prefs.getString(_langMoviesKey) ?? '';
-    bool useDeviceLanguage = await getUseDeviceLanguage();
-    if (useDeviceLanguage || res.isEmpty) {
-      res = getLanguageDefaultMoviesStr();
-    }
-    return res;
+    bool useSysLanguage = await getUseSysLanguage();
+    Locale resLocal = (useSysLanguage || res.isEmpty)
+        ? getSystemLanguage()
+        : string2Locale(res);
+    return resLocal;
   }
 
-  Future<bool> getUseDeviceLanguage() async {
+  Future<String> getLangMovies() async {
+    Locale locale = await getLocaleMoviesApp();
+    return locale2String(locale);
+  }
+
+  Future<bool> getUseSysLanguage() async {
     final prefs = await SharedPreferences.getInstance();
-    bool res = prefs.getBool(_useDeviceLanguageKey) ?? true;
+    bool res = prefs.getBool(_useSysLanguageKey) ?? true;
     return res;
   }
 
@@ -111,14 +116,22 @@ class AppSettings {
     await prefs.setString(_langAppKey, langApp);
   }
 
+  Future<void> setLangLocaleApp(Locale langLocaleApp) async {
+    await setLangApp(locale2String(langLocaleApp));
+  }
+
   Future<void> setLangMovies(String langMovies) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_langMoviesKey, langMovies);
   }
 
-  Future<void> setUseDeviceLanguage(bool useDeviceLanguage) async {
+  Future<void> setLangLocaleMovies(Locale langLocaleMovies) async {
+    await setLangMovies(locale2String(langLocaleMovies));
+  }
+
+  Future<void> useSysLanguage(bool useSysLanguage) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool(_useDeviceLanguageKey, useDeviceLanguage);
+    await prefs.setBool(_useSysLanguageKey, useSysLanguage);
   }
 
   List<String> allLocales = [
@@ -134,7 +147,7 @@ class AppSettings {
     'ar-LB',
     'ar-LY',
     'ar-MA',
-    'arn-CL',
+    //'ar-CL',
     'ar-OM',
     'ar-QA',
     'ar-SA',
@@ -144,7 +157,7 @@ class AppSettings {
     'as-IN',
     'az-Cyrl-AZ',
     'az-Latn-AZ',
-    'ba-RU',
+    //'ba-RU',
     'be-BY',
     'bg-BG',
     'bn-BD',
@@ -154,7 +167,7 @@ class AppSettings {
     'bs-Cyrl-BA',
     'bs-Latn-BA',
     'ca-ES',
-    'co-FR',
+    //'co-FR',
     'cs-CZ',
     'cy-GB',
     'da-DK',
@@ -163,10 +176,10 @@ class AppSettings {
     'de-DE',
     'de-LI',
     'de-LU',
-    'dsb-DE',
-    'dv-MV',
+    //'dsb-DE',
+    //'dv-MV',
     'el-GR',
-    'en-029',
+    //'en-029',
     'en-AU',
     'en-BZ',
     'en-CA',
@@ -206,7 +219,7 @@ class AppSettings {
     'eu-ES',
     'fa-IR',
     'fi-FI',
-    'fil-PH',
+    //'fil-PH',
     'fo-FO',
     'fr-BE',
     'fr-CA',
@@ -218,14 +231,14 @@ class AppSettings {
     'ga-IE',
     'gd-GB',
     'gl-ES',
-    'gsw-FR',
+    //'gsw-FR',
     'gu-IN',
     'ha-Latn-NG',
     'he-IL',
     'hi-IN',
     'hr-BA',
     'hr-HR',
-    'hsb-DE',
+    //'hsb-DE',
     'hu-HU',
     'hy-AM',
     'id-ID',
@@ -234,27 +247,27 @@ class AppSettings {
     'is-IS',
     'it-CH',
     'it-IT',
-    'iu-Cans-CA',
-    'iu-Latn-CA',
+    //'iu-Cans-CA',
+    //'iu-Latn-CA',
     'ja-JP',
     'ka-GE',
     'kk-KZ',
     'kl-GL',
     'km-KH',
     'kn-IN',
-    'kok-IN',
+    //'kok-IN',
     'ko-KR',
     'ky-KG',
     'lb-LU',
     'lo-LA',
     'lt-LT',
     'lv-LV',
-    'mi-NZ',
+    //'mi-NZ',
     'mk-MK',
     'ml-IN',
     'mn-MN',
-    'mn-Mong-CN',
-    'moh-CA',
+    //'mn-Mong-CN',
+    //'moh-CA',
     'mr-IN',
     'ms-BN',
     'ms-MY',
@@ -264,67 +277,67 @@ class AppSettings {
     'nl-BE',
     'nl-NL',
     'nn-NO',
-    'nso-ZA',
-    'oc-FR',
+    //'nso-ZA',
+    //'oc-FR',
     'or-IN',
     'pa-IN',
     'pl-PL',
-    'prs-AF',
+    //'prs-AF',
     'ps-AF',
     'pt-BR',
     'pt-PT',
-    'qut-GT',
-    'quz-BO',
-    'quz-EC',
-    'quz-PE',
+    //'qut-GT',
+    //'quz-BO',
+    //'quz-EC',
+    //'quz-PE',
     'rm-CH',
     'ro-RO',
     'ru-RU',
     'rw-RW',
-    'sah-RU',
-    'sa-IN',
+    //'sah-RU',
+    //'sa-IN',
     'se-FI',
     'se-NO',
     'se-SE',
     'si-LK',
     'sk-SK',
     'sl-SI',
-    'sma-NO',
-    'sma-SE',
-    'smj-NO',
-    'smj-SE',
-    'smn-FI',
-    'sms-FI',
+    //'sma-NO',
+    //'sma-SE',
+    //'smj-NO',
+    //'smj-SE',
+    //'smn-FI',
+    //'sms-FI',
     'sq-AL',
     'sr-Cyrl-BA',
-    'sr-Cyrl-CS',
+    //'sr-Cyrl-CS',
     'sr-Cyrl-ME',
     'sr-Cyrl-RS',
     'sr-Latn-BA',
-    'sr-Latn-CS',
+    //'sr-Latn-CS',
     'sr-Latn-ME',
     'sr-Latn-RS',
     'sv-FI',
     'sv-SE',
     'sw-KE',
-    'syr-SY',
+    //'syr-SY',
     'ta-IN',
     'te-IN',
-    'tg-Cyrl-TJ',
+    //'tg-Cyrl-TJ',
     'th-TH',
-    'tk-TM',
-    'tn-ZA',
+    //'tk-TM',
+    //'tn-ZA',
     'tr-TR',
-    'tt-RU',
-    'tzm-Latn-DZ',
+    //'tt-RU',
+    //'tzm-Latn-DZ',
     'ug-CN',
     'uk-UA',
     'ur-PK',
     'uz-Cyrl-UZ',
     'uz-Latn-UZ',
     'vi-VN',
-    'wo-SN',
-    'xh-ZA',
+    //'wo-SN',
+    //'xh-ZA',
     'yo-NG',
     'zh-CN',
     'zh-HK',

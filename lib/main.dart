@@ -4,7 +4,7 @@ import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:movies/blocs/preferences_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
-import 'package:movies/repositories/preferences_repository_impl.dart';
+import 'package:movies/common/app_settings.dart';
 import 'package:movies/src/pages/actor_page.dart';
 import 'package:movies/src/pages/backdrop_page.dart';
 import 'package:movies/src/pages/galery_page.dart';
@@ -21,11 +21,9 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final preferencesRepository = PreferencesRepositoryImpl();
   final preferencesBloc = PreferencesBloc(
-    preferencesRepository: preferencesRepository,
-    initialLocale: await preferencesRepository.locale,
-  );
+      initialLocale: await AppSettings().getLocaleApp(),
+      initialLocaleMovies: await AppSettings().getLocaleMoviesApp());
 
   runApp(
     BlocProvider(

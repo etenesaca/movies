@@ -249,20 +249,26 @@ class _SettingsPageState extends State<SettingsPage> {
         value: countryCode, child: buildItemAppLang(countryCode, title));
   }
 
-  Widget buildItemMovieLang(String locale) {
+  Widget buildItemMovieLang(BuildContext context, String localeStr) {
+    try {
+      localeStr = AppSettings().getLocaleStrName(context, localeStr);
+    } catch (e) {
+      print('Local translate error. ${localeStr}');
+    }
     final textStyle = TextStyle(fontSize: 13);
     return Row(
       children: <Widget>[
         Icon(Icons.language, color: Colors.grey, size: 25),
         SizedBox(width: 5),
-        Text(locale, style: textStyle)
+        Text(localeStr, style: textStyle)
       ],
     );
   }
 
-  DropdownMenuItem<String> buildItemLocale(String locale) {
+  DropdownMenuItem<String> buildItemLocale(
+      BuildContext context, String localeStr) {
     return DropdownMenuItem<String>(
-        value: locale, child: buildItemMovieLang(locale));
+        value: localeStr, child: buildItemMovieLang(context, localeStr));
   }
 
   tapSelectLanguage(BuildContext context) {
@@ -274,7 +280,7 @@ class _SettingsPageState extends State<SettingsPage> {
     });
 
     List<DropdownMenuItem<String>> appLocales =
-        appSettings.allLocales.map((e) => buildItemLocale(e)).toList();
+        appSettings.allLocales.map((e) => buildItemLocale(context, e)).toList();
 
     final textStyle = TextStyle(fontSize: 14, fontWeight: FontWeight.bold);
     final btnTextStyle = TextStyle(fontWeight: FontWeight.bold);
@@ -335,7 +341,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           })
                       : Padding(
                           padding: EdgeInsets.symmetric(vertical: 10),
-                          child: buildItemMovieLang(_langMovies)),
+                          child: buildItemMovieLang(context, _langMovies)),
                 ],
               ),
               actions: <Widget>[
@@ -346,14 +352,11 @@ class _SettingsPageState extends State<SettingsPage> {
                     child: Text('Cancelar', style: btnTextStyle)),
                 FlatButton(
                     onPressed: () {
-                      preferencesBloc.add(
-                          ChangeLocale(appSettings.string2Locale(_langApp)));
-                      print('Idioma cambiado');
-                      print(preferencesBloc.state.locale.toString());
-                      print('-------------------');
-                      setLangMovies(_langMovies);
+                      preferencesBloc.add(ChangeLocale(
+                          locale: _langApp,
+                          localeMovies: _langMovies,
+                          useSysLanguage: _defLanguages));
                       showToast('Guardado');
-                      setUseDeviceLanguage(_defLanguages);
                       Navigator.pop(context);
                       //Phoenix.rebirth(context);
                     },
@@ -400,17 +403,7 @@ class _SettingsPageState extends State<SettingsPage> {
     final settings = AppSettings();
     _langMovies = await settings.getLangMovies();
     _langApp = await settings.getLangApp();
-    _defLanguages = await settings.getUseDeviceLanguage();
-    setState(() {});
-  }
-
-  void setLangMovies(String langMovies) async {
-    await AppSettings().setLangMovies(langMovies);
-    setState(() {});
-  }
-
-  void setUseDeviceLanguage(bool useDeviceLanguage) async {
-    await AppSettings().setUseDeviceLanguage(useDeviceLanguage);
+    _defLanguages = await settings.getUseSysLanguage();
     setState(() {});
   }
 }
