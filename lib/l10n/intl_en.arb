@@ -1,7 +1,7 @@
 {
     "@@x-loco-version": "1.0.24 20200814-1",
     "@@locale": "en",
-    "@@last_modified": "2020-08-21T13:52:12-0500",
+    "@@last_modified": "2020-08-21T15:32:33-0500",
     "@@author": "Edgar Tenesaca",
     "nowPlaying": "Now playing",
     "@nowPlaying": {
@@ -89,6 +89,34 @@
     },
     "saved": "Saved",
     "@saved": {
+        "type": "text"
+    },
+    "myList": "My list",
+    "@myList": {
+        "type": "text"
+    },
+    "show_more": "Show more",
+    "@show_more": {
+        "type": "text"
+    },
+    "show_less": "Show less",
+    "@show_less": {
+        "type": "text"
+    },
+    "actors": "Actors",
+    "@actors": {
+        "type": "text"
+    },
+    "most_popular": "Most popular",
+    "@most_popular": {
+        "type": "text"
+    },
+    "populars": "Populars",
+    "@populars": {
+        "type": "text"
+    },
+    "top_rated": "Top rated",
+    "@top_rated": {
         "type": "text"
     }
 }

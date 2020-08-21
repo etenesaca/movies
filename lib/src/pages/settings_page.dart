@@ -160,7 +160,7 @@ class _SettingsPageState extends State<SettingsPage> {
         onTap: () {},
         leading: Icon(Icons.list, color: colorActions),
         title: Text(
-          'Mi lista',
+          S.of(context).myList,
           style: textStyleItems,
         ),
         trailing: Icon(Icons.keyboard_arrow_right, color: colorItems),

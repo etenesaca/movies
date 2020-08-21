@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:movies/common/extras.dart';
+import 'package:movies/generated/l10n.dart';
 import 'package:movies/src/apis/the_movie_db_api.dart';
 import 'package:movies/src/models/movie_model.dart';
 import 'package:movies/src/widgets/loading_data_widget.dart';
@@ -106,7 +107,7 @@ class NewPage extends StatelessWidget {
                   children: <Widget>[
                     Icon(Icons.add, color: Colors.white),
                     Text(
-                      'Mi Lista',
+                      S.of(context).myList,
                       style: TextStyle(color: Colors.white, fontSize: 10),
                     )
                   ],

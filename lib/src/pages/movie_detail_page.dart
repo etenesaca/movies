@@ -85,7 +85,7 @@ class MovieDetailPage extends StatelessWidget {
             children: <Widget>[
               Icon(Icons.add, color: Colors.white),
               Text(
-                'Mi Lista',
+                S.of(context).myList,
                 style: TextStyle(color: Colors.white, fontSize: 10),
               )
             ],
@@ -222,8 +222,8 @@ class MovieDetailPage extends StatelessWidget {
           extras.buildTitleSection('Sinopsis'),
           SizedBox(height: 5),
           ExpandableText(movie.overview,
-              expandText: 'Ver más',
-              collapseText: 'Ver menos',
+              expandText: S.of(context).show_more,
+              collapseText: S.of(context).show_less,
               textAlign: TextAlign.justify,
               linkColor: Colors.redAccent,
               maxLines: 6,

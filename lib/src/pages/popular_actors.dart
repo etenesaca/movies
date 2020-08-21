@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:movies/common/extras.dart';
+import 'package:movies/generated/l10n.dart';
 import 'package:movies/src/apis/the_movie_db_api.dart';
 import 'package:movies/src/models/actor_model.dart';
 import 'package:movies/src/widgets/loading_data_widget.dart';
@@ -23,7 +24,7 @@ class PopularActorsPage extends StatelessWidget {
 
     return SingleChildScrollView(
       child: Column(
-        children: <Widget>[buildPosterLastActor(), buildBestActors()],
+        children: <Widget>[buildPosterLastActor(), buildBestActors(context)],
       ),
     );
   }
@@ -149,12 +150,12 @@ class PopularActorsPage extends StatelessWidget {
     return poster;
   }
 
-  Widget buildBestActors() {
+  Widget buildBestActors(BuildContext context) {
     final res = PageViewActor(futureActors: movieApi.getPopularActors());
     return extras.buildSection(
-        title: 'Más populares',
+        title: S.of(context).most_popular,
         child: res,
-        textBackground: 'Actores',
+        textBackground: S.of(context).actors,
         paddingHeader: paddingSections);
   }
 }

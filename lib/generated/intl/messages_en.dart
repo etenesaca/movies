@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "about_app" : MessageLookupByLibrary.simpleMessage("About"),
+    "actors" : MessageLookupByLibrary.simpleMessage("Actors"),
     "application" : MessageLookupByLibrary.simpleMessage("Application"),
     "cancel" : MessageLookupByLibrary.simpleMessage("Cancel"),
     "change_language" : MessageLookupByLibrary.simpleMessage("Change language"),
@@ -29,19 +30,25 @@ class MessageLookup extends MessageLookupByLibrary {
     "galery" : MessageLookupByLibrary.simpleMessage("Galery"),
     "language" : MessageLookupByLibrary.simpleMessage("Language"),
     "logout" : MessageLookupByLibrary.simpleMessage("Logout"),
+    "most_popular" : MessageLookupByLibrary.simpleMessage("Most popular"),
     "movies" : MessageLookupByLibrary.simpleMessage("Movies"),
     "moviesLanguage" : MessageLookupByLibrary.simpleMessage("Movies language"),
+    "myList" : MessageLookupByLibrary.simpleMessage("My list"),
     "new_movies" : MessageLookupByLibrary.simpleMessage("New movies"),
     "no_images_available" : MessageLookupByLibrary.simpleMessage("No images available"),
     "notifications_active" : MessageLookupByLibrary.simpleMessage("Revice notifications"),
     "nowPlaying" : MessageLookupByLibrary.simpleMessage("Now playing"),
+    "populars" : MessageLookupByLibrary.simpleMessage("Populars"),
     "profile" : MessageLookupByLibrary.simpleMessage("Profile"),
     "saved" : MessageLookupByLibrary.simpleMessage("Saved"),
     "search" : MessageLookupByLibrary.simpleMessage("Search"),
     "section_popular" : MessageLookupByLibrary.simpleMessage("Populars"),
     "section_top_rated" : MessageLookupByLibrary.simpleMessage("Top rated"),
     "show_all" : MessageLookupByLibrary.simpleMessage("Show all"),
+    "show_less" : MessageLookupByLibrary.simpleMessage("Show less"),
+    "show_more" : MessageLookupByLibrary.simpleMessage("Show more"),
     "systemLanguage" : MessageLookupByLibrary.simpleMessage("System language"),
+    "top_rated" : MessageLookupByLibrary.simpleMessage("Top rated"),
     "trailers" : MessageLookupByLibrary.simpleMessage("Trailers")
   };
 }

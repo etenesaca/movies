@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "about_app" : MessageLookupByLibrary.simpleMessage("Acerca de"),
+    "actors" : MessageLookupByLibrary.simpleMessage("Actores"),
     "application" : MessageLookupByLibrary.simpleMessage("Aplicación"),
     "cancel" : MessageLookupByLibrary.simpleMessage("Cancelar"),
     "change_language" : MessageLookupByLibrary.simpleMessage("Cambiar idioma"),
@@ -29,19 +30,25 @@ class MessageLookup extends MessageLookupByLibrary {
     "galery" : MessageLookupByLibrary.simpleMessage("Galeria"),
     "language" : MessageLookupByLibrary.simpleMessage("Idioma"),
     "logout" : MessageLookupByLibrary.simpleMessage("Cerrar sesión"),
+    "most_popular" : MessageLookupByLibrary.simpleMessage("Más populares"),
     "movies" : MessageLookupByLibrary.simpleMessage("Peliculas"),
     "moviesLanguage" : MessageLookupByLibrary.simpleMessage("Idioma de las peliculas"),
+    "myList" : MessageLookupByLibrary.simpleMessage("MI lista"),
     "new_movies" : MessageLookupByLibrary.simpleMessage("Nuevas peliculas"),
     "no_images_available" : MessageLookupByLibrary.simpleMessage("No hay imagenes disponibles"),
     "notifications_active" : MessageLookupByLibrary.simpleMessage("Recibir notificaciones"),
     "nowPlaying" : MessageLookupByLibrary.simpleMessage("En  cines"),
+    "populars" : MessageLookupByLibrary.simpleMessage("Populares"),
     "profile" : MessageLookupByLibrary.simpleMessage("Pefíl"),
     "saved" : MessageLookupByLibrary.simpleMessage("Guardado"),
     "search" : MessageLookupByLibrary.simpleMessage("Buscar"),
     "section_popular" : MessageLookupByLibrary.simpleMessage("Populares"),
     "section_top_rated" : MessageLookupByLibrary.simpleMessage("Mejor calificadas"),
     "show_all" : MessageLookupByLibrary.simpleMessage("Ver todo"),
+    "show_less" : MessageLookupByLibrary.simpleMessage("Ver menos"),
+    "show_more" : MessageLookupByLibrary.simpleMessage("Ver más"),
     "systemLanguage" : MessageLookupByLibrary.simpleMessage("Idioma del sistema"),
+    "top_rated" : MessageLookupByLibrary.simpleMessage("Mejor calificadas"),
     "trailers" : MessageLookupByLibrary.simpleMessage("Trailers")
   };
 }

@@ -1,7 +1,7 @@
 {
     "@@x-loco-version": "1.0.24 20200814-1",
     "@@locale": "es",
-    "@@last_modified": "2020-08-21T13:52:12-0500",
+    "@@last_modified": "2020-08-21T15:32:33-0500",
     "@@author": "Edgar Tenesaca",
     "nowPlaying": "En  cines",
     "@nowPlaying": {
@@ -112,5 +112,40 @@
     "@saved": {
         "type": "text",
         "source_text": "Saved"
+    },
+    "myList": "MI lista",
+    "@myList": {
+        "type": "text",
+        "source_text": "My list"
+    },
+    "show_more": "Ver más",
+    "@show_more": {
+        "type": "text",
+        "source_text": "Show more"
+    },
+    "show_less": "Ver menos",
+    "@show_less": {
+        "type": "text",
+        "source_text": "Show less"
+    },
+    "actors": "Actores",
+    "@actors": {
+        "type": "text",
+        "source_text": "Actors"
+    },
+    "most_popular": "Más populares",
+    "@most_popular": {
+        "type": "text",
+        "source_text": "Most popular"
+    },
+    "populars": "Populares",
+    "@populars": {
+        "type": "text",
+        "source_text": "Populars"
+    },
+    "top_rated": "Mejor calificadas",
+    "@top_rated": {
+        "type": "text",
+        "source_text": "Top rated"
     }
 }
