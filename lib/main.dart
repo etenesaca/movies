@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
         LocaleNamesLocalizationsDelegate(),
       ],
       supportedLocales: S.delegate.supportedLocales,
-      locale: state.locale,
+      //locale: state.locale,
       debugShowCheckedModeBanner: false,
       title: 'Peliculas',
       routes: {
