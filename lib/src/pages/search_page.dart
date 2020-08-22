@@ -82,7 +82,7 @@ class SearchPage extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Text(
-            'No tenemos esta pelicula por ahora.',
+            S.of(context).dont_have_this_movie,
             style: TextStyle(
                 color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
           ),
