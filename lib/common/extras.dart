@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:animate_do/animate_do.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -49,19 +50,38 @@ class Extras {
     return starts;
   }
 
+  Widget buildCacheImage(String urlImage, double imgHeight, double imgWidth,
+      {assetImgName = 'placeholder-dark-2.png', fit = BoxFit.cover}) {
+    final imgPlaceholder = AssetImage('assets/img/$assetImgName');
+    final img = CachedNetworkImage(
+      imageUrl: urlImage,
+      imageBuilder: (context, imageProvider) => FadeInImage(
+        placeholder: imgPlaceholder,
+        image: imageProvider,
+        fit: fit,
+        height: imgHeight,
+        width: imgWidth,
+      ),
+      placeholder: (context, url) => FadeInImage(
+        placeholder: imgPlaceholder,
+        image: imgPlaceholder,
+        fit: fit,
+        height: imgHeight,
+        width: imgWidth,
+      ),
+      errorWidget: (context, url, error) => Icon(Icons.error),
+    );
+
+    return img;
+  }
+
   Widget buildPosterImg(String urlImage, double imgHeight, double imgWidth,
       {double corners = 10,
       assetImgName = 'placeholder-dark-2.png',
       fit = BoxFit.cover}) {
-    return ClipRRect(
-        borderRadius: BorderRadius.circular(corners),
-        child: FadeInImage(
-          placeholder: AssetImage('assets/img/$assetImgName'),
-          image: NetworkImage(urlImage),
-          fit: fit,
-          height: imgHeight,
-          width: imgWidth,
-        ));
+    final img = buildCacheImage(urlImage, imgHeight, imgWidth,
+        assetImgName: assetImgName, fit: fit);
+    return ClipRRect(borderRadius: BorderRadius.circular(corners), child: img);
   }
 
   Widget buildPlaceholderImg(double imgHeight, double imgWidth,
