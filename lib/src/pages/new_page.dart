@@ -112,7 +112,7 @@ class NewPage extends StatelessWidget {
                   ],
                 ),
                 SizedBox(width: 25),
-                RaisedButton(
+                TextButton(
                     child: Row(
                       children: <Widget>[
                         Icon(Icons.play_arrow),

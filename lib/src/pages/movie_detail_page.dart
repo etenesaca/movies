@@ -93,7 +93,7 @@ class MovieDetailPage extends StatelessWidget {
         SizedBox(width: 25),
         ZoomIn(
           duration: durationAnimation,
-          child: RaisedButton(
+          child: TextButton(
               child: Row(
                 children: <Widget>[
                   Icon(Icons.play_arrow),
@@ -289,29 +289,31 @@ class MovieDetailPage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
         Container(),
-        RaisedButton(
+        Padding(
           padding: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
-          shape: StadiumBorder(),
-          color: Colors.white10,
-          child: Row(
-            children: <Widget>[
-              Icon(
-                Icons.photo_library,
-                color: Colors.orangeAccent,
-                size: 15,
-              ),
-              SizedBox(width: 5),
-              Text('Ver todo',
-                  style: TextStyle(
-                      color: Colors.orangeAccent,
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold))
-            ],
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white10, shape: const StadiumBorder()),
+            child: Row(
+              children: <Widget>[
+                Icon(
+                  Icons.photo_library,
+                  color: Colors.orangeAccent,
+                  size: 15,
+                ),
+                SizedBox(width: 5),
+                Text('Ver todo',
+                    style: TextStyle(
+                        color: Colors.orangeAccent,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold))
+              ],
+            ),
+            onPressed: () {
+              Navigator.pushNamed(context, 'galery',
+                  arguments: movieApi.getMovieImagesList(movie.id));
+            },
           ),
-          onPressed: () {
-            Navigator.pushNamed(context, 'galery',
-                arguments: movieApi.getMovieImagesList(movie.id));
-          },
         )
       ],
     );

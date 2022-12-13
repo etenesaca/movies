@@ -193,29 +193,31 @@ class ActorPage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         Container(),
-        RaisedButton(
+        Padding(
           padding: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
-          shape: StadiumBorder(),
-          color: Colors.white10,
-          child: Row(
-            children: <Widget>[
-              Icon(
-                Icons.photo_library,
-                color: Colors.orangeAccent,
-                size: 15,
-              ),
-              SizedBox(width: 5),
-              Text('Ver todo',
-                  style: TextStyle(
-                      color: Colors.orangeAccent,
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold))
-            ],
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                shape: const StadiumBorder(), backgroundColor: Colors.white10),
+            child: Row(
+              children: <Widget>[
+                Icon(
+                  Icons.photo_library,
+                  color: Colors.orangeAccent,
+                  size: 15,
+                ),
+                SizedBox(width: 5),
+                Text('Ver todo',
+                    style: TextStyle(
+                        color: Colors.orangeAccent,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold))
+              ],
+            ),
+            onPressed: () {
+              Navigator.pushNamed(context, 'galery',
+                  arguments: movieApi.getActorImagesList(actor.id));
+            },
           ),
-          onPressed: () {
-            Navigator.pushNamed(context, 'galery',
-                arguments: movieApi.getActorImagesList(actor.id));
-          },
         )
       ],
     );

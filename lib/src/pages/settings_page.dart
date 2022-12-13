@@ -535,12 +535,12 @@ class _SettingsPageState extends State<SettingsPage> {
                 ],
               ),
               actions: <Widget>[
-                FlatButton(
+                ElevatedButton(
                     onPressed: () {
                       Navigator.pop(context);
                     },
                     child: Text('Cancelar', style: btnTextStyle)),
-                FlatButton(
+                ElevatedButton(
                     onPressed: () {
                       setLangApp(_langApp);
                       setLangMovies(_langMovies);

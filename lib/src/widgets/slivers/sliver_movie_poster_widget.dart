@@ -18,7 +18,7 @@ class SliverMoviePoster extends SliverPersistentHeaderDelegate {
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Stack(
       fit: StackFit.expand,
-      overflow: Overflow.visible,
+      //overflow: Overflow.visible,
       children: [
         _buildBackGround(context, movie),
         _buildBackGroundOpacity(context),
