@@ -40,7 +40,8 @@ class NewPage extends StatelessWidget {
             );
           }
           final movies = snapshot.data;
-          return _buildPoster(context, movies[Random().nextInt(movies.length)]);
+          return _buildPoster(
+              context, movies![Random().nextInt(movies.length)]);
         });
   }
 

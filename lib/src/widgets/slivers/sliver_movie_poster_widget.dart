@@ -1,6 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:icon_shadow/icon_shadow.dart';
+import 'package:flutter_icon_shadow/flutter_icon_shadow.dart';
 import 'package:movies/common/extras.dart';
 import 'package:movies/src/models/movie_model.dart';
 
@@ -11,7 +11,7 @@ class SliverMoviePoster extends SliverPersistentHeaderDelegate {
   double heightPoster = 185.0 - (185.0 * 0.10);
   double widthPoster = 120.0 - (120.0 * 0.10);
 
-  SliverMoviePoster({@required this.expandedHeight, @required this.movie});
+  SliverMoviePoster({required this.expandedHeight, required this.movie});
 
   @override
   Widget build(
@@ -71,7 +71,7 @@ class SliverMoviePoster extends SliverPersistentHeaderDelegate {
           ),
         ],
       ),
-      child: Hero(tag: movie.idHero, child: posterCropped),
+      child: Hero(tag: movie.idHero!, child: posterCropped),
     );
   }
 
@@ -109,7 +109,7 @@ class SliverMoviePoster extends SliverPersistentHeaderDelegate {
       offset: Offset(3, 3), // changes position of shadow
     );
     final text = Text(
-      movie.title,
+      movie.title!,
       style: TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.w700,
@@ -118,7 +118,7 @@ class SliverMoviePoster extends SliverPersistentHeaderDelegate {
     );
     Widget buttonBack = Padding(
         padding: EdgeInsets.symmetric(vertical: 6, horizontal: 9),
-        child: IconShadowWidget(
+        child: IconShadow(
           Icon(Icons.arrow_back, color: Colors.white, size: 28),
           showShadow: true,
           shadowColor: Colors.black,

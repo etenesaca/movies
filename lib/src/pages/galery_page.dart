@@ -6,12 +6,13 @@ import 'package:movies/src/widgets/loader_widget.dart';
 
 class GaleryPage extends StatelessWidget {
   Extras extras = Extras();
-  Future<List<Backdrop>> callBackImages;
-  Size _screenSize;
+  Future<List<Backdrop>>? callBackImages;
+  Size? _screenSize;
 
   @override
   Widget build(BuildContext context) {
-    callBackImages = ModalRoute.of(context).settings.arguments;
+    callBackImages =
+        ModalRoute.of(context)!.settings.arguments as Future<List<Backdrop>>?;
     _screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -38,7 +39,7 @@ class GaleryPage extends StatelessWidget {
               reverse: false,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount:
-                    extras.calCrossAxisItems(_screenSize.width, 120),
+                    extras.calCrossAxisItems(_screenSize!.width, 120),
                 mainAxisSpacing: 7,
                 crossAxisSpacing: 7,
                 //childAspectRatio: 1.5

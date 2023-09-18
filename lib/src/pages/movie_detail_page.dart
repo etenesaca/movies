@@ -25,7 +25,8 @@ class MovieDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Map<String, dynamic> args = ModalRoute.of(context).settings.arguments;
+    final Map<String, dynamic> args =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final Movie movie = args['movie'];
 
     final page = Scaffold(
@@ -168,7 +169,7 @@ class MovieDetailPage extends StatelessWidget {
               SizedBox(
                 width: 2,
               ),
-              Text('${snapshot.data.runtime}min',
+              Text('${snapshot.data!.runtime}min',
                   style: TextStyle(
                       color: Colors.blueAccent,
                       fontSize: 12,
@@ -183,16 +184,16 @@ class MovieDetailPage extends StatelessWidget {
   }
 
   Widget _buildBoxGender(MovieGenre genre) {
-    return Extras().buildBoxTag(genre.name, Colors.redAccent);
+    return Extras().buildBoxTag(genre.name!, Colors.redAccent);
   }
 
   _buildSectionGenres(
       BuildContext context, Movie movie, List<MovieGenre> movieGenres) {
-    movieGenres.where((MovieGenre x) => movie.genreIds.toSet().contains(x.id));
+    movieGenres.where((MovieGenre x) => movie.genreIds!.toSet().contains(x.id));
 
     final List<MovieGenre> genres = [];
     movieGenres.forEach((x) {
-      if (movie.genreIds.toSet().contains(x.id.toInt())) genres.add(x);
+      if (movie.genreIds!.toSet().contains(x.id!.toInt())) genres.add(x);
     });
     final boxes = genres
         .map((e) => ZoomIn(

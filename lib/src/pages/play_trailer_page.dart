@@ -3,11 +3,11 @@ import 'package:movies/src/models/video_model.dart';
 import 'package:movies/src/widgets/video_player.dart';
 
 class PlayTrailerPage extends StatelessWidget {
-  const PlayTrailerPage({Key key}) : super(key: key);
+  const PlayTrailerPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final Video video = ModalRoute.of(context).settings.arguments;
+    final Video video = ModalRoute.of(context)!.settings.arguments as Video;
 
     return Scaffold(
       backgroundColor: Colors.black,

@@ -18,7 +18,7 @@ class ActorPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Actor actor = ModalRoute.of(context).settings.arguments;
+    Actor actor = ModalRoute.of(context)!.settings.arguments as Actor;
     _screenSize = MediaQuery.of(context).size;
     mainColor = Extras().mainColor;
 
@@ -243,7 +243,7 @@ class ActorPage extends StatelessWidget {
   }
 
   Widget _buildAppBar(Actor actor) {
-    double imageHeight = _screenSize.height * 0.6;
+    double imageHeight = _screenSize!.height * 0.6;
     Widget _imagePoster() {
       Widget res = FadeInImage(
         placeholder: AssetImage('assets/img/loading.gif'),
@@ -267,13 +267,13 @@ class ActorPage extends StatelessWidget {
                 end: FractionalOffset(0.1, 0.97),
                 colors: [
               Colors.transparent,
-              mainColor.withOpacity(0.0),
-              mainColor.withOpacity(0.3),
-              mainColor.withOpacity(0.5),
-              mainColor.withOpacity(0.7),
-              mainColor.withOpacity(0.8),
-              mainColor.withOpacity(0.9),
-              mainColor,
+              mainColor!.withOpacity(0.0),
+              mainColor!.withOpacity(0.3),
+              mainColor!.withOpacity(0.5),
+              mainColor!.withOpacity(0.7),
+              mainColor!.withOpacity(0.8),
+              mainColor!.withOpacity(0.9),
+              mainColor!,
             ])),
       );
     }

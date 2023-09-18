@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:movies/common/extras.dart';
 import 'package:movies/src/models/movie_model.dart';
 
@@ -7,26 +7,27 @@ class CardSwiper extends StatelessWidget {
   final List<Movie> movies;
   final Map<String, dynamic> args;
 
-  Size _screenSize;
+  Size? _screenSize;
   double _cardCorners = 8.0;
-  double heightCard;
-  double widthCard;
+  double? heightCard;
+  double? widthCard;
 
-  CardSwiper({@required this.movies, @required this.args});
+  CardSwiper({required this.movies, required this.args});
 
   @override
   Widget build(BuildContext context) {
     _screenSize = MediaQuery.of(context).size;
-    heightCard = _screenSize.height * 0.45;
-    widthCard = heightCard * 0.65;
+    heightCard = _screenSize!.height * 0.45;
+    widthCard = heightCard! * 0.65;
     return Container(
       child: Swiper(
         //layout: SwiperLayout.STACK,
         itemCount: movies.length,
         itemWidth: heightCard,
         itemHeight: widthCard,
-        viewportFraction:
-            Extras().getViewportFraction(_screenSize.width, widthCard, widthSeparator: 0),
+        viewportFraction: Extras().getViewportFraction(
+            _screenSize!.width, widthCard!,
+            widthSeparator: 0),
         scale: .65,
         itemBuilder: (BuildContext context, int index) {
           Movie movie = movies[index];

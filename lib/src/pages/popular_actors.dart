@@ -42,7 +42,7 @@ class PopularActorsPage extends StatelessWidget {
           }
           final bestActors = snapshot.data;
           return _buildPoster(
-              context, bestActors[Random().nextInt(bestActors.length)]);
+              context, bestActors![Random().nextInt(bestActors.length)]);
         });
   }
 

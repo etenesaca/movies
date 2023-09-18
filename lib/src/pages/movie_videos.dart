@@ -11,7 +11,7 @@ class VideoListPage extends StatelessWidget {
   Extras extras = Extras();
   @override
   Widget build(BuildContext context) {
-    Movie movie = ModalRoute.of(context).settings.arguments;
+    Movie movie = ModalRoute.of(context)!.settings.arguments as Movie;
 
     return Scaffold(
       appBar: AppBar(
@@ -40,8 +40,8 @@ class VideoListPage extends StatelessWidget {
             return LoadingData();
           }
           //
-          final ytVideos = snapshot.data
-              .where((e) => e.site.toLowerCase() == 'youtube')
+          final ytVideos = snapshot.data!
+              .where((e) => e.site!.toLowerCase() == 'youtube')
               .toList();
           if (ytVideos.isEmpty) {
             return Center(

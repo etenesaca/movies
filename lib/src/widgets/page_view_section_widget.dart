@@ -11,10 +11,10 @@ class PageViewSection extends StatefulWidget {
   final Map<String, dynamic> args;
 
   PageViewSection(
-      {@required this.titleSection,
-      @required this.moviesStream,
-      @required this.sinkNextPage,
-      @required this.args});
+      {required this.titleSection,
+      required this.moviesStream,
+      required this.sinkNextPage,
+      required this.args});
 
   @override
   _PageViewSectionState createState() => _PageViewSectionState();
@@ -22,11 +22,11 @@ class PageViewSection extends StatefulWidget {
 
 class _PageViewSectionState extends State<PageViewSection> {
   Extras extras = Extras();
-  Size _screenSize;
-  PageController _pageController;
+  Size? _screenSize;
+  PageController? _pageController;
   EdgeInsets paddingSections =
       EdgeInsets.symmetric(vertical: 0, horizontal: 20);
-  double heightPageViewer;
+  double? heightPageViewer;
   double heightCard = 175.0;
   double widthCard = 110.0;
 
@@ -38,12 +38,12 @@ class _PageViewSectionState extends State<PageViewSection> {
     _pageController = PageController(
         initialPage: 1,
         viewportFraction:
-            extras.getViewportFraction(_screenSize.width, widthCard));
+            extras.getViewportFraction(_screenSize!.width, widthCard));
 
     widget.sinkNextPage();
     _pageController.addListener(() {
-      if (_pageController.position.pixels >=
-          _pageController.position.maxScrollExtent - 200) {
+      if (_pageController!.position.pixels >=
+          _pageController!.position.maxScrollExtent - 200) {
         widget.sinkNextPage();
       }
     });
@@ -57,9 +57,9 @@ class _PageViewSectionState extends State<PageViewSection> {
     final posterCropped = extras.buildPosterImg(
         movie.getPosterImgUrl(), heightCard, widthCard,
         corners: 5);
-    String movie_title = movie.title.length > 28
-        ? '${movie.title.substring(0, 28)}...'
-        : movie.title;
+    String movie_title = movie.title!.length > 28
+        ? '${movie.title!.substring(0, 28)}...'
+        : movie.title!;
     final textStyle = TextStyle(
         fontWeight: FontWeight.bold, fontSize: 11, color: Colors.white70);
     final details = Container(
@@ -69,7 +69,7 @@ class _PageViewSectionState extends State<PageViewSection> {
         children: <Widget>[
           Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: extras.buildstarts(movie.voteAverage / 2, 5)),
+              children: extras.buildstarts(movie.voteAverage! / 2, 5)),
           SizedBox(height: 2.0),
           Text(movie_title, overflow: TextOverflow.fade, style: textStyle),
         ],
@@ -78,7 +78,7 @@ class _PageViewSectionState extends State<PageViewSection> {
     final res = Container(
       child: Column(
         children: <Widget>[
-          Hero(tag: movie.idHero, child: posterCropped),
+          Hero(tag: movie.idHero!, child: posterCropped),
           details
         ],
       ),
@@ -112,7 +112,7 @@ class _PageViewSectionState extends State<PageViewSection> {
             child: PageView.builder(
               pageSnapping: false,
               controller: _pageController,
-              itemCount: movies.length,
+              itemCount: movies!.length,
               itemBuilder: (BuildContext context, int index) =>
                   _buildCard(context, movies[index]),
             ),

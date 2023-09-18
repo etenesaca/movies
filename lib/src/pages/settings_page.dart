@@ -7,7 +7,7 @@ import 'package:movies/common/extras.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsPage extends StatefulWidget {
-  SettingsPage({Key key}) : super(key: key);
+  SettingsPage({Key? key}) : super(key: key);
   @override
   _SettingsPageState createState() => _SettingsPageState();
 }
@@ -230,21 +230,21 @@ class _SettingsPageState extends State<SettingsPage> {
     'en': 'English',
   };
 
-  String _langApp;
-  String _langMovies;
-  bool _defLanguages;
+  String? _langApp;
+  String? _langMovies;
+  bool? _defLanguages;
 
-  Extras extras = Extras();
-  Color colorActions;
-  Color colorItems;
-  TextStyle colorTextSwitch;
-  TextStyle textStyleItems;
-  TextStyle textStyleUser;
+  Extras? extras = Extras();
+  Color? colorActions;
+  Color? colorItems;
+  TextStyle? colorTextSwitch;
+  TextStyle? textStyleItems;
+  TextStyle? textStyleUser;
 
   @override
   void initState() {
     super.initState();
-    fToast = FToast(context);
+    fToast = FToast();
     loadSettings();
   }
 
@@ -344,7 +344,7 @@ class _SettingsPageState extends State<SettingsPage> {
     ]);
   }
 
-  buildMenu({@required List<Widget> children}) {
+  buildMenu({required List<Widget> children}) {
     return Card(
       color: Color.fromRGBO(30, 144, 255, 0.25),
       elevation: 4.0,
@@ -494,7 +494,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   SwitchListTile(
                       contentPadding: EdgeInsets.all(0),
                       activeColor: colorActions,
-                      value: _defLanguages,
+                      value: _defLanguages!,
                       title: Text('Idioma del dispositivo',
                           style: TextStyle(fontSize: 14)),
                       onChanged: (bool value) {
@@ -506,32 +506,32 @@ class _SettingsPageState extends State<SettingsPage> {
                         setState(() {});
                       }),
                   Text('Aplicación', style: textStyle),
-                  !_defLanguages
+                  !_defLanguages!
                       ? DropdownButton(
                           isExpanded: true,
                           value: _langApp,
                           items: appLanguages,
-                          onChanged: (String val) {
+                          onChanged: (String? val) {
                             _langApp = val;
                             setState(() {});
                           })
                       : Padding(
                           padding: EdgeInsets.symmetric(vertical: 10),
                           child: buildItemAppLang(
-                              _langApp, appLanguagesMap[_langApp])),
+                              _langApp ?? '', appLanguagesMap[_langApp] ?? '')),
                   Text('Peliculas', style: textStyle),
-                  !_defLanguages
+                  !_defLanguages!
                       ? DropdownButton(
                           isExpanded: true,
                           value: _langMovies,
                           items: appLocales,
-                          onChanged: (String val) {
+                          onChanged: (String? val) {
                             _langMovies = val;
                             setState(() {});
                           })
                       : Padding(
                           padding: EdgeInsets.symmetric(vertical: 10),
-                          child: buildItemMovieLang(_langMovies)),
+                          child: buildItemMovieLang(_langMovies!)),
                 ],
               ),
               actions: <Widget>[
@@ -542,10 +542,10 @@ class _SettingsPageState extends State<SettingsPage> {
                     child: Text('Cancelar', style: btnTextStyle)),
                 ElevatedButton(
                     onPressed: () {
-                      setLangApp(_langApp);
-                      setLangMovies(_langMovies);
+                      setLangApp(_langApp!);
+                      setLangMovies(_langMovies!);
                       showToast('Guardado');
-                      setUseDevideLanguage(_defLanguages);
+                      setUseDevideLanguage(_defLanguages!);
                       Navigator.pop(context);
                       Phoenix.rebirth(context);
                     },

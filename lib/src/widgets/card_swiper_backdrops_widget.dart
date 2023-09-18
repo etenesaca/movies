@@ -15,9 +15,9 @@ class SwiperBackdrops extends StatelessWidget {
   final double widthCard;
 
   SwiperBackdrops(
-      {@required this.images,
-      @required this.heightCard,
-      @required this.widthCard});
+      {required this.images,
+      required this.heightCard,
+      required this.widthCard});
 
   @override
   Widget build(BuildContext context) {

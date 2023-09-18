@@ -139,12 +139,12 @@ class Extras {
   }
 
   buildSection(
-      {@required String title,
-      @required Widget child,
+      {required String title,
+      required Widget child,
       bool showBackground = true,
-      String textBackground,
-      Widget action,
-      EdgeInsets paddingHeader}) {
+      String? textBackground,
+      Widget? action,
+      EdgeInsets? paddingHeader}) {
     if (paddingHeader == null) {
       paddingHeader = EdgeInsets.symmetric();
     }
@@ -192,7 +192,7 @@ class Extras {
   }
 
   Widget buildAvatar(Color avatarColor, String name,
-      [NetworkImage image, double avatarSize]) {
+      [NetworkImage? image, double? avatarSize]) {
     final styleShadow = BoxShadow(
       color: Colors.black.withOpacity(0.9),
       spreadRadius: 1,
@@ -209,7 +209,7 @@ class Extras {
       ));
     } else {
       actorPhoto = CircleAvatar(
-        radius: avatarSize - 2,
+        radius: avatarSize! - 2,
         backgroundImage: image,
       );
     }

@@ -4,7 +4,7 @@ class ChipTag extends StatelessWidget {
   final String label;
   final Color color;
 
-  ChipTag({@required this.color, @required this.label});
+  ChipTag({required this.color, required this.label});
 
   @override
   Widget build(BuildContext context) {

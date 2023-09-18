@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_downloader/image_downloader.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:movies/common/extras.dart';
 import 'package:movies/src/models/image_model.dart';
 import 'package:photo_view/photo_view.dart';
@@ -22,7 +22,7 @@ class _MoviePosterPageState extends State<MoviePosterPage> {
   String _path = "";
   String _size = "";
   String _mimeType = "";
-  File _imageFile;
+  File? _imageFile;
 
   FToast fToast;
 
@@ -31,7 +31,7 @@ class _MoviePosterPageState extends State<MoviePosterPage> {
     super.initState();
 
     fToast = FToast(context);
-    ImageDownloader.callback(onProgressUpdate: (String imageId, int progress) {
+    ImageDownloader.callback(onProgressUpdate: (String? imageId, int progress) {
       setState(() {
         _progress = progress;
         downloading = (_progress == 0 || _progress == 100) ? false : true;
@@ -42,7 +42,7 @@ class _MoviePosterPageState extends State<MoviePosterPage> {
   @override
   Widget build(BuildContext context) {
     Extras extras = Extras();
-    Backdrop image = ModalRoute.of(context).settings.arguments;
+    Backdrop image = ModalRoute.of(context)!.settings.arguments as Backdrop;
     Color mainColor = extras.mainColor;
 
     final imgviewer = PhotoView(
@@ -107,9 +107,9 @@ class _MoviePosterPageState extends State<MoviePosterPage> {
   }
 
   Future<void> _downloadImage(String url,
-      {AndroidDestinationType destination,
+      {AndroidDestinationType? destination,
       bool whenError = false,
-      String outputMimeType}) async {
+      String? outputMimeType}) async {
     String fileName;
     String path;
     int size;
@@ -158,7 +158,8 @@ class _MoviePosterPageState extends State<MoviePosterPage> {
       if (imageId == null) {
         return;
       }
-      fileName = await ImageDownloader.findName(imageId);
+      fileName = await ImageDownloader.findName(imageId ?? '');
+
       path = await ImageDownloader.findPath(imageId);
       size = await ImageDownloader.findByteSize(imageId);
       mimeType = await ImageDownloader.findMimeType(imageId);

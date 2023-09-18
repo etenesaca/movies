@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(S.of(context).nowPlaying,
+            Text(S.of(context)!.nowPlaying,
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.normal,

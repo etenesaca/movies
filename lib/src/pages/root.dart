@@ -102,7 +102,7 @@ class _RootPageState extends State<RootPage> with WidgetsBindingObserver {
       getConfigTab()
     ];
 
-    String tabTitle = S.of(context).nowPlaying;
+    String tabTitle = S.of(context)!.nowPlaying;
     Widget textTitle = Text(
       tabTitle,
       style: TextStyle(fontFamily: 'RussoOne', fontWeight: FontWeight.normal),

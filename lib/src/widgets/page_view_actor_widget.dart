@@ -9,14 +9,14 @@ import 'package:movies/src/widgets/loading_data_widget.dart';
 class PageViewActor extends StatelessWidget {
   final Future<List<Actor>> futureActors;
   Extras extras = Extras();
-  Size _screenSize;
-  PageController _pageController;
+  Size? _screenSize;
+  PageController? _pageController;
 
-  double heightPageViewer;
+  double? heightPageViewer;
   double heightCard = 100;
   double widthCard = 80;
 
-  PageViewActor({@required this.futureActors});
+  PageViewActor({required this.futureActors});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class PageViewActor extends StatelessWidget {
             );
           }
           final actors = snapshot.data;
-          if (actors.isEmpty) {
+          if (actors!.isEmpty) {
             return Padding(
               padding: EdgeInsets.symmetric(vertical: 10),
               child: Center(

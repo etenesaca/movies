@@ -7,13 +7,13 @@ import 'package:movies/src/widgets/loading_data_widget.dart';
 class PageViewMovieSection extends StatelessWidget {
   final Future<List<Movie>> futureMovies;
   Extras extras = Extras();
-  Size _screenSize;
-  PageController _pageController;
-  double heightPageViewer;
+  Size? _screenSize;
+  PageController? _pageController;
+  double? heightPageViewer;
   double heightCard = 175.0;
   double widthCard = 110.0;
 
-  PageViewMovieSection({@required this.futureMovies});
+  PageViewMovieSection({required this.futureMovies});
 
   @override
   Widget build(BuildContext context) {
@@ -22,16 +22,16 @@ class PageViewMovieSection extends StatelessWidget {
     _pageController = PageController(
         initialPage: 1,
         viewportFraction:
-            extras.getViewportFraction(_screenSize.width, widthCard));
+            extras.getViewportFraction(_screenSize!.width, widthCard));
     return _buildSection(context);
   }
 
   Widget _buildCard(BuildContext context, Movie movie) {
     final posterCropped = Extras()
         .buildPosterImg(movie.getPosterImgUrl(), 175.0, 110.0, corners: 5);
-    String movie_title = movie.title.length > 28
-        ? '${movie.title.substring(0, 28)}...'
-        : movie.title;
+    String movie_title = movie.title!.length > 28
+        ? '${movie.title!.substring(0, 28)}...'
+        : movie.title!;
     final textStyle = TextStyle(
         fontWeight: FontWeight.bold, fontSize: 11, color: Colors.white70);
     final details = Container(
@@ -41,7 +41,7 @@ class PageViewMovieSection extends StatelessWidget {
         children: <Widget>[
           Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: Extras().buildstarts(movie.voteAverage / 2, 5)),
+              children: Extras().buildstarts(movie.voteAverage! / 2, 5)),
           SizedBox(height: 2.0),
           Text(movie_title, overflow: TextOverflow.fade, style: textStyle),
         ],
@@ -50,7 +50,7 @@ class PageViewMovieSection extends StatelessWidget {
     final res = Container(
       child: Column(
         children: <Widget>[
-          Hero(tag: movie.idHero, child: posterCropped),
+          Hero(tag: movie.idHero!, child: posterCropped),
           details
         ],
       ),
@@ -79,7 +79,7 @@ class PageViewMovieSection extends StatelessWidget {
             );
           }
           final movies = snapshot.data;
-          if (movies.isEmpty) {
+          if (movies!.isEmpty) {
             return Padding(
               padding: EdgeInsets.symmetric(vertical: 10),
               child: Center(
@@ -101,7 +101,7 @@ class PageViewMovieSection extends StatelessWidget {
             child: PageView.builder(
               pageSnapping: false,
               controller: _pageController,
-              itemCount: movies.length,
+              itemCount: movies!.length,
               itemBuilder: (BuildContext context, int index) =>
                   _buildCard(context, movies[index]),
             ),

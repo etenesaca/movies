@@ -206,6 +206,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.0"
+  flutter_icon_shadow:
+    dependency: "direct main"
+    description:
+      name: flutter_icon_shadow
+      sha256: "3dbb6d85b3166ced5d8108b442ac447cd9e903b60e566d48659bf72fdbd767f0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.6"
   flutter_inappwebview:
     dependency: transitive
     description:
@@ -222,6 +230,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.13.1"
+  flutter_lints:
+    dependency: transitive
+    description:
+      name: flutter_lints
+      sha256: a25a15ebbdfc33ab1cd26c63a6ee519df92338a9c10f122adda92938253bef04
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.3"
   flutter_localizations:
     dependency: "direct main"
     description: flutter
@@ -317,6 +333,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.8.1"
+  lints:
+    dependency: transitive
+    description:
+      name: lints
+      sha256: "0a217c6c989d21039f1498c3ed9f3ed71b354e69873f13a8dfc3c9fe76f1b452"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.1"
   matcher:
     dependency: transitive
     description:
@@ -341,6 +365,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.9.1"
+  modal_progress_hud_nsn:
+    dependency: "direct main"
+    description:
+      name: modal_progress_hud_nsn
+      sha256: "0b0d95e5ce3e1884390624fbe79fcf90d7de10abe05d26c0e276c25e7130e3e0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.0"
   nested:
     dependency: transitive
     description:
