@@ -33,9 +33,9 @@ class MovieProvider {
   Future<List<Movie>> _getMoviesData(
     String apiUrl, {
     String callFrom = 'x',
-    int page,
-    String query,
-    String addLanguage,
+    int? page,
+    String? query,
+    String? addLanguage,
     String key = 'results',
   }) async {
     Map<String, String> queryParameters = {};
@@ -91,7 +91,7 @@ class MovieProvider {
 
   // Obtener una lista de video relacionado a una pelicula
   Future<List<Video>> getVideosByLanguage(int movieId, String language,
-      {String labelLanguage}) async {
+      {String? labelLanguage}) async {
     String apiUrl = '/movie/$movieId/videos';
     final resJsonData = await _getHttpData(apiUrl, {'language': language});
     if (labelLanguage == null) {
@@ -134,7 +134,7 @@ class MovieProvider {
     List<String> resIds = [];
     res.forEach((newVideo) {
       if (!resIds.contains(newVideo.key)) {
-        resIds.add(newVideo.key);
+        resIds.add(newVideo.key!);
         resFiltered.add(newVideo);
       }
     });

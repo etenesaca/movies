@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Backdrops {
-  List<Backdrop> items = List();
+  List<Backdrop> items = [];
   Backdrops();
   Backdrops.fromJsonMap(List<dynamic> jsonList) {
     items.addAll(jsonList.map((e) => Backdrop.fromJsonMap(e)).toList());
@@ -9,13 +9,13 @@ class Backdrops {
 }
 
 class Backdrop {
-  double aspectRatio;
-  String filePath;
-  int height;
-  dynamic iso6391;
-  double voteAverage;
-  int voteCount;
-  int width;
+  double? aspectRatio;
+  String? filePath;
+  int? height;
+  dynamic? iso6391;
+  double? voteAverage;
+  int? voteCount;
+  int? width;
 
   Backdrop({
     this.aspectRatio,

@@ -1,5 +1,5 @@
 class Videos {
-  List<Video> items = List();
+  List<Video> items = [];
   Videos();
   Videos.fromJsonMap(List<dynamic> jsonList, String language) {
     items.addAll(jsonList.map((e) => Video.fromJsonMap(e, language)));
@@ -7,15 +7,15 @@ class Videos {
 }
 
 class Video {
-  String id;
-  String iso6391;
-  String iso31661;
-  String key;
-  String name;
-  String site;
-  int size;
-  String type;
-  String lang;
+  String? id;
+  String? iso6391;
+  String? iso31661;
+  String? key;
+  String? name;
+  String? site;
+  int? size;
+  String? type;
+  String? lang;
 
   Video({
     this.id,

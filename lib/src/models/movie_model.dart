@@ -4,7 +4,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/material.dart';
 
 class Movies {
-  List<Movie> items = List();
+  List<Movie> items = [];
   Movies();
   Movies.fromJsonMap(List<dynamic> jsonList, String callFrom) {
     jsonList.forEach((x) {
@@ -14,29 +14,29 @@ class Movies {
 }
 
 class Movie {
-  double popularity;
-  int voteCount;
-  bool video;
-  String posterPath;
-  int id;
-  String idHero;
-  bool adult;
-  String backdropPath;
-  String originalLanguage;
-  String originalTitle;
-  List<int> genreIds;
-  String title;
-  double voteAverage;
-  String overview;
-  String releaseDate;
-  dynamic belongsToCollection;
-  String imdbId;
-  int budget;
-  String homepage;
-  int revenue;
-  int runtime;
-  String status;
-  String tagline;
+  double? popularity;
+  int? voteCount;
+  bool? video;
+  String? posterPath;
+  int? id;
+  String? idHero;
+  bool? adult;
+  String? backdropPath;
+  String? originalLanguage;
+  String? originalTitle;
+  List<int>? genreIds;
+  String? title;
+  double? voteAverage;
+  String? overview;
+  String? releaseDate;
+  dynamic? belongsToCollection;
+  String? imdbId;
+  int? budget;
+  String? homepage;
+  int? revenue;
+  int? runtime;
+  String? status;
+  String? tagline;
 
   Movie({
     this.voteCount,

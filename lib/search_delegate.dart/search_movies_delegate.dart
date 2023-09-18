@@ -38,11 +38,11 @@ class MovieSearch extends SearchDelegate {
     } catch (e) {}
 
     return ListTile(
-      title: Text(movie.title),
+      title: Text(movie.title!),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(movie.originalTitle),
+          Text(movie.originalTitle!),
           Text(
             movieyear,
             style: TextStyle(
@@ -71,7 +71,7 @@ class MovieSearch extends SearchDelegate {
           if (snapshot.hasData) {
             final movies = snapshot.data;
             return ListView.builder(
-                itemCount: movies.length,
+                itemCount: movies!.length,
                 itemBuilder: (BuildContext context, int index) {
                   return _buildItem(context, movies[index]);
                 });

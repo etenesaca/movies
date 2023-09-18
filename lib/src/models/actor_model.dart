@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Cast {
-  List<Actor> items = List();
+  List<Actor> items = [];
   Cast();
   Cast.fromJsonMap(List<dynamic> jsonList) {
     items.addAll(jsonList.map((e) => Actor.fromJsonMap(e)).toList());
@@ -9,26 +9,26 @@ class Cast {
 }
 
 class Actor {
-  String birthday;
-  String knownForDepartment;
-  String deathday;
-  int id;
-  String name;
-  List<dynamic> alsoKnownAs;
-  int gender;
-  String biography;
-  double popularity;
-  String placeOfBirth;
-  String profilePath;
-  bool adult;
-  String imdbId;
-  dynamic homepage;
-  String idHero;
+  String? birthday;
+  String? knownForDepartment;
+  String? deathday;
+  int? id;
+  String? name;
+  List<dynamic>? alsoKnownAs;
+  int? gender;
+  String? biography;
+  double? popularity;
+  String? placeOfBirth;
+  String? profilePath;
+  bool? adult;
+  String? imdbId;
+  dynamic? homepage;
+  String? idHero;
 
-  int castId;
-  String character;
-  String creditId;
-  int order;
+  int? castId;
+  String? character;
+  String? creditId;
+  int? order;
 
   Actor({
     this.castId,

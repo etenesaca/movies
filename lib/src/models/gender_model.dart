@@ -1,5 +1,5 @@
 class MovieGenres {
-  List<MovieGenre> items = List();
+  List<MovieGenre> items = [];
   MovieGenres();
   MovieGenres.fromJsonMap(List<dynamic> jsonList) {
     items.addAll(jsonList.map((e) => MovieGenre.fromJsonMap(e)).toList());
@@ -7,8 +7,8 @@ class MovieGenres {
 }
 
 class MovieGenre {
-  int id;
-  String name;
+  int? id;
+  String? name;
 
   MovieGenre({
     this.id,

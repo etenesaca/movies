@@ -34,15 +34,15 @@ class Extras {
     int avg = votes.toInt();
     bool halfStart = ((votes - avg) * 100) > maxStart;
     for (var i = 0; i < avg; i++) {
-      starts.add(_buildStarIcon(Icons.star, Colors.yellow[800]));
+      starts.add(_buildStarIcon(Icons.star, Colors.yellow[800]!));
     }
     if (halfStart) {
       avg++;
-      starts.add(_buildStarIcon(Icons.star_half, Colors.yellow[800]));
+      starts.add(_buildStarIcon(Icons.star_half, Colors.yellow[800]!));
     }
     ;
     for (var i = 0; i < (maxStart - avg); i++) {
-      starts.add(_buildStarIcon(Icons.star, Colors.brown[800]));
+      starts.add(_buildStarIcon(Icons.star, Colors.brown[800]!));
     }
     return starts;
   }
@@ -97,7 +97,7 @@ class Extras {
   }
 
   Widget buildBoxTag(String label, Color color,
-      {EdgeInsets padding, double textSize, Color textColor}) {
+      {EdgeInsets? padding, double? textSize, Color? textColor}) {
     final txtStyle = TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: textSize != null ? textSize : 12.0,
@@ -174,7 +174,7 @@ class Extras {
             child: Container(
               padding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
               child: Text(textBackground,
-                  textAlign: TextAlign.start,                  
+                  textAlign: TextAlign.start,
                   style: TextStyle(
                       color: Colors.white10,
                       fontSize: 60,

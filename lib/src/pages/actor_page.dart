@@ -10,8 +10,8 @@ import 'package:movies/src/widgets/page_view_actor_movies_widget.dart';
 class ActorPage extends StatelessWidget {
   MovieProvider movieApi = MovieProvider();
   Extras extras = Extras();
-  Color mainColor;
-  Size _screenSize;
+  Color? mainColor;
+  Size? _screenSize;
 
   EdgeInsets paddingSections =
       EdgeInsets.symmetric(vertical: 0, horizontal: 20);
@@ -50,13 +50,13 @@ class ActorPage extends StatelessWidget {
 
   Widget _buildInfo(Actor actor) {
     return FutureBuilder(
-      future: movieApi.getActorDetail(actor.id),
+      future: movieApi.getActorDetail(actor.id!),
       builder: (BuildContext context, AsyncSnapshot<Actor> snapshot) {
         if (!snapshot.hasData) {
           return LoadingData();
         }
         final idHeroActor = actor.idHero;
-        actor = snapshot.data;
+        actor = snapshot.data!;
         actor.idHero = idHeroActor;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -197,7 +197,7 @@ class ActorPage extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-                shape: const StadiumBorder(), backgroundColor: Colors.white10),
+                shape: const StadiumBorder(), primary: Colors.white10),
             child: Row(
               children: <Widget>[
                 Icon(

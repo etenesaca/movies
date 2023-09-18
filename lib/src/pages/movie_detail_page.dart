@@ -293,7 +293,7 @@ class MovieDetailPage extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white10, shape: const StadiumBorder()),
+                primary: Colors.white10, shape: const StadiumBorder()),
             child: Row(
               children: <Widget>[
                 Icon(
