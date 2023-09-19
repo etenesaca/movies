@@ -1,10 +1,10 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_card_swiper/flutter_card_swiper.dart';
+import 'package:card_swiper/card_swiper.dart';
 import 'package:movies/common/extras.dart';
 import 'package:movies/src/models/image_model.dart';
 
-import 'package:flutter_page_indicator/flutter_page_indicator.dart';
+//import 'package:flutter_page_indicator/flutter_page_indicator.dart';
 
 class SwiperBackdrops extends StatelessWidget {
   Extras extras = Extras();
@@ -52,7 +52,7 @@ class SwiperBackdrops extends StatelessWidget {
       itemWidth: heightCard,
       itemHeight: widthCard,
       viewportFraction:
-          Extras().getViewportFraction(_screenSize.width, widthCard),
+          Extras().getViewportFraction(_screenSize!.width, widthCard),
       //scale: .75,
       indicatorLayout: PageIndicatorLayout.COLOR,
       pagination: _buiidPagination(),

@@ -110,12 +110,12 @@ class _MoviePosterPageState extends State<MoviePosterPage> {
       {AndroidDestinationType? destination,
       bool whenError = false,
       String? outputMimeType}) async {
-    String fileName;
-    String path;
-    int size;
-    String mimeType;
+    String? fileName;
+    String? path;
+    int? size;
+    String? mimeType;
     try {
-      String imageId;
+      String? imageId;
 
       if (whenError) {
         imageId = await ImageDownloader.downloadImage(url,
@@ -165,7 +165,7 @@ class _MoviePosterPageState extends State<MoviePosterPage> {
       mimeType = await ImageDownloader.findMimeType(imageId);
     } on PlatformException catch (error) {
       setState(() {
-        _message = error.message;
+        _message = error.message!;
       });
       return;
     }
@@ -177,7 +177,7 @@ class _MoviePosterPageState extends State<MoviePosterPage> {
       _message = 'Saved as "$fileName" in $location.\n';
       _size = 'size:     $size';
       _mimeType = 'mimeType: $mimeType';
-      _path = path;
+      _path = path!;
 
       if (!_mimeType.contains("video")) {
         _imageFile = File(path);
@@ -206,7 +206,7 @@ class _MoviePosterPageState extends State<MoviePosterPage> {
       ),
     );
 
-    fToast.showToast(
+    fToast!.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
       toastDuration: Duration(seconds: 2),

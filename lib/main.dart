@@ -62,14 +62,14 @@ class MyApp extends StatelessWidget {
               case 'movie_poster':
                 return PageTransition(
                     child: MoviePosterPage(),
-                    type: PageTransitionType.downToUp,
+                    type: PageTransitionType.bottomToTop,
                     settings: settings,
                     duration: Duration(milliseconds: 300));
                 break;
               case 'galery':
                 return PageTransition(
                     child: GaleryPage(),
-                    type: PageTransitionType.downToUp,
+                    type: PageTransitionType.bottomToTop,
                     settings: settings,
                     duration: Duration(milliseconds: 300));
                 break;

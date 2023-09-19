@@ -268,7 +268,7 @@ class _SettingsPageState extends State<SettingsPage> {
         child: Column(
           children: <Widget>[
             userSection(),
-            extras.buildSection(
+            extras!.buildSection(
                 title: '',
                 child: menuOptions(context),
                 textBackground: 'Opciones'),
@@ -297,7 +297,7 @@ class _SettingsPageState extends State<SettingsPage> {
       margin: EdgeInsets.all(8.0),
       child: ListTile(
         onTap: () {},
-        leading: extras.buildAvatar(
+        leading: extras!.buildAvatar(
             Colors.grey,
             'Juan Perez',
             NetworkImage(
@@ -581,7 +581,7 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
     );
 
-    fToast.showToast(
+    fToast!.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
       toastDuration: Duration(seconds: 2),

@@ -20,7 +20,7 @@ Widget _buildAppBar(Movie pelicula) {
     flexibleSpace: FlexibleSpaceBar(
       centerTitle: true,
       title: Text(
-        pelicula.title,
+        pelicula.title!,
         style: TextStyle(color: Colors.white, fontSize: 14.0),
       ),
       background: FadeInImage(
