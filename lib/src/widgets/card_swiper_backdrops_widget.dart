@@ -1,6 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:movies/common/extras.dart';
 import 'package:movies/src/models/image_model.dart';
 
@@ -9,7 +9,7 @@ import 'package:flutter_page_indicator/flutter_page_indicator.dart';
 class SwiperBackdrops extends StatelessWidget {
   Extras extras = Extras();
   List<Backdrop> images;
-  Size _screenSize;
+  Size? _screenSize;
   double _cardCorners = 8.0;
   final double heightCard;
   final double widthCard;
@@ -22,7 +22,7 @@ class SwiperBackdrops extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _screenSize = MediaQuery.of(context).size;
-    final itemWidth = _screenSize.width * .4;
+    final itemWidth = _screenSize!.width * .4;
     if (images.isEmpty) {
       return Container(
         child: Row(

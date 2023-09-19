@@ -41,7 +41,7 @@ class _PageViewSectionState extends State<PageViewSection> {
             extras.getViewportFraction(_screenSize!.width, widthCard));
 
     widget.sinkNextPage();
-    _pageController.addListener(() {
+    _pageController!.addListener(() {
       if (_pageController!.position.pixels >=
           _pageController!.position.maxScrollExtent - 200) {
         widget.sinkNextPage();

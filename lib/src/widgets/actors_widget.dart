@@ -8,16 +8,16 @@ import 'package:movies/src/models/movie_model.dart';
 
 class ActorWidget extends StatelessWidget {
   Extras extras = Extras();
-  final List<Actor> cast;
-  final Movie movie;
+  final List<Actor>? cast;
+  final Movie? movie;
 
   ActorWidget({this.cast, this.movie});
 
   @override
   Widget build(BuildContext context) {
     List<Actor> filteredCast = [];
-    for (var i = 0; i < min(15, cast.length); i++) {
-      filteredCast.add(cast[i]);
+    for (var i = 0; i < min(15, cast!.length); i++) {
+      filteredCast.add(cast![i]);
     }
     final items = filteredCast.map((e) => _buildActorItem(context, e)).toList();
     return Wrap(
@@ -35,10 +35,11 @@ class ActorWidget extends StatelessWidget {
         : colorsMale[Random().nextInt(colorsMale.length)];
     final actorPhoto =
         actor.profilePath != null ? actor.getPhotoImgSmall() : null;
-    Widget avatar = extras.buildAvatar(avatarColor, actor.name, actorPhoto, 29);
-    actor.idHero = '${actor.idHero}_${movie.idHero}';
+    Widget avatar =
+        extras.buildAvatar(avatarColor, actor.name!, actorPhoto, 29);
+    actor.idHero = '${actor.idHero}_${movie!.idHero}';
     avatar = GestureDetector(
-      child: Hero(tag: actor.idHero, child: avatar),
+      child: Hero(tag: actor.idHero!, child: avatar),
       onTap: () {
         //Navigator.push(context, PageTransition(type: PageTransitionType.leftToRightWithFade, child: DetailScreen()));
         Navigator.pushNamed(context, 'actor', arguments: actor);
@@ -50,7 +51,7 @@ class ActorWidget extends StatelessWidget {
         children: <Widget>[
           avatar,
           Text(
-            actor.name,
+            actor.name!,
             style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.bold,
@@ -58,7 +59,7 @@ class ActorWidget extends StatelessWidget {
             overflow: TextOverflow.clip,
           ),
           Text(
-            actor.character,
+            actor.character!,
             style: TextStyle(
                 fontSize: 10,
                 fontWeight: FontWeight.normal,

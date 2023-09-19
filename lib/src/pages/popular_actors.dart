@@ -11,8 +11,8 @@ import 'package:movies/src/widgets/page_view_actor_widget.dart';
 class PopularActorsPage extends StatelessWidget {
   MovieProvider movieApi = MovieProvider();
   Extras extras = Extras();
-  Color mainColor;
-  Size _screenSize;
+  Color? mainColor;
+  Size? _screenSize;
   EdgeInsets paddingSections =
       EdgeInsets.symmetric(vertical: 0, horizontal: 20);
 
@@ -47,7 +47,7 @@ class PopularActorsPage extends StatelessWidget {
   }
 
   Widget _buildPoster(BuildContext context, Actor actor) {
-    double imageHeight = _screenSize.height * 0.6;
+    double imageHeight = _screenSize!.height * 0.6;
     Widget _imagePoster() {
       Widget res = FadeInImage(
         placeholder: AssetImage('assets/img/loading.gif'),
@@ -58,7 +58,7 @@ class PopularActorsPage extends StatelessWidget {
       );
       actor.idHero = '${actor.idHero}_latest';
       return Hero(
-        tag: actor.idHero,
+        tag: actor.idHero!,
         child: res,
       );
     }
@@ -72,13 +72,13 @@ class PopularActorsPage extends StatelessWidget {
                 end: FractionalOffset(0.1, 0.97),
                 colors: [
               Colors.transparent,
-              mainColor.withOpacity(0.0),
-              mainColor.withOpacity(0.3),
-              mainColor.withOpacity(0.5),
-              mainColor.withOpacity(0.7),
-              mainColor.withOpacity(0.8),
-              mainColor.withOpacity(0.9),
-              mainColor,
+              mainColor!.withOpacity(0.0),
+              mainColor!.withOpacity(0.3),
+              mainColor!.withOpacity(0.5),
+              mainColor!.withOpacity(0.7),
+              mainColor!.withOpacity(0.8),
+              mainColor!.withOpacity(0.9),
+              mainColor!,
             ])),
       );
     }
@@ -98,16 +98,16 @@ class PopularActorsPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             Text(
-              actor.name,
+              actor.name!,
               style: textStyle,
             ),
             SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                extras.buildBoxTag(actor.knownForDepartment, Colors.teal),
+                extras.buildBoxTag(actor.knownForDepartment!, Colors.teal),
                 SizedBox(width: 25),
-                extras.buildActorPopularity(actor.popularity),
+                extras.buildActorPopularity(actor.popularity!),
                 SizedBox(width: 25),
                 GestureDetector(
                   onTap: () {

@@ -86,14 +86,14 @@ class ActorPage extends StatelessWidget {
         children: <Widget>[
           ZoomIn(
             delay: Duration(microseconds: 100),
-            child: extras.buildBoxTag(actor.knownForDepartment, Colors.teal),
+            child: extras.buildBoxTag(actor.knownForDepartment!, Colors.teal),
           ),
           SizedBox(
             width: 20,
           ),
           ZoomIn(
             delay: Duration(microseconds: 100),
-            child: extras.buildActorPopularity(actor.popularity),
+            child: extras.buildActorPopularity(actor.popularity!),
           )
         ],
       ),
@@ -116,7 +116,7 @@ class ActorPage extends StatelessWidget {
           _geTitleSection('Biografía'),
           SizedBox(height: 10),
           Text(
-            actor.biography,
+            actor.biography!,
             textAlign: TextAlign.justify,
             style: TextStyle(color: Colors.white70),
           ),
@@ -177,7 +177,7 @@ class ActorPage extends StatelessWidget {
     double heightCard = 150;
     double widthCard = heightCard + heightCard * .40;
     final imagesCards = FutureBuilder(
-        future: MovieProvider().getActorImagesList(actor.id),
+        future: MovieProvider().getActorImagesList(actor.id!),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.hasData) {
             return SwiperBackdrops(
@@ -215,7 +215,7 @@ class ActorPage extends StatelessWidget {
             ),
             onPressed: () {
               Navigator.pushNamed(context, 'galery',
-                  arguments: movieApi.getActorImagesList(actor.id));
+                  arguments: movieApi.getActorImagesList(actor.id!));
             },
           ),
         )
@@ -253,7 +253,7 @@ class ActorPage extends StatelessWidget {
         width: double.infinity,
       );
       return Hero(
-        tag: actor.idHero,
+        tag: actor.idHero!,
         child: res,
       );
     }
@@ -291,7 +291,7 @@ class ActorPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             Text(
-              actor.name,
+              actor.name!,
               style: textStyle,
             )
           ],

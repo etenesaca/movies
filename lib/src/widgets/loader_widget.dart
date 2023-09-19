@@ -8,7 +8,7 @@ class LoaderWidget extends StatefulWidget {
 
 class _LoaderWidgetState extends State<LoaderWidget>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
+  AnimationController? _controller;
 
   @override
   void initState() {
@@ -17,23 +17,23 @@ class _LoaderWidgetState extends State<LoaderWidget>
       vsync: this,
       duration: const Duration(milliseconds: 1500),
     );
-    _controller.repeat();
+    _controller!.repeat();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller!.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-      animation: _controller,
+      animation: _controller!,
       builder: (context, child) {
         return Transform.rotate(
           angle: vector.radians(
-            180 * _controller.value,
+            180 * _controller!.value,
           ),
           child: child,
         );

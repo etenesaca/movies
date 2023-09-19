@@ -51,7 +51,7 @@ class CardSwiper extends StatelessWidget {
         Navigator.pushNamed(context, 'movie_detail',
             arguments: {'movie': movie});
       },
-      child: Hero(tag: movie.idHero, child: posterCropped),
+      child: Hero(tag: movie.idHero!, child: posterCropped),
     );
   }
 

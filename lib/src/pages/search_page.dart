@@ -115,14 +115,14 @@ class SearchPage extends StatelessWidget {
 
     return ListTile(
       title: Text(
-        movie.title,
+        movie.title!,
         style: titleStyle,
       ),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            movie.originalTitle,
+            movie.originalTitle!,
             style: subtitleStyle,
           ),
           Text(
@@ -133,7 +133,7 @@ class SearchPage extends StatelessWidget {
       ),
       leading: Padding(
         padding: EdgeInsets.symmetric(vertical: 5),
-        child: Hero(tag: movie.idHero, child: poster),
+        child: Hero(tag: movie.idHero!, child: poster),
       ),
       onTap: () {
         //close(context, null);

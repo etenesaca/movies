@@ -14,9 +14,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Size _screenSize;
-  MoviePopularBloc pupularBloc;
-  MovieTopRatedBloc topRatedBloc;
+  Size? _screenSize;
+  MoviePopularBloc? pupularBloc;
+  MovieTopRatedBloc? topRatedBloc;
   //MovieUpcomingBloc upcomingBloc;
 
   final moviesProvider = MovieProvider();
@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildNowPlayingSection(BuildContext context) {
-    final _cardHeight = _screenSize.height * 0.50;
+    final _cardHeight = _screenSize!.height * 0.50;
 
     final res = FutureBuilder(
         future: moviesProvider.getMoviesNowPlaying(),
@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> {
           }
           return Padding(
               padding: EdgeInsets.only(top: 25.0),
-              child: CardSwiper(movies: snapshot.data, args: {}));
+              child: CardSwiper(movies: snapshot.data!, args: {}));
         });
     return Container(
       height: _cardHeight,
@@ -102,8 +102,8 @@ class _HomePageState extends State<HomePage> {
     topRatedBloc = MovieTopRatedBloc();
     final res = PageViewSection(
       titleSection: 'Mejor calificadas',
-      moviesStream: topRatedBloc.moviesStream,
-      sinkNextPage: topRatedBloc.getNextPage,
+      moviesStream: topRatedBloc!.moviesStream,
+      sinkNextPage: topRatedBloc!.getNextPage,
       args: {},
     );
     return res;

@@ -10,8 +10,8 @@ import 'package:movies/src/widgets/page_view_actor_movies_widget.dart';
 class NewPage extends StatelessWidget {
   MovieProvider movieApi = MovieProvider();
   Extras extras = Extras();
-  Color mainColor;
-  Size _screenSize;
+  Color? mainColor;
+  Size? _screenSize;
   EdgeInsets paddingSections =
       EdgeInsets.symmetric(vertical: 0, horizontal: 20);
 
@@ -46,7 +46,7 @@ class NewPage extends StatelessWidget {
   }
 
   Widget _buildPoster(BuildContext context, Movie movie) {
-    double imageHeight = _screenSize.height * 0.6;
+    double imageHeight = _screenSize!.height * 0.6;
     Widget _imagePoster() {
       Widget res = FadeInImage(
         placeholder: AssetImage('assets/img/loading.gif'),
@@ -57,7 +57,7 @@ class NewPage extends StatelessWidget {
       );
       movie.idHero = '${movie.idHero}_latest';
       return Hero(
-        tag: movie.idHero,
+        tag: movie.idHero!,
         child: res,
       );
     }
@@ -71,13 +71,13 @@ class NewPage extends StatelessWidget {
                 end: FractionalOffset(0.1, 0.97),
                 colors: [
               Colors.transparent,
-              mainColor.withOpacity(0.0),
-              mainColor.withOpacity(0.3),
-              mainColor.withOpacity(0.5),
-              mainColor.withOpacity(0.7),
-              mainColor.withOpacity(0.8),
-              mainColor.withOpacity(0.9),
-              mainColor,
+              mainColor!.withOpacity(0.0),
+              mainColor!.withOpacity(0.3),
+              mainColor!.withOpacity(0.5),
+              mainColor!.withOpacity(0.7),
+              mainColor!.withOpacity(0.8),
+              mainColor!.withOpacity(0.9),
+              mainColor!,
             ])),
       );
     }
@@ -96,7 +96,7 @@ class NewPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             Text(
-              movie.title,
+              movie.title!,
               style: textStyle,
             ),
             SizedBox(height: 10),

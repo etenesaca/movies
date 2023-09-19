@@ -25,7 +25,7 @@ class _RootPageState extends State<RootPage> with WidgetsBindingObserver {
   int _page = 0;
   GlobalKey _bottomNavigationKey = GlobalKey();
 
-  Widget _homeTab;
+  Widget? _homeTab;
   Widget getHomeTab(BuildContext context) {
     if (_homeTab == null) {
       _homeTab = Container(
@@ -33,10 +33,10 @@ class _RootPageState extends State<RootPage> with WidgetsBindingObserver {
         children: <Widget>[extras.getBackgroundApp(), HomePage()],
       ));
     }
-    return _homeTab;
+    return _homeTab!;
   }
 
-  Widget _searchTab;
+  Widget? _searchTab;
   Widget getSearchTab(BuildContext context) {
     if (_searchTab == null) {
       _searchTab = Container(
@@ -44,10 +44,10 @@ class _RootPageState extends State<RootPage> with WidgetsBindingObserver {
         children: <Widget>[extras.getBackgroundApp(), SearchPage()],
       ));
     }
-    return _searchTab;
+    return _searchTab!;
   }
 
-  Widget _newsTab;
+  Widget? _newsTab;
   Widget getNewsTab() {
     if (_newsTab == null) {
       _newsTab = Container(
@@ -55,10 +55,10 @@ class _RootPageState extends State<RootPage> with WidgetsBindingObserver {
         children: <Widget>[extras.getBackgroundApp(), NewPage()],
       ));
     }
-    return _newsTab;
+    return _newsTab!;
   }
 
-  Widget _actorsTab;
+  Widget? _actorsTab;
   Widget getActorsTab() {
     if (_actorsTab == null) {
       _actorsTab = Container(
@@ -66,10 +66,10 @@ class _RootPageState extends State<RootPage> with WidgetsBindingObserver {
         children: <Widget>[extras.getBackgroundApp(), PopularActorsPage()],
       ));
     }
-    return _actorsTab;
+    return _actorsTab!;
   }
 
-  Widget _configTab;
+  Widget? _configTab;
   Widget getConfigTab() {
     if (_configTab == null) {
       _configTab = Container(
@@ -77,7 +77,7 @@ class _RootPageState extends State<RootPage> with WidgetsBindingObserver {
         children: <Widget>[extras.getBackgroundApp(), SettingsPage()],
       ));
     }
-    return _configTab;
+    return _configTab!;
   }
 
   @override

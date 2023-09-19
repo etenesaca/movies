@@ -278,7 +278,7 @@ class Extras {
   }
 
   Widget buildBackdropCard(Backdrop image,
-      {EdgeInsets padding, bool smaillImage = false}) {
+      {EdgeInsets? padding, bool smaillImage = false}) {
     if (padding == null) {
       padding = const EdgeInsets.symmetric();
     }

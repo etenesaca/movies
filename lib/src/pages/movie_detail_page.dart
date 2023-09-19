@@ -150,7 +150,7 @@ class MovieDetailPage extends StatelessWidget {
           SizedBox(height: 3),
           Row(
               mainAxisAlignment: MainAxisAlignment.start,
-              children: Extras().buildstarts(movie.voteAverage, 10)),
+              children: Extras().buildstarts(movie.voteAverage!, 10)),
         ],
       ),
     );
@@ -158,7 +158,7 @@ class MovieDetailPage extends StatelessWidget {
 
   buildMovieRuntime(Movie movie) {
     return FutureBuilder(
-        future: movieApi.getMovieDetail(movie.id),
+        future: movieApi.getMovieDetail(movie.id!),
         builder: (BuildContext context, AsyncSnapshot<Movie> snapshot) {
           if (!snapshot.hasData) {
             return Container();
@@ -221,7 +221,7 @@ class MovieDetailPage extends StatelessWidget {
         children: <Widget>[
           extras.buildTitleSection('Sinopsis'),
           SizedBox(height: 5),
-          ExpandableText(movie.overview,
+          ExpandableText(movie.overview!,
               expandText: 'Ver más',
               collapseText: 'Ver menos',
               textAlign: TextAlign.justify,
@@ -244,7 +244,7 @@ class MovieDetailPage extends StatelessWidget {
               children: <Widget>[
                 extras.buildTitleSection('Fecha de estreno'),
                 Text(
-                  movie.releaseDate,
+                  movie.releaseDate!,
                   textAlign: TextAlign.justify,
                   style: TextStyle(
                       color: Colors.blueAccent, fontWeight: FontWeight.w700),
@@ -270,7 +270,7 @@ class MovieDetailPage extends StatelessWidget {
     double heightCard = 150;
     double widthCard = heightCard + heightCard * .40;
     final images = FutureBuilder(
-        future: movieApi.getMovieImagesList(movie.id),
+        future: movieApi.getMovieImagesList(movie.id!),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.hasData) {
             return SwiperBackdrops(
@@ -312,7 +312,7 @@ class MovieDetailPage extends StatelessWidget {
             ),
             onPressed: () {
               Navigator.pushNamed(context, 'galery',
-                  arguments: movieApi.getMovieImagesList(movie.id));
+                  arguments: movieApi.getMovieImagesList(movie.id!));
             },
           ),
         )
@@ -327,12 +327,12 @@ class MovieDetailPage extends StatelessWidget {
 
   _buildSectionCast(BuildContext context, Movie movie) {
     final actorItems = FutureBuilder(
-        future: movieApi.getMovieCast(movie.id),
+        future: movieApi.getMovieCast(movie.id!),
         builder: (BuildContext context, AsyncSnapshot<List<Actor>> snapshot) {
           if (!snapshot.hasData) {
             return LoadingData();
           }
-          return ActorWidget(cast: snapshot.data, movie: movie);
+          return ActorWidget(cast: snapshot.data!, movie: movie);
         });
     return extras.buildSection(
         title: 'Actores principales',
@@ -342,14 +342,14 @@ class MovieDetailPage extends StatelessWidget {
 
   Widget _buildMovieRecommendeds(BuildContext context, Movie movie) {
     final res = PageViewMovieSection(
-        futureMovies: movieApi.getMovieRecommendeds(movie.id));
+        futureMovies: movieApi.getMovieRecommendeds(movie.id!));
     return extras.buildSection(
         title: 'Sugeridas', child: res, paddingHeader: paddingSections);
   }
 
   Widget _buildMovieSimilars(BuildContext context, Movie movie) {
     final res =
-        PageViewMovieSection(futureMovies: movieApi.getMovieSimilars(movie.id));
+        PageViewMovieSection(futureMovies: movieApi.getMovieSimilars(movie.id!));
     return extras.buildSection(
         title: 'Similares', child: res, paddingHeader: paddingSections);
   }

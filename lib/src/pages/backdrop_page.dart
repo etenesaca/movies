@@ -24,13 +24,13 @@ class _MoviePosterPageState extends State<MoviePosterPage> {
   String _mimeType = "";
   File? _imageFile;
 
-  FToast fToast;
+  FToast? fToast;
 
   @override
   void initState() {
     super.initState();
 
-    fToast = FToast(context);
+    fToast = FToast();
     ImageDownloader.callback(onProgressUpdate: (String? imageId, int progress) {
       setState(() {
         _progress = progress;

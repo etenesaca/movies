@@ -34,7 +34,7 @@ class VideoListPage extends StatelessWidget {
 
   Widget getListviewVideo(Movie movie) {
     return FutureBuilder(
-        future: MovieProvider().getVideos(movie.id),
+        future: MovieProvider().getVideos(movie.id!),
         builder: (BuildContext context, AsyncSnapshot<List<Video>> snapshot) {
           if (!snapshot.hasData) {
             return LoadingData();
@@ -158,15 +158,15 @@ class VideoListPage extends StatelessWidget {
             //VideoScreen(id: video.key),
             buildThumbnail(context, video),
             ListTile(
-              trailing: extras.buildBoxTag(video.lang, Colors.white,
+              trailing: extras.buildBoxTag(video.lang!, Colors.white,
                   textColor: Colors.blueAccent),
               leading: avatar,
-              title: Text(video.name,
+              title: Text(video.name!,
                   style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                       fontSize: 12)),
-              subtitle: Text(video.type,
+              subtitle: Text(video.type!,
                   style: TextStyle(color: Colors.white60, fontSize: 11)),
             )
           ],

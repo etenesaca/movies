@@ -24,7 +24,7 @@ class PageViewActor extends StatelessWidget {
     _pageController = PageController(
         initialPage: 1,
         viewportFraction:
-            extras.getViewportFraction(_screenSize.width, widthCard));
+            extras.getViewportFraction(_screenSize!.width, widthCard));
     heightPageViewer = heightCard + 50;
     return _buildSection(context);
   }
@@ -93,7 +93,7 @@ class PageViewActor extends StatelessWidget {
         : colorsMale[Random().nextInt(colorsMale.length)];
     final actorPhoto =
         actor.profilePath != null ? actor.getPhotoImgSmall() : null;
-    Widget avatar = extras.buildAvatar(avatarColor, actor.name, actorPhoto, 40);
+    Widget avatar = extras.buildAvatar(avatarColor, actor.name!, actorPhoto, 40);
     avatar = Container(
       height: heightCard,
       child: avatar,
@@ -136,7 +136,7 @@ class PageViewActor extends StatelessWidget {
     );
     actor.idHero = 'BA_${actor.idHero}';
     avatar = GestureDetector(
-      child: Hero(tag: actor.idHero, child: avatar),
+      child: Hero(tag: actor.idHero!, child: avatar),
       onTap: () {
         //Navigator.push(context, PageTransition(type: PageTransitionType.leftToRightWithFade, child: DetailScreen()));
         Navigator.pushNamed(context, 'actor', arguments: actor);
@@ -150,7 +150,7 @@ class PageViewActor extends StatelessWidget {
         SizedBox(
           width: widthCard,
           child: Text(
-            actor.name,
+            actor.name!,
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: 12,
