@@ -7,7 +7,7 @@ import 'package:movies/src/models/movie_model.dart';
 class SliverMoviePoster extends SliverPersistentHeaderDelegate {
   final double expandedHeight;
   final Movie movie;
-  Color mainColor = Color.fromRGBO(24, 33, 46, 1.0);
+  Color mainColor = Color.fromRGBO(24, 33, 46, 1);
   double heightPoster = 185.0 - (185.0 * 0.10);
   double widthPoster = 120.0 - (120.0 * 0.10);
 

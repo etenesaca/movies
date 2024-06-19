@@ -1,4 +1,4 @@
-package com.example.movies
+package com.tera.movies
 
 import io.flutter.embedding.android.FlutterActivity
 

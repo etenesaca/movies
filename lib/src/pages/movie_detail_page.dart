@@ -294,7 +294,7 @@ class MovieDetailPage extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-                primary: Colors.white10, shape: const StadiumBorder()),
+                backgroundColor: Colors.white10, shape: const StadiumBorder()),
             child: Row(
               children: <Widget>[
                 Icon(
@@ -348,8 +348,8 @@ class MovieDetailPage extends StatelessWidget {
   }
 
   Widget _buildMovieSimilars(BuildContext context, Movie movie) {
-    final res =
-        PageViewMovieSection(futureMovies: movieApi.getMovieSimilars(movie.id!));
+    final res = PageViewMovieSection(
+        futureMovies: movieApi.getMovieSimilars(movie.id!));
     return extras.buildSection(
         title: 'Similares', child: res, paddingHeader: paddingSections);
   }

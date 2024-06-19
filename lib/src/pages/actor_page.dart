@@ -197,7 +197,7 @@ class ActorPage extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-                shape: const StadiumBorder(), primary: Colors.white10),
+                shape: const StadiumBorder(), backgroundColor: Colors.white10),
             child: Row(
               children: <Widget>[
                 Icon(
