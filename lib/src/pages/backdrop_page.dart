@@ -4,7 +4,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_downloader/image_downloader.dart';
+// import 'package:image_downloader/image_downloader.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:movies/common/extras.dart';
 import 'package:movies/src/models/image_model.dart';
@@ -31,12 +31,14 @@ class _MoviePosterPageState extends State<MoviePosterPage> {
     super.initState();
 
     fToast = FToast();
+    /*
     ImageDownloader.callback(onProgressUpdate: (String? imageId, int progress) {
       setState(() {
         _progress = progress;
         downloading = (_progress == 0 || _progress == 100) ? false : true;
       });
     });
+    */
   }
 
   @override
@@ -59,7 +61,7 @@ class _MoviePosterPageState extends State<MoviePosterPage> {
         backgroundColor: Colors.teal,
         child: Icon(Icons.cloud_download),
         onPressed: () {
-          _downloadImage(image.getLargePathUrl());
+          // _downloadImage(image.getLargePathUrl());
           /*
           try {
             // Saved with this method.
@@ -106,6 +108,7 @@ class _MoviePosterPageState extends State<MoviePosterPage> {
         floatingActionButton: downloading ? Container() : floatingButtons);
   }
 
+  /*
   Future<void> _downloadImage(String url,
       {AndroidDestinationType? destination,
       bool whenError = false,
@@ -186,6 +189,7 @@ class _MoviePosterPageState extends State<MoviePosterPage> {
       return;
     });
   }
+  */
 
   _showToast() {
     Widget toast = Container(

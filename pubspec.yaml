@@ -36,7 +36,7 @@ dependencies:
   page_transition: ^2.1.0
   youtube_player_flutter: ^8.1.2
   photo_view: ^0.14.0
-  image_downloader: ^0.31.0
+  #image_downloader: ^0.31.0
   font_awesome_flutter: ^10.5.0
   shared_preferences: ^2.2.1
   expandable_text: ^2.3.0
